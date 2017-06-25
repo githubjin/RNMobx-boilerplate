@@ -1,2 +1,1 @@
-# RNMobx-boilerplate
-RN_Mobx_Boilerplate
+### react-native mobx boilerplate
