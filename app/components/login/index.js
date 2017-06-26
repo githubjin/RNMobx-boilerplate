@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, TextInput, StyleSheet, Image } from "react-native";
-import { observer, inject } from "mobx-react";
+import { observer, inject } from "mobx-react/native";
 
 @inject(["captchaStore"])
 @observer
