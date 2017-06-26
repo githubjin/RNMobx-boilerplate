@@ -12,7 +12,7 @@ export function repositories(since: string): void {
   fetch(apiUrl(`repositories?since=${since}`))
     .then((response: Response) => response.json())
     .then((data: any) => {
-      console.log("data", data);
+      console.log("data", data.length, data[0], JSON.stringify(data[0]));
     })
     .catch((reason: any) => {
       console.log("repositories error ", reason);

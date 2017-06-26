@@ -1,10 +1,21 @@
+/**
+ * @flow
+ */
 import React, { Component } from "react";
-import { PixelRatio } from "react-native";
+import { PixelRatio, Alert } from "react-native";
 import { StackNavigator, TabNavigator } from "react-navigation";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
+import { Provider } from "mobx-react";
 
-import Home from "./components/Home";
-import Others from "./components/Others";
+import { Home, Others, Login, Splash } from "./components";
+import { JWT_KEY } from "./constants/config";
+import { getFromStorage } from "./services";
+import {
+  ERROR_TITLE,
+  ERROR_MSG_GET_JWT_FROM_LOCAL
+} from "./constants/messages";
+import { showShort } from "./utils";
+import * as stores from "./stores";
 
 const TabContainer = TabNavigator(
   {
@@ -14,6 +25,30 @@ const TabContainer = TabNavigator(
         title: "首页",
         tabBarIcon: ({ tintColor }) =>
           <Icon name="home" size={20} color={tintColor} />
+      }
+    },
+    Customer: {
+      screen: Others,
+      navigationOptions: {
+        title: "用户",
+        tabBarIcon: ({ tintColor }) =>
+          <Icon name="user" size={20} color={tintColor} />
+      }
+    },
+    Capital: {
+      screen: Others,
+      navigationOptions: {
+        title: "资产",
+        tabBarIcon: ({ tintColor }) =>
+          <Icon name="grid" size={20} color={tintColor} />
+      }
+    },
+    Business: {
+      screen: Others,
+      navigationOptions: {
+        title: "业务",
+        tabBarIcon: ({ tintColor }) =>
+          <Icon name="trophy" size={20} color={tintColor} />
       }
     },
     Others: {
@@ -45,28 +80,72 @@ const TabContainer = TabNavigator(
   }
 );
 
-const StackContainer = StackNavigator(
-  {
-    Main: {
-      screen: TabContainer,
+const StackContainer = function({ initialRouteName }) {
+  let Container = StackNavigator(
+    {
+      Main: {
+        screen: TabContainer,
+        navigationOptions: {
+          headerLeft: null
+        }
+      },
+      Login: {
+        screen: Login,
+        navigationOptions: {
+          header: null
+        }
+      }
+    },
+    {
+      headerMode: "screen",
+      initialRouteName,
       navigationOptions: {
-        headerLeft: null
+        headerStyle: {
+          backgroundColor: "#3e9ce9"
+        },
+        headerTitleStyle: {
+          color: "#fff",
+          fontSize: 20
+        },
+        headerTintColor: "#fff"
       }
     }
-  },
-  {
-    headerMode: "screen",
-    navigationOptions: {
-      headerStyle: {
-        backgroundColor: "#3e9ce9"
-      },
-      headerTitleStyle: {
-        color: "#fff",
-        fontSize: 20
-      },
-      headerTintColor: "#fff"
-    }
-  }
-);
+  );
+  return <Container />;
+};
 
-export default StackContainer;
+export default class Root extends Component {
+  state = { loading: true, routeName: null };
+  componentDidMount() {
+    getFromStorage(JWT_KEY)
+      .then(data => {
+        console.log("get jwt from local storage data ： ", data);
+        if (data) {
+          this.setState({
+            routeName: "Main",
+            loading: false
+          });
+        } else {
+          this.setState({
+            routeName: "Login",
+            loading: false
+          });
+        }
+      })
+      .catch(error => {
+        console.log("get jwt from local storage error:  ", error);
+        showShort(ERROR_TITLE, ERROR_MSG_GET_JWT_FROM_LOCAL);
+      });
+  }
+  render() {
+    const { loading, routeName } = this.state;
+    if (loading) {
+      return <Splash />;
+    }
+    return (
+      <Provider {...stores}>
+        <StackContainer initialRouteName={this.state.routeName} />
+      </Provider>
+    );
+  }
+}
