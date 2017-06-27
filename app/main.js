@@ -5,7 +5,7 @@ import React, { Component } from "react";
 import { PixelRatio, Alert } from "react-native";
 import { StackNavigator, TabNavigator } from "react-navigation";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
-import { Provider } from "mobx-react";
+import { Provider } from "mobx-react/native";
 
 import { Home, Others, Login, Splash } from "./components";
 import { JWT_KEY } from "./constants/config";
