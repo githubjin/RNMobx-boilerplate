@@ -20,17 +20,17 @@ class Captcha {
 
   @action
   refresh() {
-    console.log("login captcha refresh : ");
+    // console.log("login captcha refresh : ");
     return post(apiUrl(api_captcha))
       .then((response: Response) => response.json())
       .then((data: SaptchaSchema) => {
-        console.log("captcha back: ", data);
+        // console.log("captcha back: ", data);
         this.img_url = data.img_url;
         this.key = data.key;
       })
       .catch((error: any) => {
         this.captchaError = error;
-        console.log("captcha load error", error);
+        // console.log("captcha load error", error);
       });
   }
 }
