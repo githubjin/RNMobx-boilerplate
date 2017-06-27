@@ -6,10 +6,10 @@
  * @param {*} since The integer ID of the last Repository that you've seen.
  */
 import { apiUrl } from "../services/api";
-import _fetch from "../services/_fetch";
+import { get } from "../services";
 
 export function repositories(since: string): void {
-  fetch(apiUrl(`repositories?since=${since}`))
+  get(apiUrl(`repositories?since=${since}`))
     .then((response: Response) => response.json())
     .then((data: any) => {
       console.log("data", data.length, data[0], JSON.stringify(data[0]));
