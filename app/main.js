@@ -133,13 +133,13 @@ export default class Root extends Component {
         }
       })
       .catch(error => {
-        console.log("get jwt from local storage error:  ", error);
+        // console.log("get jwt from local storage error:  ", error);
         showShort(ERROR_TITLE, ERROR_MSG_GET_JWT_FROM_LOCAL);
       });
   }
   render() {
     const { loading, routeName } = this.state;
-    console.log(Object.keys(stores));
+    // console.log(Object.keys(stores));
     if (loading) {
       return <Splash />;
     }

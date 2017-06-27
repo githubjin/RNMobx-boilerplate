@@ -27,6 +27,7 @@ class Captcha {
         // console.log("captcha back: ", data);
         this.img_url = data.img_url;
         this.key = data.key;
+        this.captchaError = null;
       })
       .catch((error: any) => {
         this.captchaError = error;

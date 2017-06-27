@@ -8,7 +8,7 @@ import {
   get as getFromStorage,
   set as setToStorage,
   removeItem,
-  clear
+  clear as clearStorage
 } from "./storage";
 import { getJwt, saveJwt, clearJwt } from "./jwt";
 import { navigationReset } from "./navigation";

@@ -4,7 +4,7 @@
 import React, { Component } from "react";
 import { View, Text } from "react-native";
 import { Button } from "antd-mobile";
-import { observver, inject } from "mobx-react";
+import { observer, inject } from "mobx-react";
 
 // import * as actions from "../actions";
 import { AuthStore } from "../stores/auth";
@@ -12,7 +12,7 @@ import { navigationReset } from "../services";
 import { ROUTE_LOGIN } from "../constants/routes";
 
 @inject("authStore")
-@observver
+@observer
 export default class Home extends Component {
   props: {
     authStore: AuthStore

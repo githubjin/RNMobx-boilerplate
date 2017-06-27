@@ -11,7 +11,7 @@ import {
 import { observable } from "mobx";
 import { observer, inject } from "mobx-react/native";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
-import { Button } from "antd-mobile";
+import { Button, Tag } from "antd-mobile";
 import { AuthStore } from "../../stores/auth";
 import { Captcha } from "../../stores/captcha";
 import { showShort } from "../../utils";
@@ -48,9 +48,12 @@ export default class Login extends Component {
     console.log("Login component integration Mobx error ", errors);
   }
   refreshCaptcha = () => {
-    this.props.captchaStore.refresh();
+    this.props.captchaStore.refresh().catch(error => {
+      showShort(ERROR_TITLE, this.props.captchaStore.fetchError);
+    });
   };
   login = () => {
+    // navigationReset(this.props.navigation);
     // login request
     this.props.authStore
       .login(
@@ -67,6 +70,9 @@ export default class Login extends Component {
         } else {
           showShort(ERROR_TITLE, this.props.authStore.fetchError);
         }
+      })
+      .catch(error => {
+        showShort(ERROR_TITLE, this.props.authStore.fetchError);
       });
   };
   saveJwtToStorageAndNavigateToHome = () => {
@@ -114,32 +120,49 @@ export default class Login extends Component {
             onChangeText={this.changeText("password")}
           />
         </View>
-        <View style={[styles.item, styles.captchaItem]}>
+        <View style={styles.item}>
           <Text style={styles.label}>验证码</Text>
-          <TextInput
-            autoCapitalize="none"
-            autoFocus={false}
-            autoCorrect={false}
-            returnKeyType="done"
-            value={this.state.captcha}
-            style={styles.captchaInput}
-            onChangeText={this.changeText("captcha")}
-          />
-          <TouchableOpacity onPress={this.refreshCaptcha}>
-            {img_url &&
-              <Image source={{ uri: img_url }} style={styles.captcha} />}
-            {!img_url && <Icon name="refresh" size={20} />}
+          <View style={styles.captchaItem}>
+            <TextInput
+              autoCapitalize="none"
+              autoFocus={false}
+              autoCorrect={false}
+              returnKeyType="done"
+              value={this.state.captcha}
+              style={styles.captchaInput}
+              onChangeText={this.changeText("captcha")}
+            />
+            <TouchableOpacity onPress={this.refreshCaptcha}>
+              {img_url &&
+                <Image source={{ uri: img_url }} style={styles.captcha} />}
+              {!img_url &&
+                <View style={styles.refreshIcon}>
+                  <Icon name="refresh" size={20} />
+                </View>}
+            </TouchableOpacity>
+          </View>
+        </View>
+        <Button style={styles.loginBnt} size="large" onClick={this.login}>
+          登录
+        </Button>
+        <View style={styles.bottom}>
+          <TouchableOpacity>
+            <Text>忘记密码？</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text>注册</Text>
           </TouchableOpacity>
         </View>
-        <Button size="large" onClick={this.login}>登录</Button>
-        <Text>
-          JWT :-:
-          {this.props.authStore.jwt}
-        </Text>
-        <Text>
-          fetch error :-:
-          {this.props.authStore.fetchError}
-        </Text>
+        <View style={{ marginTop: 20, justifyContent: "space-between" }}>
+          <Tag>
+            JWT :-:
+            {this.props.authStore.jwt}
+          </Tag>
+          <Tag>
+            fetch error :-:
+            {this.props.authStore.fetchError}
+          </Tag>
+        </View>
       </View>
     );
   }
@@ -163,13 +186,23 @@ const styles = StyleSheet.create({
     width: 100,
     height: 40
   },
+  refreshIcon: { width: 100, alignItems: "center", justifyContent: "center" },
   captchaItem: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "space-between"
   },
   captchaInput: {
-    width: 200,
-    height: 40
+    height: 40,
+    flex: 1
+  },
+  loginBnt: {
+    marginTop: 20
+  },
+  bottom: {
+    marginTop: 10,
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row"
   }
 });
