@@ -9,14 +9,14 @@ import { apiUrl, _fetch, post } from "../services";
 import { api_captcha } from "../constants/api";
 
 type SaptchaSchema = {
-  img_urll: string,
+  img_url: string,
   key: string
 };
 
 class Captcha {
-  @observable img_url;
-  @observable key;
-  @observable captchaError;
+  @observable img_url: ?string;
+  @observable key: ?string;
+  @observable captchaError: ?any;
 
   @action
   refresh() {

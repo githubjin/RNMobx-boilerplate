@@ -8,7 +8,7 @@ import { api_login } from "../constants/api";
 import SuperStore from "./SuperStore";
 
 class AuthStore extends SuperStore {
-  @observable jwt: string;
+  @observable jwt: ?string;
 
   @action
   refresh() {}
@@ -40,14 +40,18 @@ class AuthStore extends SuperStore {
   }
 
   @action
-  logout(callback: () => {}): void {
+  logout(): Promise<any> {
     // clearn jwt from localstorage
     // navigate to login screen
-    clearStorage((error: any) => {
-      this.jwt = null;
-      this.fetchError = null;
-      callback();
-    });
+    return clearStorage()
+      .then(() => {
+        this.jwt = null;
+        this.fetchError = null;
+      })
+      .catch(error => {
+        this.jwt = null;
+        this.fetchError = error;
+      });
   }
 }
 

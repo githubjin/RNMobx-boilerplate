@@ -17,7 +17,11 @@
  */
 import { Alert, ToastAndroid, Platform } from "react-native";
 
-const showShort = (title: string, content: string, isAlert: boolean): void => {
+const showShort = (
+  title: string,
+  content: string,
+  isAlert?: boolean = true
+): void => {
   if (!content) {
     return;
   }

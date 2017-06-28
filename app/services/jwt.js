@@ -5,7 +5,7 @@
 import { setToStorage, getFromStorage, removeItem } from "../services";
 import { JWT_KEY } from "../constants/config";
 
-export function getJwt(callback: (error: any, jwt: string) => void): string {
+export function getJwt(callback: (error: any, jwt?: string) => void): void {
   getFromStorage(JWT_KEY)
     .then((jwt: string) => {
       callback(null, jwt);

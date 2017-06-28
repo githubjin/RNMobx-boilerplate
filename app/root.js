@@ -15,6 +15,7 @@ import {
   Platform,
   ScrollView
 } from "react-native";
+import PropTypes from "prop-types";
 
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 
@@ -23,9 +24,7 @@ export default class App extends Component {
     const { width, height } = Dimensions.get("window");
     return (
       <ScrollView style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
+        <Text style={styles.welcome}>Welcome to React Native!</Text>
         <Text style={styles.instructions}>
           To get started, edit index.android.js
         </Text>
@@ -48,15 +47,13 @@ export default class App extends Component {
           {PixelRatio.getPixelSizeForLayoutSize(200)}
         </Text>
         <Text>
-          PixelRatio.roundToNearestPixel(8.4)
-          = {PixelRatio.roundToNearestPixel(8.4)}
+          PixelRatio.roundToNearestPixel(8.4) ={" "}
+          {PixelRatio.roundToNearestPixel(8.4)}
           * {PixelRatio.get()} =
           {PixelRatio.get() * PixelRatio.roundToNearestPixel(8.4)}
         </Text>
         <Text>
-          (width, height) =
-          ({width},{height})=
-          ({width / PixelRatio.get()},{height / PixelRatio.get()})
+          (width, height) = ({width},{height})= ({width / PixelRatio.get()},{height / PixelRatio.get()})
         </Text>
         {/*<Image
           style={styles.image}
@@ -92,7 +89,11 @@ export default class App extends Component {
   }
 }
 
-const Item = ({ first = false }) =>
+type Props = {
+  first?: boolean
+};
+
+const Item = ({ first = false }: Props) =>
   <View style={first ? [styles.item, styles.itemTop] : styles.item}>
     <View style={styles.row_title}>
       <Text style={styles.title}>订阅号</Text>

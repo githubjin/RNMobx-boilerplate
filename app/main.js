@@ -17,7 +17,7 @@ import {
 import { showShort } from "./utils";
 import * as stores from "./stores";
 
-const TabContainer = TabNavigator(
+const TabContainer: any = TabNavigator(
   {
     Home: {
       screen: Home,
@@ -115,7 +115,17 @@ const StackContainer = function({ initialRouteName }) {
 };
 
 export default class Root extends Component {
-  state = { loading: true, routeName: null };
+  state: {
+    loading: boolean,
+    routeName: ?string
+  };
+  constructor(props: Object) {
+    super(props);
+    this.state = {
+      loading: true,
+      routeName: null
+    };
+  }
   componentDidMount() {
     getFromStorage(JWT_KEY)
       .then(data => {

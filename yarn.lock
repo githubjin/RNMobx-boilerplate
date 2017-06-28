@@ -2827,6 +2827,10 @@ normalize.css@^7.0.0:
   version "7.0.0"
   resolved "http://registry.npm.taobao.org/normalize.css/download/normalize.css-7.0.0.tgz#abfb1dd82470674e0322b53ceb1aaf412938e4bf"
 
+normalizr@^3.2.3:
+  version "3.2.3"
+  resolved "http://registry.npm.taobao.org/normalizr/download/normalizr-3.2.3.tgz#88755c64de418b040fa6ad1329b2de5c3250ac49"
+
 npmlog@^2.0.4:
   version "2.0.4"
   resolved "http://registry.npm.taobao.org/npmlog/download/npmlog-2.0.4.tgz#98b52530f2514ca90d09ec5b22c8846722375692"

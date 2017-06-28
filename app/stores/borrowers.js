@@ -18,10 +18,10 @@ type Borrower = {
 type QueryOptions = {
   // page=1&mobile=15778947894&name=%E6%81%92&from=2017-06-06&to=2017-06-06
   page: number,
-  mobile: string,
-  name: string,
-  form: string,
-  to: string
+  mobile?: string,
+  name?: string,
+  from?: string,
+  to?: string
 };
 
 class Borrowers {
@@ -34,12 +34,15 @@ class Borrowers {
   @observable fetchError: any;
 
   @action
-  loadMore(options: QueryOptions = { page: 1 }, page: number = 1): void {
+  loadMore(
+    options: QueryOptions = { page: 1 },
+    page: number = 1
+  ): Promise<any> {
     return get(apiUrl(`api_borrowers?page=${page}`))
       .then((response: Response) => {
         return response.json();
       })
-      .then(data => {
+      .then((data: Object) => {
         // console.log(data);
         this.total_page = data.total_page;
         this.page_size = data.page_size;

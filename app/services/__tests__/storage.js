@@ -32,7 +32,7 @@ describe("test asyncstorage wrapper", () => {
 
   it("get jwt from localstorage", () => {
     get(jwtKey).then(token => {
-      console.log("get jwt from storage is : ", token);
+      // console.log("get jwt from storage is : ", token);
       expect(token).toEqual(jwtContent);
     });
   });
