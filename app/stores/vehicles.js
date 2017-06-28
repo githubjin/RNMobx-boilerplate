@@ -24,12 +24,17 @@ type Conditions = {
 class Vehicles extends SuperStore {
   @observable pagination: Pagination;
   @observable results: VehiclesType;
+  @observable refreshing: boolean = false;
 
   // http://shop.qgqg.me/api/vehicles?page=1&name=VehiclesType&from=2017-05-30&to=2017-05-30
   @action
   loadmore(conditions: Conditions = { page: 1 }) {
+    this.toggleRefreshing();
     get(apiUrl(`${api_vehicles}?${queryString(conditions)}`))
-      .then((response: Response) => response.json())
+      .then((response: Response) => {
+        this.toggleRefreshing();
+        return response.json();
+      })
       .then((data: Object) => {
         this.pagination = {
           page: data.page,
@@ -38,9 +43,19 @@ class Vehicles extends SuperStore {
           total_page: data.total_page
         };
         this.results = normalize(data.results, vehicleSchema);
+        this.fetchError = null;
       })
       .catch(error => {
+        this.toggleRefreshing();
         this.fetchError = error;
       });
   }
+  toggleRefreshing() {
+    this.refreshing = !this.refreshing;
+  }
 }
+
+const vehicleStore = new Vehicles();
+export default vehicleStore;
+
+export { Vehicles };

@@ -49,6 +49,7 @@ class Borrowers {
         this.page = data.page;
         this.results = data.results;
         this.total_count = data.total_count;
+        // Borrower results 未处理
       })
       .catch(error => {
         this.fetchError = error;

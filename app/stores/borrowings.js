@@ -47,3 +47,7 @@ class Borrowings extends SuperStore {
       });
   }
 }
+
+const borrowingsStore = new Borrowings();
+export default borrowingsStore;
+export { Borrowings };
