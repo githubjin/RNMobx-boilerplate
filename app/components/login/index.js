@@ -17,6 +17,7 @@ import { Captcha } from "../../stores/captcha";
 import { showShort } from "../../utils";
 import { ERROR_TITLE } from "../../constants/messages";
 import { saveJwt, navigationReset } from "../../services";
+import UIButton from "../lib/Button";
 
 @inject("captchaStore", "authStore")
 @observer
@@ -94,66 +95,83 @@ export default class Login extends Component {
     const { img_url } = captchaStore;
     return (
       <View style={styles.container}>
-        <View style={styles.item}>
-          <Text style={styles.label}>用户名</Text>
-          <TextInput
-            returnKeyType="next"
-            keyboardType="phone-pad"
-            autoCapitalize="none"
-            autoFocus={false}
-            autoCorrect={false}
-            style={styles.input}
-            value={this.state.username}
-            onChangeText={this.changeText("username")}
-          />
-        </View>
-        <View style={styles.item}>
-          <Text style={styles.label}>密码</Text>
-          <TextInput
-            returnKeyType="next"
-            autoCapitalize="none"
-            autoFocus={false}
-            autoCorrect={false}
-            style={styles.input}
-            secureTextEntry={true}
-            value={this.state.password}
-            onChangeText={this.changeText("password")}
-          />
-        </View>
-        <View style={styles.item}>
-          <Text style={styles.label}>验证码</Text>
-          <View style={styles.captchaItem}>
+        <View style={styles.wraper}>
+          <View style={styles.header}>
+            <Text style={styles.login}>登录</Text>
+          </View>
+          <View style={styles.item}>
             <TextInput
+              returnKeyType="next"
+              keyboardType="phone-pad"
+              autoCapitalize="none"
+              placeholder="手机号"
+              autoFocus={false}
+              autoCorrect={false}
+              style={styles.input}
+              value={this.state.username}
+              onChangeText={this.changeText("username")}
+              underlineColorAndroid="transparent"
+              placeholderTextColor="#8290a4"
+            />
+          </View>
+          <View style={styles.item}>
+            <TextInput
+              placeholder="密码"
+              returnKeyType="next"
               autoCapitalize="none"
               autoFocus={false}
               autoCorrect={false}
-              returnKeyType="done"
-              value={this.state.captcha}
-              style={styles.captchaInput}
-              onChangeText={this.changeText("captcha")}
+              style={styles.input}
+              secureTextEntry={true}
+              value={this.state.password}
+              onChangeText={this.changeText("password")}
+              underlineColorAndroid="transparent"
+              placeholderTextColor="#8290a4"
             />
-            <TouchableOpacity onPress={this.refreshCaptcha}>
-              {img_url &&
-                <Image source={{ uri: img_url }} style={styles.captcha} />}
-              {!img_url &&
-                <View style={styles.refreshIcon}>
-                  <Icon name="refresh" size={20} />
-                </View>}
+          </View>
+          <View style={styles.item}>
+            <View style={styles.captchaItem}>
+              <TextInput
+                placeholder="验证码"
+                autoCapitalize="none"
+                autoFocus={false}
+                autoCorrect={false}
+                returnKeyType="done"
+                value={this.state.captcha}
+                style={styles.captchaInput}
+                onChangeText={this.changeText("captcha")}
+                underlineColorAndroid="transparent"
+                placeholderTextColor="#8290a4"
+              />
+              <TouchableOpacity onPress={this.refreshCaptcha}>
+                {img_url &&
+                  <Image source={{ uri: img_url }} style={styles.captcha} />}
+                {!img_url &&
+                  <View style={styles.refreshIcon}>
+                    <Icon name="refresh" size={20} />
+                  </View>}
+              </TouchableOpacity>
+            </View>
+          </View>
+          <UIButton
+            text="登录"
+            style={styles.loginBnt}
+            onPress={this.login}
+            fontStyle={styles.actionText}
+          />
+          <View style={styles.bottom}>
+            <TouchableOpacity>
+              <Text style={styles.forgot}>忘记密码？</Text>
             </TouchableOpacity>
           </View>
         </View>
-        <Button style={styles.loginBnt} size="large" onClick={this.login}>
-          登录
-        </Button>
-        <View style={styles.bottom}>
-          <TouchableOpacity>
-            <Text>忘记密码？</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text>注册</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={{ marginTop: 20, justifyContent: "space-between" }}>
+        <UIButton
+          style={styles.signup}
+          text="创建账号"
+          fontStyle={styles.actionText}
+          onPress={this.login}
+        />
+        {/*<View style={{ marginTop: 20, justifyContent: "space-between" }}>
           <Tag>
             JWT :-:
             {this.props.authStore.jwt}
@@ -162,7 +180,7 @@ export default class Login extends Component {
             fetch error :-:
             {this.props.authStore.fetchError}
           </Tag>
-        </View>
+        </View>*/}
       </View>
     );
   }
@@ -172,9 +190,34 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
+    backgroundColor: "#364150"
   },
-  item: { width: "100%" },
+  wraper: {
+    backgroundColor: "#eceef1",
+    marginHorizontal: 50,
+    paddingHorizontal: 30,
+    marginTop: 10,
+    paddingTop: 10,
+    paddingBottom: 35
+  },
+  header: {
+    marginTop: 20,
+    marginBottom: 25
+  },
+  login: {
+    fontSize: 22,
+    color: "#32c5d2",
+    textAlign: "center"
+  },
+  item: {
+    width: "100%",
+    marginBottom: 15,
+    borderColor: "#dde3ec",
+    borderWidth: 1,
+    borderStyle: "solid",
+    backgroundColor: "#dde3ec"
+  },
   input: {
     width: "100%",
     height: 40
@@ -197,12 +240,32 @@ const styles = StyleSheet.create({
     flex: 1
   },
   loginBnt: {
-    marginTop: 20
+    marginTop: 20,
+    backgroundColor: "#32c5d2",
+    borderRadius: 0,
+    paddingHorizontal: 20,
+    paddingVertical: 10
+  },
+  actionText: {
+    fontSize: 14,
+    color: "#ffffff",
+    textAlign: "center"
   },
   bottom: {
     marginTop: 10,
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     alignItems: "center",
     flexDirection: "row"
+  },
+  forgot: {
+    color: "#337ab7",
+    fontSize: 14
+  },
+  signup: {
+    backgroundColor: "#6c7a8d",
+    borderRadius: 0,
+    paddingVertical: 17,
+    marginHorizontal: 50,
+    paddingHorizontal: 30
   }
 });

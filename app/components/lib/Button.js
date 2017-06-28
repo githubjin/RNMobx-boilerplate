@@ -1,7 +1,14 @@
 import React from "react";
 import { TouchableOpacity, View, Text } from "react-native";
 
-function Button({ onPress, style, fontStyle, leftIcon, rightIcon, text }) {
+const Button = ({
+  onPress,
+  style,
+  fontStyle,
+  leftIcon = null,
+  rightIcon = null,
+  text
+}): React.ReactElement => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={style}>
@@ -11,7 +18,7 @@ function Button({ onPress, style, fontStyle, leftIcon, rightIcon, text }) {
       </View>
     </TouchableOpacity>
   );
-}
+};
 
 export default Button;
 

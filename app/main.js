@@ -24,13 +24,13 @@ const TabContainer: any = TabNavigator(
       navigationOptions: {
         title: "首页",
         tabBarIcon: ({ tintColor }) =>
-          <Icon name="home" size={20} color={tintColor} />
+          <Icon name="speedometer" size={20} color={tintColor} />
       }
     },
     Customer: {
       screen: Others,
       navigationOptions: {
-        title: "用户",
+        title: "客户",
         tabBarIcon: ({ tintColor }) =>
           <Icon name="user" size={20} color={tintColor} />
       }
@@ -56,7 +56,7 @@ const TabContainer: any = TabNavigator(
       navigationOptions: {
         title: "其他",
         tabBarIcon: ({ tintColor }) =>
-          <Icon name="grid" size={20} color={tintColor} />
+          <Icon name="list" size={20} color={tintColor} />
       }
     }
   },
@@ -64,7 +64,8 @@ const TabContainer: any = TabNavigator(
     lazy: true,
     tabBarPosition: "bottom",
     tabBarOptions: {
-      activeTintColor: "#3e9ce9",
+      // activeTintColor: "#3e9ce9",
+      activeTintColor: "#26344b",
       inactiveTintColor: "#999999",
       showIcon: true,
       style: {
@@ -101,7 +102,8 @@ const StackContainer = function({ initialRouteName }) {
       initialRouteName,
       navigationOptions: {
         headerStyle: {
-          backgroundColor: "#3e9ce9"
+          // backgroundColor: "#3e9ce9"
+          backgroundColor: "#26344b"
         },
         headerTitleStyle: {
           color: "#fff",
@@ -129,7 +131,7 @@ export default class Root extends Component {
   componentDidMount() {
     getFromStorage(JWT_KEY)
       .then(data => {
-        console.log("get jwt from local storage data ： ", data);
+        // console.log("get jwt from local storage data ： ", data);
         if (data) {
           this.setState({
             routeName: "Main",

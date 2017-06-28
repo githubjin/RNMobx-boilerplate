@@ -2,9 +2,10 @@
  * @flow
  */
 import React, { Component } from "react";
-import { View, Text, Alert } from "react-native";
+import { View, Text, Alert, StyleSheet, ScrollView } from "react-native";
 import { Button } from "antd-mobile";
 import { observer, inject } from "mobx-react";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 // import * as actions from "../actions";
 import { AuthStore } from "../stores/auth";
@@ -35,16 +36,80 @@ export default class Home extends Component {
   };
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <Text>Home</Text>
-        <Text>
-          {process.env.NODE_ENV}
-        </Text>
-        <Text>
-          {process.env.NODE_ENV === "development" ? "true" : "false"}
-        </Text>
-        <Button onClic={this.logout}>退出</Button>
-      </View>
+      <ScrollView style={styles.container}>
+        <Box icon="group" total="3" desc="用户总量" style={styles.one} />
+        <Box
+          icon="bar-chart-o"
+          total="121637343.00"
+          desc="总交易额"
+          style={styles.two}
+        />
+        <Box icon="shopping-cart" total="4" desc="总业务量" style={styles.three} />
+        <Box icon="car" total="7" desc="登记资产" style={styles.four} />
+      </ScrollView>
     );
   }
 }
+
+const Box = ({ style, icon, total, desc }): React.ReactElement => {
+  return (
+    <View style={[styles.statistic, style]}>
+      <Icon name={icon} style={styles.icon} />
+      <View style={styles.box}>
+        <Text style={styles.number}>{total}</Text>
+        <Text style={styles.desc}>{desc}</Text>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  statistic_row: {
+    flexDirection: "row",
+    justifyContent: "space-around"
+  },
+  statistic: {
+    height: 120,
+    marginHorizontal: 5,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 5
+  },
+  box: {
+    paddingRight: 15
+  },
+  number: {
+    marginTop: 25,
+    color: "#ffffff",
+    fontSize: 34,
+    textAlign: "right"
+  },
+  desc: {
+    color: "#ffffff",
+    fontSize: 16,
+    textAlign: "right"
+  },
+  one: {
+    backgroundColor: "#3598dc"
+  },
+  two: {
+    backgroundColor: "#e7505a"
+  },
+  three: {
+    backgroundColor: "#32c5d2"
+  },
+  four: {
+    backgroundColor: "#8E44AD"
+  },
+  icon: {
+    color: "#ffffff",
+    opacity: 0.1,
+    marginLeft: -25,
+    marginTop: 25,
+    fontSize: 110,
+    lineHeight: 110
+  }
+});
