@@ -39,7 +39,7 @@ export default function _fetch(
 function consoleLogFetch(url, _headers, jwt, org) {
   if (process.env.NODE_ENV === "development") {
     console.log(
-      "jwt get from localstorage _fetch args are : ",
+      "console.log fetch params and headers : ",
       url,
       _headers,
       jwt,
@@ -124,9 +124,11 @@ function getHeaderSync(jwt: ?string, org: ?string): Object {
     init["X-Org"] = org;
   }
   if (jwt) {
-    init["Authorization"] =
-      jwt.indexOf('"') === 0 ? jwt.substr(0, jwt.length - 1).substr(1) : jwt;
+    init["Authorization"] = `Bearer ${jwt.indexOf('"') === 0
+      ? jwt.substr(0, jwt.length - 1).substr(1)
+      : jwt}`;
   }
+  // console.log("jwt anf eaderh", jwt, init);
   return { ...API_HEADER, ...init };
 }
 

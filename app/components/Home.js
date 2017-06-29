@@ -2,7 +2,14 @@
  * @flow
  */
 import React, { Component } from "react";
-import { View, Text, Alert, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  Alert,
+  StyleSheet,
+  ScrollView,
+  Platform
+} from "react-native";
 import { Button } from "antd-mobile";
 import { observer, inject } from "mobx-react/native";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -21,7 +28,7 @@ export default class Home extends Component {
   };
   componentDidMount() {
     // actions.repositories("0");
-    // clearJwt();
+    clearJwt();
   }
   logout = () => {
     // console.log("why this.props.authStore is undefined ", authStore);
@@ -111,9 +118,20 @@ const styles = StyleSheet.create({
   },
   icon: {
     color: "#ffffff",
-    opacity: 0.1,
-    marginLeft: -25,
-    marginTop: 25,
+    ...Platform.select({
+      ios: {
+        opacity: 0.3
+      },
+      android: {
+        opacity: 0.1
+      }
+    }),
+    ...Platform.select({
+      android: {
+        marginLeft: -25
+      }
+    }),
+    marginTop: 35,
     fontSize: 110,
     lineHeight: 110
   }

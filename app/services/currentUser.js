@@ -23,6 +23,6 @@ export function getCurrentUser(): Object {
  * 存储当前登录用户信息
  * @param {Object} user 
  */
-export function setCurrentUser(user: Object): void {
+export function setCurrentUser(user: Object): Promise<any> {
   return set(CURRENT_USER_KEY, JSON.stringify(user));
 }

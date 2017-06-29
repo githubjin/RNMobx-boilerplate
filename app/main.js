@@ -133,9 +133,15 @@ class ContainerWraper extends Component {
   }
   componentDidMount() {
     const { jwt, authStore, currentUserStore } = this.props;
+    // console.log(
+    //   "currentUserStore",
+    //   currentUserStore,
+    //   currentUserStore.email,
+    //   jwt
+    // );
     if (jwt) {
-      authStore.setJwt(jwt);
-      currentUserStore.refresh(jwt);
+      authStore.setJwt(jwt).getOrgBaceInfo(jwt);
+      // currentUserStore.refresh(jwt);
     }
   }
   render() {
@@ -147,13 +153,15 @@ class ContainerWraper extends Component {
 export default class Root extends Component {
   state: {
     loading: boolean,
-    routeName: ?string
+    routeName: ?string,
+    jwt: ?string
   };
   constructor(props: Object) {
     super(props);
     this.state = {
       loading: true,
-      routeName: null
+      routeName: null,
+      jwt: null
     };
   }
   componentDidMount() {
@@ -163,7 +171,8 @@ export default class Root extends Component {
         if (data) {
           this.setState({
             routeName: "Main",
-            loading: false
+            loading: false,
+            jwt: data
           });
         } else {
           this.setState({
@@ -186,7 +195,10 @@ export default class Root extends Component {
     // console.log("stores are : ", stores);
     return (
       <Provider {...stores}>
-        <ContainerWraper initialRouteName={this.state.routeName} />
+        <ContainerWraper
+          jwt={this.state.jwt}
+          initialRouteName={this.state.routeName}
+        />
       </Provider>
     );
   }

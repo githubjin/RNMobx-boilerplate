@@ -40,10 +40,16 @@ export default class Customer extends Component {
   }
   componentDidMount() {
     const { authStore, currentUserStore } = this.props;
-    this.props.borrowersStore.loadMore(
-      { page: 1 },
-      { jwt: authStore.jwt, org: currentUserStore.shopuser.shop.id }
+    console.log(
+      "1292191022190",
+      authStore,
+      currentUserStore,
+      currentUserStore.shopuser
     );
+    // this.props.borrowersStore.loadMore(
+    //   { page: 1 },
+    //   { jwt: authStore.jwt, org: currentUserStore.shopuser.shop.id }
+    // );
   }
   getBoorrowers() {
     this.ds.cloneWithRows(this.props.borrowersStore.results.slice());

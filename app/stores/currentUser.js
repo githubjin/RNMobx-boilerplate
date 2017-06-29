@@ -43,10 +43,11 @@ class CurrentUser extends SuperStore {
   @observable shopuser: ShopUser = {};
 
   @action
-  refresh(jwt: string) {
-    return get(apiUrl(api_current_user, false), {}, jwt)
+  refresh(jwt: string, org: string) {
+    return get(apiUrl(api_current_user, false), {}, jwt, org)
       .then((response: Response) => response.json())
       .then(data => {
+        console.log("datat", data);
         this.email = data.email;
         this.avatar = data.avatar;
         this.created_at = data.created_at;
@@ -59,6 +60,7 @@ class CurrentUser extends SuperStore {
       })
       .catch(error => {
         this.fetchError = error;
+        console.log("errorr", error);
       });
   }
 }

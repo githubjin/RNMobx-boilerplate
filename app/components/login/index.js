@@ -45,7 +45,7 @@ export default class Login extends Component {
     this.props.captchaStore.refresh();
   }
   componentWillReact() {
-    console.log("captcha is changed");
+    console.log("captcha is changed", this.props.captchaStore.img_url);
   }
   onError(...errors) {
     console.log("Login component integration Mobx error ", errors);
@@ -81,18 +81,39 @@ export default class Login extends Component {
   };
   // 1. save jwt to loccalstorage; 2. load currentUser infomation 3. navigate to home screen
   dealWithJwt = () => {
-    // load currentUser information
-    this.props.currentUserStore.refresh(this.props.authStore.jwt).then(() => {
-      // navigate to home screen
-      navigationReset(this.props.navigation);
-      // save currentUser to localstorage
-      console.log("this.props.currentUserStore", this.props.currentUserStore);
-      // setCurrentUser(this.props.currentUserStore);
-    });
-    //save jwt to storage and navigatate to home
-    saveJwt(this.props.authStore.jwt, (error: any) => {
-      // console.log(this.props);
-    });
+    // load currentUser base information
+    this.props.authStore
+      .getOrgBaceInfo(this.props.authStore.jwt)
+      .then(() => {
+        // load currentUser information
+        console.log(
+          "00000000000",
+          this.props.authStore.jwt,
+          this.props.authStore.orgBaseInfo.id
+        );
+        return this.props.currentUserStore.refresh(
+          this.props.authStore.jwt,
+          this.props.authStore.orgBaseInfo.id
+        );
+      })
+      .then(() => {
+        console.log("000000000001");
+        return saveJwt(this.props.authStore.jwt);
+      })
+      .then(() => {
+        console.log("000000000002");
+        // save currentUser to localstorage
+        console.log("this.props.currentUserStore", this.props.currentUserStore);
+        return setCurrentUser(this.props.currentUserStore);
+      })
+      .then(() => {
+        // navigate to home screen
+        console.log("00000000003");
+        navigationReset(this.props.navigation);
+      })
+      .catch(error => {
+        showShort("提示", JSON.stringify(error));
+      });
   };
   changeText = (field: string): ((text: string) => void) => {
     return (text: string) => {

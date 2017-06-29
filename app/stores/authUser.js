@@ -3,7 +3,7 @@
  * @flow
  */
 import { observable, action } from "mobx";
-import { postForm, apiUrl, clearStorage } from "../services";
+import { postForm, apiUrl, clearStorage, get } from "../services";
 import { api_login } from "../constants/api";
 import SuperStore from "./SuperStore";
 
@@ -16,13 +16,22 @@ class AuthStore {
 
   @observable jwt: ?string;
   @observable fetchError: ?any;
+  @observable
+  orgBaseInfo: {
+    address: string,
+    id: string,
+    name: string,
+    phone: string,
+    short_name: string
+  };
 
   // @action
   // refresh() {}
 
   @action
-  setJwt(jwt: string): void {
+  setJwt(jwt: string): AuthStore {
     this.jwt = jwt;
+    return this;
   }
 
   @action
@@ -48,6 +57,19 @@ class AuthStore {
         this.fetchError = message;
         this.jwt = null;
         // console.log("login error : ", error);
+      });
+  }
+
+  @action
+  getOrgBaceInfo(jwt: string): Promise<any> {
+    return get(apiUrl("auth/jwt", false), {}, jwt)
+      .then(response => response.json())
+      .then(data => {
+        this.orgBaseInfo = data.results[0];
+        // console.log("jwt data", data);
+      })
+      .catch(error => {
+        console.log("jwt data error", error);
       });
   }
 

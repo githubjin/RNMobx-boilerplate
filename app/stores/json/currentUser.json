@@ -1,35 +1,20 @@
 {
-  "mobile": "13761534002",
-  "name": "\u90d1\u4e1a\u52a1",
-  "avatar": "https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/837.png",
+  "mobile": "15200000001",
+  "name": "\u8d75\u660c\u76db",
+  "avatar": "https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/396.png",
   "is_admin": false,
   "email": null,
-  "created_at": "2017-03-29 15:15:21",
+  "created_at": "2017-01-23 11:39:44",
   "shopuser": {
     "roles": [
       {
-        "name": "\u4e1a\u52a1\u5458",
-        "id": 2,
+        "name": "\u95e8\u5e97\u7ba1\u7406\u5458",
+        "id": 1,
         "permissions": [
-          {
-            "code": "APPLICATION_MANAGE",
-            "name": "\u501f\u6b3e\u7533\u8bf7\u7ba1\u7406",
-            "id": 1
-          },
           {
             "code": "APPOINTMENT_READ",
             "name": "\u9884\u7ea6\u67e5\u770b",
             "id": 2
-          },
-          {
-            "code": "VEHICLE_MANAGE",
-            "name": "\u8d44\u4ea7\u7ba1\u7406",
-            "id": 4
-          },
-          {
-            "code": "BORROWER_MANAGE",
-            "name": "\u501f\u6b3e\u4eba\u7ba1\u7406",
-            "id": 5
           },
           { "code": "STUFF_READ", "name": "\u5458\u5de5\u67e5\u770b", "id": 7 },
           {
@@ -38,9 +23,14 @@
             "id": 8
           },
           {
-            "code": "BORROWING_MANAGE",
-            "name": "\u501f\u6b3e\u7ba1\u7406",
-            "id": 11
+            "code": "CREDIT_READ",
+            "name": "\u5f81\u4fe1\u62a5\u544a\u67e5\u770b",
+            "id": 9
+          },
+          {
+            "code": "STUFF_MANAGE",
+            "name": "\u5458\u5de5\u7ba1\u7406",
+            "id": 10
           },
           {
             "code": "BORROWING_READ",
@@ -61,18 +51,28 @@
             "code": "STUFF_ROLE_READ",
             "name": "\u5458\u5de5\u89d2\u8272\u67e5\u770b",
             "id": 17
+          },
+          {
+            "code": "STUFF_ROLE_MANAGE",
+            "name": "\u5458\u5de5\u89d2\u8272\u7ba1\u7406",
+            "id": 19
+          },
+          {
+            "code": "ACCOUNT_MANAGE",
+            "name": "\u95e8\u5e97\u8d26\u6237\u7ba1\u7406",
+            "id": 48
           }
         ]
       }
     ],
     "shop": {
-      "address": "\u516d\u5408\u8def",
-      "short_name": "\u6d4b\u8bd5\u95e8\u5e97",
-      "id": "707e2b6e-ff90-4433-ad7c-1256195a9664",
-      "phone": "13761534002",
-      "name": "\u6d4b\u8bd5\u95e8\u5e97"
+      "address": "\u5317\u4eac\u5929\u5b89\u95e8",
+      "short_name": "\u660c\u76db\u8f66\u8d37",
+      "id": "748e0329-875b-4c7f-9a70-5cc9757e80ac",
+      "phone": "15200000001",
+      "name": "\u5317\u4eac\u660c\u76db\u8f66\u8d37\u6709\u9650\u516c\u53f8"
     },
     "status": 1
   },
-  "id": "0aae0dc2-cfc8-45ed-8b5f-02ad6669ed0f"
+  "id": "104e1bce-199e-4976-80c3-c97fc5478fe9"
 }
