@@ -6,8 +6,9 @@ import { PixelRatio, Alert } from "react-native";
 import { StackNavigator, TabNavigator } from "react-navigation";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 import { Provider } from "mobx-react/native";
+import { observer, inject } from "mobx-react";
 
-import { Home, Others, Login, Splash } from "./components";
+import { Home, Others, Login, Splash, Customer } from "./components";
 import { JWT_KEY } from "./constants/config";
 import { getFromStorage } from "./services";
 import {
@@ -16,6 +17,8 @@ import {
 } from "./constants/messages";
 import { showShort } from "./utils";
 import * as stores from "./stores";
+import { CurrentUser } from "./stores/currentUser";
+import { AuthStore } from "./stores/authUser";
 
 const TabContainer: any = TabNavigator(
   {
@@ -28,7 +31,7 @@ const TabContainer: any = TabNavigator(
       }
     },
     Customer: {
-      screen: Others,
+      screen: Customer,
       navigationOptions: {
         title: "客户",
         tabBarIcon: ({ tintColor }) =>
@@ -116,6 +119,31 @@ const StackContainer = function({ initialRouteName }) {
   return <Container />;
 };
 
+@inject("authStore", "currentUserStore")
+@observer
+class ContainerWraper extends Component {
+  props: {
+    initialRouteName: string,
+    jwt: string,
+    authStore: AuthStore,
+    currentUserStore: CurrentUser
+  };
+  constructor(props) {
+    super(props);
+  }
+  componentDidMount() {
+    const { jwt, authStore, currentUserStore } = this.props;
+    if (jwt) {
+      authStore.setJwt(jwt);
+      currentUserStore.refresh(jwt);
+    }
+  }
+  render() {
+    const { initialRouteName } = this.props;
+    return <StackContainer initialRouteName={initialRouteName} />;
+  }
+}
+
 export default class Root extends Component {
   state: {
     loading: boolean,
@@ -155,9 +183,10 @@ export default class Root extends Component {
     if (loading) {
       return <Splash />;
     }
+    // console.log("stores are : ", stores);
     return (
       <Provider {...stores}>
-        <StackContainer initialRouteName={this.state.routeName} />
+        <ContainerWraper initialRouteName={this.state.routeName} />
       </Provider>
     );
   }

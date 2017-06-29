@@ -19,7 +19,7 @@ export function saveJwt(
   jwt: string,
   callback: (error: any) => void = () => {}
 ): void {
-  setToStorage(JWT_KEY, jwt)
+  setToStorage(JWT_KEY, `Bearer ${jwt}`)
     .then(() => {
       callback(null);
     })

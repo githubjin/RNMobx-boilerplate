@@ -2,19 +2,32 @@
  * @flow
  */
 
-import { API_HEADER, API_URL_DEV, API_URL_PRO } from "../constants/config";
+import {
+  API_HEADER,
+  API_URL_DEV,
+  API_URL_PRO,
+  API_URL_DEV_SHOP,
+  API_URL_PRO_SHOP
+} from "../constants/config";
 
 /**
  * 返回API root url
+ * @param {boolean} userApi true: 使用 user api; false: 使用 shop api;
  */
-function rootUrl() {
-  return process.env.NODE_ENV === "development" ? API_URL_DEV : API_URL_PRO;
+function rootUrl(userApi: boolean) {
+  if (userApi) {
+    return process.env.NODE_ENV === "development" ? API_URL_DEV : API_URL_PRO;
+  }
+  return process.env.NODE_ENV === "development"
+    ? API_URL_DEV_SHOP
+    : API_URL_PRO_SHOP;
 }
 
 /**
  * 获取完整API url 
- * @param {*} url pathname
+ * @param {string  } url api url pathname
+ * @param {boolean } userApi  true: 使用 user api; false: 使用 shop api;
  */
-export function apiUrl(url: string) {
-  return `${rootUrl()}/${url}`;
+export function apiUrl(url: string, userApi: boolean = true) {
+  return `${rootUrl(userApi)}/${url}`;
 }

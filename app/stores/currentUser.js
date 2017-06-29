@@ -4,7 +4,7 @@
  */
 
 import { observable, action } from "mobx";
-import { apiUrl, _fetch } from "../services";
+import { apiUrl, _fetch, get } from "../services";
 import { api_current_user } from "../constants/api";
 import SuperStore from "./SuperStore";
 
@@ -30,8 +30,8 @@ class CurrentUser extends SuperStore {
   @observable roles: Role[];
 
   @action
-  refresh() {
-    return _fetch(apiUrl(api_current_user))
+  refresh(jwt: string) {
+    return get(apiUrl(api_current_user, false), {}, jwt)
       .then((response: Response) => response.json())
       .then(data => {
         this.email = data.email;

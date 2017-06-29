@@ -4,11 +4,11 @@
 import React, { Component } from "react";
 import { View, Text, Alert, StyleSheet, ScrollView } from "react-native";
 import { Button } from "antd-mobile";
-import { observer, inject } from "mobx-react";
+import { observer, inject } from "mobx-react/native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 // import * as actions from "../actions";
-import { AuthStore } from "../stores/auth";
+import { AuthStore } from "../stores/authUser";
 import { navigationReset, clearJwt } from "../services";
 import { ROUTE_LOGIN } from "../constants/routes";
 
@@ -24,6 +24,7 @@ export default class Home extends Component {
     // clearJwt();
   }
   logout = () => {
+    // console.log("why this.props.authStore is undefined ", authStore);
     this.props.authStore
       .logout()
       .then(() => {
@@ -56,8 +57,12 @@ const Box = ({ style, icon, total, desc }): React.ReactElement => {
     <View style={[styles.statistic, style]}>
       <Icon name={icon} style={styles.icon} />
       <View style={styles.box}>
-        <Text style={styles.number}>{total}</Text>
-        <Text style={styles.desc}>{desc}</Text>
+        <Text style={styles.number}>
+          {total}
+        </Text>
+        <Text style={styles.desc}>
+          {desc}
+        </Text>
       </View>
     </View>
   );

@@ -7,11 +7,23 @@ import { postForm, apiUrl, clearStorage } from "../services";
 import { api_login } from "../constants/api";
 import SuperStore from "./SuperStore";
 
-class AuthStore extends SuperStore {
+// class AuthStore extends SuperStore {
+class AuthStore {
+  constructor() {
+    this.jwt = null;
+    this.fetchError = null;
+  }
+
   @observable jwt: ?string;
+  @observable fetchError: ?any;
+
+  // @action
+  // refresh() {}
 
   @action
-  refresh() {}
+  setJwt(jwt: string): void {
+    this.jwt = jwt;
+  }
 
   @action
   login(
@@ -53,9 +65,19 @@ class AuthStore extends SuperStore {
         this.fetchError = error;
       });
   }
+
+  static store: AuthStore;
+  static getInstance(): AuthStore {
+    if (!AuthStore.store) {
+      AuthStore.store = new AuthStore();
+      return AuthStore.store;
+    }
+    return AuthStore.store;
+  }
 }
 
-const authStore = new AuthStore();
-export default authStore;
-
+const _authStore = new AuthStore();
+// const _authStore = AuthStore.getInstance();
+// console.log("_authStore is  now : ", _authStore);
 export { AuthStore };
+export default _authStore;

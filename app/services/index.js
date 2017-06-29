@@ -12,6 +12,7 @@ import {
 } from "./storage";
 import { getJwt, saveJwt, clearJwt } from "./jwt";
 import { navigationReset } from "./navigation";
+import { getCurrentUser, setCurrentUser } from "./currentUser";
 
 export {
   _fetch,
@@ -26,5 +27,7 @@ export {
   navigationReset,
   removeItem,
   clearJwt,
-  clearStorage
+  clearStorage,
+  getCurrentUser,
+  setCurrentUser
 };

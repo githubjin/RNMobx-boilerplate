@@ -6,7 +6,7 @@ import { observable, action, computed } from "mobx";
 import { get, apiUrl } from "../services";
 import { api_borrowers } from "../constants/api";
 
-type Borrower = {
+export type Borrower = {
   id: string,
   name: string,
   avatar: string,
@@ -34,16 +34,14 @@ class Borrowers {
   @observable fetchError: any;
 
   @action
-  loadMore(
-    options: QueryOptions = { page: 1 },
-    page: number = 1
-  ): Promise<any> {
-    return get(apiUrl(`api_borrowers?page=${page}`))
+  loadMore(options: QueryOptions = { page: 1 }, jwt: string): Promise<any> {
+    console.log("Customer loadMore is called, conditions are", options);
+    return get(apiUrl(`${api_borrowers}?page=${options.page}`, false))
       .then((response: Response) => {
         return response.json();
       })
       .then((data: Object) => {
-        // console.log(data);
+        console.log(data);
         this.total_page = data.total_page;
         this.page_size = data.page_size;
         this.page = data.page;

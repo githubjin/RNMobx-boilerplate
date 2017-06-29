@@ -37,5 +37,6 @@ class Captcha {
 }
 
 const captcha = new Captcha();
+// console.log("captcha is new now : ", captcha);
 export default captcha;
 export { Captcha };

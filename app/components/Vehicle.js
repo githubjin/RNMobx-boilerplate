@@ -4,7 +4,7 @@
  */
 import React, { Component } from "react";
 import { View, ListView, Text, StyleSheet, RefreshControl } from "react-native";
-import { observer, inject } from "mobx-react";
+import { observer, inject } from "mobx-react/native";
 import { Vehicles } from "../stores/vehicles";
 
 @inject("vehicleStore")

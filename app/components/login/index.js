@@ -12,19 +12,21 @@ import { observable } from "mobx";
 import { observer, inject } from "mobx-react/native";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 import { Button, Tag } from "antd-mobile";
-import { AuthStore } from "../../stores/auth";
+import { AuthStore } from "../../stores/authUser";
 import { Captcha } from "../../stores/captcha";
+import { CurrentUser } from "../../stores/currentUser";
 import { showShort } from "../../utils";
 import { ERROR_TITLE } from "../../constants/messages";
-import { saveJwt, navigationReset } from "../../services";
+import { saveJwt, navigationReset, setCurrentUser } from "../../services";
 import UIButton from "../lib/Button";
 
-@inject("captchaStore", "authStore")
+@inject("captchaStore", "authStore", "currentUserStore")
 @observer
 export default class Login extends Component {
   props: {
     captchaStore: Captcha,
-    authStore: AuthStore
+    authStore: AuthStore,
+    currentUserStore: CurrentUser
   };
   state: {
     username: string,
@@ -56,6 +58,7 @@ export default class Login extends Component {
   login = () => {
     // navigationReset(this.props.navigation);
     // login request
+    // console.log(this.props.authStore, this.props.captchaStore);
     this.props.authStore
       .login(
         this.state.username,
@@ -67,7 +70,7 @@ export default class Login extends Component {
         // save jwt to storage
         // navigate to Main
         if (this.props.authStore.jwt) {
-          this.saveJwtToStorageAndNavigateToHome();
+          this.dealWithJwt();
         } else {
           showShort(ERROR_TITLE, this.props.authStore.fetchError);
         }
@@ -76,10 +79,19 @@ export default class Login extends Component {
         showShort(ERROR_TITLE, this.props.authStore.fetchError);
       });
   };
-  saveJwtToStorageAndNavigateToHome = () => {
+  // 1. save jwt to loccalstorage; 2. load currentUser infomation 3. navigate to home screen
+  dealWithJwt = () => {
+    // load currentUser information
+    this.props.currentUserStore.refresh(this.props.authStore.jwt).then(() => {
+      // navigate to home screen
+      navigationReset(this.props.navigation);
+      // save currentUser to localstorage
+      console.log("this.props.currentUserStore", this.props.currentUserStore);
+      // setCurrentUser(this.props.currentUserStore);
+    });
+    //save jwt to storage and navigatate to home
     saveJwt(this.props.authStore.jwt, (error: any) => {
       // console.log(this.props);
-      navigationReset(this.props.navigation);
     });
   };
   changeText = (field: string): ((text: string) => void) => {
@@ -195,7 +207,7 @@ const styles = StyleSheet.create({
   },
   wraper: {
     backgroundColor: "#eceef1",
-    marginHorizontal: 50,
+    marginHorizontal: 30,
     paddingHorizontal: 30,
     marginTop: 10,
     paddingTop: 10,
@@ -265,7 +277,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#6c7a8d",
     borderRadius: 0,
     paddingVertical: 17,
-    marginHorizontal: 50,
+    marginHorizontal: 30,
     paddingHorizontal: 30
   }
 });
