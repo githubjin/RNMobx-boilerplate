@@ -55,7 +55,7 @@ class Vehicles extends SuperStore {
   }
 }
 
-const vehicleStore = new Vehicles();
-export default vehicleStore;
+const vehiclesStore = new Vehicles();
+export default vehiclesStore;
 
 export { Vehicles };

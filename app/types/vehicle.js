@@ -2,7 +2,7 @@
  * 资产 type define
  * @flow
  */
-type Borrower = {
+export type Borrower = {
   mobile: string,
   avatar: string,
   name: string,
@@ -12,17 +12,18 @@ type Borrower = {
 };
 
 //  { "sim": "15000000000", "imei": "150000000001234" },
-type GpsDevices = {
+export type GpsDevices = {
   sim: string,
   imei: string
 };
 
-type Vehicle = {
+export type Vehicle = {
   model: string,
   production_day: string,
   color: string,
   id: string,
   borrowers: Borrower[],
+  borrower: Borrower,
   type: number,
   driver_type: number,
   plate_number: string,
