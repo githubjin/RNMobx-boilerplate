@@ -15,7 +15,16 @@ class Vehicle {
   @observable type: number;
   @observable driver_type: number;
   @observable plate_number: string;
-  // vejicle.json ...
+  @observable displacement: string;
+  @observable engine_number: string;
+  @observable vin: string;
+  @observable shifting: number;
+  @observable created_at: string;
+  @observable series: string;
+  @observable brand: string;
+  @observable borrower: Object;
+  @observable gps_devices: Object[];
+
   @action
   load(vehicleId: string, jwt?: string, org?: string): Promise<any> {
     return get(
