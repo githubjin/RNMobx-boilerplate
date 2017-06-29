@@ -1,0 +1,25 @@
+{
+  "model": "2003\u6b3e \u963f\u65af\u987f\u9a6c\u4e01DB7 Vantage",
+  "production_day": "2017-01-01",
+  "color": "1",
+  "id": "84e106ea-cf8a-4246-a725-83f922ac3bc8",
+  "borrower": {
+    "mobile": "15778947894",
+    "name": "\u4e4c\u6052",
+    "avatar": "https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/672.png",
+    "id": "8e4fea56-bab0-4174-854e-aa973a41b12d",
+    "created_at": "2017-04-20 17:17:38",
+    "id_no": "330803198708117091"
+  },
+  "type": 2,
+  "driver_type": 0,
+  "plate_number": "\u6caaA54321",
+  "displacement": "250",
+  "engine_number": "123",
+  "vin": "12345678912345678",
+  "shifting": 0,
+  "created_at": "2017-05-04 10:51:17",
+  "series": "\u963f\u65af\u987f\u9a6c\u4e01DB7",
+  "gps_devices": [],
+  "brand": "\u963f\u65af\u987f\u00b7\u9a6c\u4e01"
+}

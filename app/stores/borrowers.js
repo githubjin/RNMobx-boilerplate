@@ -24,6 +24,10 @@ type QueryOptions = {
   to?: string
 };
 
+type AuthFields = {
+  jwt: ?string,
+  org: ?string
+};
 class Borrowers {
   @observable total_page: number;
   @observable page_size: number;
@@ -34,7 +38,10 @@ class Borrowers {
   @observable fetchError: any;
 
   @action
-  loadMore(options: QueryOptions = { page: 1 }, jwt: string): Promise<any> {
+  loadMore(
+    options: QueryOptions = { page: 1 },
+    { jwt, org }: AuthFields
+  ): Promise<any> {
     console.log("Customer loadMore is called, conditions are", options);
     return get(apiUrl(`${api_borrowers}?page=${options.page}`, false))
       .then((response: Response) => {

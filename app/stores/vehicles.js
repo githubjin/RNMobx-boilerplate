@@ -30,7 +30,7 @@ class Vehicles extends SuperStore {
   @action
   loadmore(conditions: Conditions = { page: 1 }) {
     this.toggleRefreshing();
-    get(apiUrl(`${api_vehicles}?${queryString(conditions)}`))
+    get(apiUrl(`${api_vehicles}?${queryString(conditions)}`, false))
       .then((response: Response) => {
         this.toggleRefreshing();
         return response.json();

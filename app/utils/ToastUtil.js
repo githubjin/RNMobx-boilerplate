@@ -32,7 +32,7 @@ const showShort = (
   }
 };
 
-const showLong = (title: string, content: string, isAlert: boolean): void => {
+const showLong = (title: string, content: string, isAlert?: boolean): void => {
   if (isAlert || Platform.OS === "ios") {
     Alert.alert("提示", content.toString());
   } else {

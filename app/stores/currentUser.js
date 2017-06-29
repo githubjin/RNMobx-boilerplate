@@ -19,6 +19,18 @@ type Role = {
   permissions: Permission[]
 };
 
+type ShopUser = {
+  shop: {
+    address: string,
+    short_name: string,
+    id: string, // X-ORG
+    phone: string,
+    name: string
+  },
+  roles: Role[],
+  status: number
+};
+
 class CurrentUser extends SuperStore {
   @observable email: string;
   @observable avatar: string;
@@ -27,7 +39,8 @@ class CurrentUser extends SuperStore {
   @observable is_admin: boolean;
   @observable id: string;
   @observable status: number;
-  @observable roles: Role[];
+  // @observable roles: Role[];
+  @observable shopuser: ShopUser = {};
 
   @action
   refresh(jwt: string) {
@@ -41,7 +54,8 @@ class CurrentUser extends SuperStore {
         this.is_admin = data.is_admin;
         this.id = data.id;
         this.status = data.status;
-        this.roles = data.roles;
+        // this.roles = data.roles;
+        this.shopuser = data.shopuser;
       })
       .catch(error => {
         this.fetchError = error;
