@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest --no-cache",
+    "test": "jest --no-cache --coverage",
     "log": "adb logcat *:S ReactNative:V ReactNativeJS:V",
     "reverse": "adb reverse tcp:8081 tcp:8081",
     "test-android": "cd android && gradlew installRelease",
