@@ -51,15 +51,13 @@ export default class App extends Component {
           {PixelRatio.getPixelSizeForLayoutSize(200)}
         </Text>
         <Text>
-          PixelRatio.roundToNearestPixel(8.4)
-          = {PixelRatio.roundToNearestPixel(8.4)}
+          PixelRatio.roundToNearestPixel(8.4) ={" "}
+          {PixelRatio.roundToNearestPixel(8.4)}
           * {PixelRatio.get()} =
           {PixelRatio.get() * PixelRatio.roundToNearestPixel(8.4)}
         </Text>
         <Text>
-          (width, height) =
-          ({width},{height})=
-          ({width / PixelRatio.get()},{height / PixelRatio.get()})
+          (width, height) = ({width},{height})= ({width / PixelRatio.get()},{height / PixelRatio.get()})
         </Text>
         {/*<Image
           style={styles.image}

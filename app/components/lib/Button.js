@@ -7,13 +7,16 @@ const Button = ({
   fontStyle,
   leftIcon = null,
   rightIcon = null,
-  text
+  text,
+  disabled = false
 }): React.ReactElement => {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={style}>
+    <TouchableOpacity onPress={onPress} disabled={disabled}>
+      <View style={[styles.button, style]}>
         {leftIcon}
-        <Text style={fontStyle}>{text}</Text>
+        <Text style={[styles.label, fontStyle]}>
+          {text}
+        </Text>
         {rightIcon}
       </View>
     </TouchableOpacity>
@@ -24,6 +27,11 @@ export default Button;
 
 const styles = {
   button: {
-    backgroundColor: "#000000"
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  label: {
+    marginHorizontal: 3
   }
 };

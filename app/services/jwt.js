@@ -15,14 +15,8 @@ export function getJwt(callback: (error: any, jwt?: string) => void): void {
     });
 }
 
-export function saveJwt(jwt: string): void {
+export function saveJwt(jwt: string): Promise<any> {
   return setToStorage(JWT_KEY, jwt);
-  // .then(() => {
-  //   callback(null);
-  // })
-  // .catch(error => {
-  //   callback(error);
-  // });
 }
 
 export function clearJwt(callback: (error: any) => void): void {

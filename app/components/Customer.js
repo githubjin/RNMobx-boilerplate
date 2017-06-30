@@ -10,19 +10,23 @@ import {
   StyleSheet,
   View,
   TouchableWithoutFeedback,
-  InteractionManager
+  InteractionManager,
+  Image,
+  FlatList
 } from "react-native";
 import { ActionSheet } from "antd-mobile";
 import { observer, inject } from "mobx-react/native";
 import { NavigationActions } from "react-navigation";
 
-import { borrowersStore } from "../stores";
+// import { borrowersStore } from "../stores";
 import { Borrowers } from "../stores/borrowers";
 import type { Borrower } from "../stores/borrowers";
 import { showLong } from "../utils";
 import { CurrentUser } from "../stores/currentUser";
 import { AuthStore } from "../stores/authUser";
 import { ROUTE_BORROWER } from "../constants/routes";
+import CustomerItem from "./borrowers/BorrowerItem";
+import CustomerList from "./borrowers/BorrowerList";
 
 @inject("borrowersStore", "authStore", "currentUserStore")
 @observer
@@ -34,6 +38,7 @@ export default class Customer extends Component {
     navigation: NavigationActions
   };
   ds: ListView.DataSource;
+  // customers: Borrower[];
   constructor(props: any) {
     super(props);
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
@@ -44,24 +49,24 @@ export default class Customer extends Component {
       "1292191022190",
       authStore,
       currentUserStore,
-      currentUserStore.shopuser
+      currentUserStore.shopuser,
+      currentUserStore.avatar,
+      currentUserStore.id
     );
-    // this.props.borrowersStore.loadMore(
-    //   { page: 1 },
-    //   { jwt: authStore.jwt, org: currentUserStore.shopuser.shop.id }
-    // );
-  }
-  getBoorrowers() {
-    this.ds.cloneWithRows(this.props.borrowersStore.results.slice());
+    this.props.borrowersStore.loadMore(
+      { page: 1 },
+      { jwt: authStore.jwt, org: currentUserStore.shopuser.shop.id }
+    );
   }
   componentWillReact() {
-    showLong("数据", JSON.stringify(this.props.borrowersStore.results));
-    console.log(
-      "this.props.currentUserStore",
-      this.props.currentUserStore.email,
-      this.props.currentUserStore.id,
-      this.props.currentUserStore.mobile
-    );
+    console.log("数据", JSON.stringify(this.props.borrowersStore.results));
+    // this.customers = this.customers.concat(this.props.borrowersStore.results);
+    // console.log(
+    //   "this.props.currentUserStore",
+    //   this.props.currentUserStore.email,
+    //   this.props.currentUserStore.id,
+    //   this.props.currentUserStore.mobile
+    // );
   }
   showBorrowerDetail = (borrowerId: string) => {
     return () => {
@@ -72,28 +77,21 @@ export default class Customer extends Component {
       this.props.navigation.navigate(ROUTE_BORROWER, { borrowerId });
     };
   };
-  renderRow(item: Borrower) {
-    return (
-      <TouchableWithoutFeedback onPress={this.showBorrowerDetail(item.id)}>
-        <View style={styles.container}>
-          <Text>
-            {item.name}
-          </Text>
-          <Text>
-            {item.id}
-          </Text>
-        </View>
-      </TouchableWithoutFeedback>
-    );
-  }
+  renderRow = (item: Borrower, index: number) => {
+    console.log("renderRow with data : ", item);
+    return <CustomerItem key={item.id_no} item={item} first={index === 0} />;
+  };
+  keyExtractor = (item: Borrower, index: number): string => {
+    return item.id;
+  };
   render() {
+    console.log(
+      "this.props.borrowersStore.results",
+      this.props.borrowersStore.results
+    );
     return (
       <ScrollView style={styles.container}>
-        <ListView
-          style={styles.list}
-          dataSource={this.ds}
-          renderRow={this.renderRow}
-        />
+        <CustomerList dataSource={this.props.borrowersStore.dataSource} />
       </ScrollView>
     );
   }
@@ -103,5 +101,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   },
-  list: {}
+  list: {
+    padding: 5
+  }
 });

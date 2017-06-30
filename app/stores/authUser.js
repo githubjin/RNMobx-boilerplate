@@ -66,10 +66,7 @@ class AuthStore {
       .then(response => response.json())
       .then(data => {
         this.orgBaseInfo = data.results[0];
-        // console.log("jwt data", data);
-      })
-      .catch(error => {
-        console.log("jwt data error", error);
+        console.log("get org base information : ", data);
       });
   }
 

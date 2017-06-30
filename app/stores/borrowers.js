@@ -3,6 +3,7 @@
  * @flow
  */
 import { observable, action, computed } from "mobx";
+import { ListView } from "react-native";
 import { get, apiUrl } from "../services";
 import { api_borrowers } from "../constants/api";
 
@@ -37,13 +38,23 @@ class Borrowers {
 
   @observable fetchError: any;
 
+  ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+  @computed
+  get dataSource() {
+    return this.ds.cloneWithRows(this.results.slice());
+  }
   @action
   loadMore(
     options: QueryOptions = { page: 1 },
     { jwt, org }: AuthFields
   ): Promise<any> {
     console.log("Customer loadMore is called, conditions are", options);
-    return get(apiUrl(`${api_borrowers}?page=${options.page}`, false))
+    return get(
+      apiUrl(`${api_borrowers}?page=${options.page}`, false),
+      {},
+      jwt,
+      org
+    )
       .then((response: Response) => {
         return response.json();
       })

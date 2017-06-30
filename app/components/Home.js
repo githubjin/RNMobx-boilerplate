@@ -2,14 +2,7 @@
  * @flow
  */
 import React, { Component } from "react";
-import {
-  View,
-  Text,
-  Alert,
-  StyleSheet,
-  ScrollView,
-  Platform
-} from "react-native";
+import { View, Text, StyleSheet, ScrollView, Platform } from "react-native";
 import { Button } from "antd-mobile";
 import { observer, inject } from "mobx-react/native";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -18,6 +11,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { AuthStore } from "../stores/authUser";
 import { navigationReset, clearJwt } from "../services";
 import { ROUTE_LOGIN } from "../constants/routes";
+import { showShort } from "../utils";
 
 @inject("authStore")
 @observer
@@ -28,7 +22,7 @@ export default class Home extends Component {
   };
   componentDidMount() {
     // actions.repositories("0");
-    clearJwt();
+    clearJwt(() => {});
   }
   logout = () => {
     // console.log("why this.props.authStore is undefined ", authStore);
@@ -39,7 +33,7 @@ export default class Home extends Component {
         navigationReset(this.props.navigation, ROUTE_LOGIN);
       })
       .catch(error => {
-        Alert.alert("提示", error);
+        showShort("提示", error);
       });
   };
   render() {

@@ -2,13 +2,20 @@
  * @flow
  */
 import React, { Component } from "react";
-import { PixelRatio, Alert } from "react-native";
+import { PixelRatio } from "react-native";
 import { StackNavigator, TabNavigator } from "react-navigation";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 import { Provider } from "mobx-react/native";
 import { observer, inject } from "mobx-react";
 
-import { Home, Others, Login, Splash, Customer } from "./components";
+import {
+  Home,
+  Others,
+  Login,
+  Splash,
+  Customer
+  // BorrowerDetail
+} from "./components";
 import { JWT_KEY } from "./constants/config";
 import { getFromStorage } from "./services";
 import {
@@ -93,6 +100,9 @@ const StackContainer = function({ initialRouteName }) {
           headerLeft: null
         }
       },
+      // Borrower: {
+      //   screen: BorrowerDetail
+      // },
       Login: {
         screen: Login,
         navigationOptions: {
@@ -182,7 +192,7 @@ export default class Root extends Component {
         }
       })
       .catch(error => {
-        // console.log("get jwt from local storage error:  ", error);
+        console.log("get jwt from local storage error:  ", error);
         showShort(ERROR_TITLE, ERROR_MSG_GET_JWT_FROM_LOCAL);
       });
   }

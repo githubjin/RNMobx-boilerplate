@@ -6,7 +6,8 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  ActivityIndicator
 } from "react-native";
 import { observable } from "mobx";
 import { observer, inject } from "mobx-react/native";
@@ -31,14 +32,16 @@ export default class Login extends Component {
   state: {
     username: string,
     password: string,
-    captcha: string
+    captcha: string,
+    fetching: boolean
   };
   constructor(props) {
     super(props);
     this.state = {
       username: "15200000009",
       password: "123123123",
-      captcha: ""
+      captcha: "",
+      fetching: false
     };
   }
   componentDidMount() {
@@ -55,10 +58,13 @@ export default class Login extends Component {
       showShort(ERROR_TITLE, this.props.captchaStore.fetchError);
     });
   };
+  toggleFetching = (b: boolean) => {
+    this.setState({
+      fetching: !this.state.fetching
+    });
+  };
   login = () => {
-    // navigationReset(this.props.navigation);
-    // login request
-    // console.log(this.props.authStore, this.props.captchaStore);
+    this.toggleFetching();
     this.props.authStore
       .login(
         this.state.username,
@@ -72,10 +78,12 @@ export default class Login extends Component {
         if (this.props.authStore.jwt) {
           this.dealWithJwt();
         } else {
+          this.toggleFetching();
           showShort(ERROR_TITLE, this.props.authStore.fetchError);
         }
       })
       .catch(error => {
+        this.toggleFetching();
         showShort(ERROR_TITLE, this.props.authStore.fetchError);
       });
   };
@@ -84,36 +92,53 @@ export default class Login extends Component {
     // load currentUser base information
     this.props.authStore
       .getOrgBaceInfo(this.props.authStore.jwt)
+      .catch(error => {
+        console.log("get org base info error : ", error);
+        this.toggleFetching();
+        showErrorInfo(error);
+      })
       .then(() => {
         // load currentUser information
-        console.log(
-          "00000000000",
-          this.props.authStore.jwt,
-          this.props.authStore.orgBaseInfo.id
-        );
         return this.props.currentUserStore.refresh(
           this.props.authStore.jwt,
           this.props.authStore.orgBaseInfo.id
         );
       })
-      .then(() => {
-        console.log("000000000001");
-        return saveJwt(this.props.authStore.jwt);
+      .catch(error => {
+        console.log("get current user info error : ", error);
+        this.toggleFetching();
+        showErrorInfo(error);
       })
       .then(() => {
-        console.log("000000000002");
         // save currentUser to localstorage
-        console.log("this.props.currentUserStore", this.props.currentUserStore);
-        return setCurrentUser(this.props.currentUserStore);
+        console.log(
+          "this.props.currentUserStore",
+          this.props.currentUserStore,
+          this.props.currentUserStore.id,
+          this.props.currentUserStore.mobile
+        );
+        return Promise.all([
+          saveJwt(this.props.authStore.jwt),
+          setCurrentUser(this.props.currentUserStore)
+        ]);
+      })
+      .catch(error => {
+        console.log("save jwt and currentUser error : ", error);
+        this.toggleFetching();
+        showErrorInfo(error);
       })
       .then(() => {
         // navigate to home screen
-        console.log("00000000003");
+        this.toggleFetching();
         navigationReset(this.props.navigation);
       })
       .catch(error => {
-        showShort("提示", JSON.stringify(error));
+        this.toggleFetching();
+        showErrorInfo(error);
       });
+  };
+  showErrorInfo = (error: any): void => {
+    showShort(ERROR_TITLE, JSON.stringify(error));
   };
   changeText = (field: string): ((text: string) => void) => {
     return (text: string) => {
@@ -187,7 +212,11 @@ export default class Login extends Component {
             </View>
           </View>
           <UIButton
+            disabled={this.state.fetching}
             text="登录"
+            leftIcon={
+              this.state.fetching ? <ActivityIndicator size={20} /> : null
+            }
             style={styles.loginBnt}
             onPress={this.login}
             fontStyle={styles.actionText}

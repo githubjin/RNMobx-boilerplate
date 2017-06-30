@@ -2,8 +2,9 @@
  * 借款人详细信息
  * @flow
  */
-import { observable, action } from "mobx";
+import { observable, action, computed } from "mobx";
 import { normalize } from "normalizr";
+import { ListView } from "react-native";
 
 import { get, apiUrl } from "../services";
 import { api_borrower_info, api_borrower_vehicles } from "../constants/api";
@@ -31,6 +32,15 @@ class BorrowerStore {
   @observable created_at: string;
   @observable id_no: string;
   @observable vehicles: Vehicles;
+
+  vehiclesDataSource = new ListView.DataSource({
+    rowHasChanged: (r1, r2) => r1 !== r2
+  });
+
+  @computed
+  get vehicleDs() {
+    return this.vehiclesDataSource.cloneWithRows(this.vehicles.result);
+  }
 
   @action
   loadBorrower(borrowerId: string, jwt?: string, org?: string): Promise<any> {
