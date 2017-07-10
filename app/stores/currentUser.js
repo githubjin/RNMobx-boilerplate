@@ -51,6 +51,7 @@ class CurrentUser extends SuperStore {
         this.copyFields(data);
       });
   }
+
   @action
   loadFromLocalstorage(): Promise<any> {
     return getCurrentUser().then((user: Object) => {

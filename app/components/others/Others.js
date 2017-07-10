@@ -6,9 +6,11 @@ import { StyleSheet, Text, View, ScrollView } from "react-native";
 
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 
+import WXDemo from "./WXDemo";
+
 export default class App extends Component {
   render() {
-    return <Item />;
+    return <WXDemo />;
   }
 }
 

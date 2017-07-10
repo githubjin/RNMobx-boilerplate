@@ -22,7 +22,7 @@ export default class CustomerItem extends Component {
     navigation: Object
   };
   componentDidMount() {
-    console.log("Customer Item is mounted", this.props.item);
+    // console.log("Customer Item is mounted", this.props.item);
   }
   showBorrowerDetail = (item: Borrower) => {
     this.props.navigation.navigate(ROUTE_BORROWER, { borrower: item });

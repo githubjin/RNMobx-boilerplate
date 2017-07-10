@@ -146,12 +146,6 @@ class ContainerWraper extends Component {
   }
   componentDidMount() {
     const { jwt, authStore, currentUserStore } = this.props;
-    // console.log(
-    //   "currentUserStore",
-    //   currentUserStore,
-    //   currentUserStore.email,
-    //   jwt
-    // );
     if (jwt) {
       authStore.setJwt(jwt).getOrgBaceInfo(jwt);
       if (_.isEmpty(currentUserStore.shopuser)) {
@@ -198,7 +192,7 @@ export default class Root extends Component {
         }
       })
       .catch(error => {
-        console.log("get jwt from local storage error:  ", error);
+        // console.log("get jwt from local storage error:  ", error);
         showShort(ERROR_TITLE, ERROR_MSG_GET_JWT_FROM_LOCAL);
       });
   }

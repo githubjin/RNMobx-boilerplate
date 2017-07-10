@@ -16,45 +16,15 @@ import {
   ScrollView
 } from "react-native";
 import PropTypes from "prop-types";
+import { ScreenUtil } from "../../utils";
 
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 
-export default class App extends Component {
+export default class WXDemo extends Component {
   render() {
     const { width, height } = Dimensions.get("window");
     return (
       <ScrollView style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{"\n"}
-          Shake or press menu button for dev menu
-        </Text>
-        <Text>
-          PixelRatio.get() = {PixelRatio.get()}
-        </Text>
-        <Text>
-          PixelRatio.getFontScale() = {PixelRatio.getFontScale()}
-        </Text>
-        <Text>
-          PixelRatio.getPixelSizeForLayoutSize(22) =
-          {PixelRatio.getPixelSizeForLayoutSize(22)}
-        </Text>
-        <Text>
-          PixelRatio.getPixelSizeForLayoutSize =
-          {PixelRatio.getPixelSizeForLayoutSize(200)}
-        </Text>
-        <Text>
-          PixelRatio.roundToNearestPixel(8.4) ={" "}
-          {PixelRatio.roundToNearestPixel(8.4)}
-          * {PixelRatio.get()} =
-          {PixelRatio.get() * PixelRatio.roundToNearestPixel(8.4)}
-        </Text>
-        <Text>
-          (width, height) = ({width},{height})= ({width / PixelRatio.get()},{height / PixelRatio.get()})
-        </Text>
         {/*<Image
           style={styles.image}
           source={{
@@ -69,11 +39,7 @@ export default class App extends Component {
               "https://eightwords.oss-cn-beijing.aliyuncs.com/TkFaMm3k1i/QXJ0aWNsZTo1YjJvVHF5V3hs/rc-upload-1496495278481-3.jpg!origin_thumb?OSSAccessKeyId=LTAI2ByrdckqgrnG&Expires=1498380233&Signature=D3wW3IkRdjBABLEPwW%2Bim2yAnB0%3D"
           }}
         />*/}
-        <View style={styles.bnt}>
-          <Text>Item Header</Text>
-        </View>
         <Icon name="user" />
-        <Item first={true} />
         <Item />
         <Item />
         <Item />
@@ -81,9 +47,6 @@ export default class App extends Component {
         <Item />
         <Item />
         <Item />
-        <View style={styles.bnt}>
-          <Text>Running /Users/Yo/Library/Android/sdk/platform-tools/adb</Text>
-        </View>
       </ScrollView>
     );
   }
@@ -112,63 +75,57 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5FCFF",
     ...Platform.select({
       ios: {
-        marginTop: 22
+        marginTop: ScreenUtil.scaleSize(22)
       }
     })
   },
   welcome: {
-    fontSize: 20,
+    fontSize: ScreenUtil.setSpText(20),
     textAlign: "center",
-    margin: 10
+    margin: ScreenUtil.scaleSize(10)
   },
   instructions: {
     textAlign: "center",
     color: "#333333",
-    marginBottom: 5
+    marginBottom: ScreenUtil.scaleSize(5)
   },
   image: {
     width: PixelRatio.getPixelSizeForLayoutSize(200),
     height: PixelRatio.getPixelSizeForLayoutSize(100)
   },
   px_image: {
-    width: 100,
-    height: 100
+    width: ScreenUtil.scaleSize(100),
+    height: ScreenUtil.scaleSize(100)
   },
   itemTop: {
-    borderTopWidth: 1,
+    borderTopWidth: 1 / PixelRatio.get(),
     borderTopColor: "#f2f2f0"
   },
   item: {
-    padding: 20 / PixelRatio.get(),
-    borderBottomWidth: 1,
+    padding: ScreenUtil.scaleSize(20),
+    borderBottomWidth: 1 / PixelRatio.get(),
     borderBottomColor: "#f2f2f0"
   },
   row_title: {
-    marginBottom: 20 / PixelRatio.get(),
+    marginBottom: ScreenUtil.scaleSize(20),
     flexDirection: "row",
     justifyContent: "space-between"
   },
   title: {
-    fontSize: 32 / PixelRatio.get(),
+    fontSize: ScreenUtil.setSpText(32),
     fontWeight: "700",
     color: "#000000"
   },
   meta: {
-    fontSize: 24 / PixelRatio.get(),
+    fontSize: ScreenUtil.setSpText(24),
     color: "#838383"
   },
   row_content: {},
   content: {
-    fontSize: 28 / PixelRatio.get(),
+    fontSize: ScreenUtil.setSpText(28),
     color: "#999999"
   },
   bnt: {
-    marginVertical: 10 / PixelRatio.get()
+    marginVertical: ScreenUtil.scaleSize(10)
   }
 });
-// 1dp =
-
-// 基于 PixelRatio.get() == 2
-function getScale() {
-  PixelRatio.get() === 2 ? PixelRatio.get() : PixelRatio.get() / 2;
-}

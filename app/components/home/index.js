@@ -2,7 +2,18 @@
  * @flow
  */
 import React, { Component } from "react";
-import { View, Text, StyleSheet, ScrollView, Platform } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Platform,
+  PixelRatio,
+  Dimensions,
+  StatusBar,
+  ErrorUtils,
+  ErrorHandlerCallback
+} from "react-native";
 import { Button } from "antd-mobile";
 import { observer, inject } from "mobx-react/native";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -11,7 +22,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { AuthStore } from "../../stores/authUser";
 import { navigationReset, clearJwt } from "../../services";
 import { ROUTE_LOGIN } from "../../constants/routes";
-import { showShort } from "../../utils";
+import { showShort, ScreenUtil } from "../../utils";
 
 @inject("authStore")
 @observer
@@ -48,6 +59,25 @@ export default class Home extends Component {
         />
         <Box icon="shopping-cart" total="4" desc="总业务量" style={styles.three} />
         <Box icon="car" total="7" desc="登记资产" style={styles.four} />
+        <Text>
+          window.width: {Dimensions.get("window").width} - windoow.height:{" "}
+          {Dimensions.get("window").height} - fontScale:{" "}
+          {Dimensions.get("window").fontScale} - scale:{" "}
+          {Dimensions.get("window").scale}------ PixelRatio.get:{" "}
+          {PixelRatio.get()}- PixelRatio.getFrontScale:{" "}
+          {PixelRatio.getFontScale()} - PixelRatio.getPixelSizeForLayoutSize;{" "}
+          {PixelRatio.getPixelSizeForLayoutSize(1.5)}
+        </Text>
+        <Text
+          style={{
+            fontSize: 20,
+            borderWidth: 1,
+            borderColor: "#000000",
+            color: "#333333"
+          }}
+        >
+          FontSize: 20 - 字体大小: 20 - StatusBarHeight: {StatusBar.currentHeight}
+        </Text>
       </ScrollView>
     );
   }
@@ -78,24 +108,24 @@ const styles = StyleSheet.create({
     justifyContent: "space-around"
   },
   statistic: {
-    height: 120,
-    marginHorizontal: 5,
+    height: ScreenUtil.scaleSize(120),
+    marginHorizontal: ScreenUtil.scaleSize(5),
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 5
+    marginTop: ScreenUtil.scaleSize(5)
   },
   box: {
-    paddingRight: 15
+    paddingRight: ScreenUtil.scaleSize(15)
   },
   number: {
-    marginTop: 25,
+    marginTop: ScreenUtil.scaleSize(25),
     color: "#ffffff",
-    fontSize: 34,
+    fontSize: ScreenUtil.setSpText(34),
     textAlign: "right"
   },
   desc: {
     color: "#ffffff",
-    fontSize: 16,
+    fontSize: ScreenUtil.setSpText(16),
     textAlign: "right"
   },
   one: {
@@ -122,11 +152,11 @@ const styles = StyleSheet.create({
     }),
     ...Platform.select({
       android: {
-        marginLeft: -25
+        marginLeft: -ScreenUtil.scaleSize(25)
       }
     }),
-    marginTop: 35,
-    fontSize: 110,
-    lineHeight: 110
+    marginTop: ScreenUtil.scaleSize(35),
+    fontSize: ScreenUtil.setSpText(110),
+    lineHeight: Math.round(ScreenUtil.setSpText(110))
   }
 });

@@ -24,7 +24,7 @@ export default class BorrowerDetail extends Component {
     const { navigation } = this.props;
     return (
       <View>
-        <Text>s</Text>
+        <Text>借款人详细信息</Text>
       </View>
     );
   }

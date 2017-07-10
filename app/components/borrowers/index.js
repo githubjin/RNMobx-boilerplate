@@ -46,7 +46,7 @@ export default class Customer extends Component {
   }
   componentDidMount() {
     const { authStore, currentUserStore } = this.props;
-    console.log("1292191022190", authStore, currentUserStore);
+    // console.log("1292191022190", authStore, currentUserStore);
     // Alert.alert("Alert", JSON.stringify(currentUserStore));
     this.props.borrowersStore.loadMore(
       { page: 1 },
@@ -73,17 +73,17 @@ export default class Customer extends Component {
     };
   };
   renderRow = (item: Borrower, index: number) => {
-    console.log("renderRow with data : ", item);
+    // console.log("renderRow with data : ", item);
     return <CustomerItem key={item.id_no} item={item} first={index === 0} />;
   };
   keyExtractor = (item: Borrower, index: number): string => {
     return item.id;
   };
   render() {
-    console.log(
-      "this.props.borrowersStore.results",
-      this.props.borrowersStore.results
-    );
+    // console.log(
+    //   "this.props.borrowersStore.results",
+    //   this.props.borrowersStore.results
+    // );
     return (
       <ScrollView style={styles.container}>
         <CustomerList dataSource={this.props.borrowersStore.dataSource} />
