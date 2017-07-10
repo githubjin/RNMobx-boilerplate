@@ -10,7 +10,7 @@ import { CURRENT_USER_KEY } from "../constants/config";
 /**
  * 获取当前用户
  */
-export function getCurrentUser(): Object {
+export function getCurrentUser(): Promise<any> {
   return get(CURRENT_USER_KEY).then((content: string) => {
     if (content) {
       return JSON.parse(content);

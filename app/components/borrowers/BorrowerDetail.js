@@ -18,13 +18,10 @@ export default class BorrowerDetail extends Component {
     navigation: NavigationActions
   };
   componentDidMount() {
-    console.log(this.props);
-    console.log(this.props.authStore.jwt);
-    console.log(this.props.authStore.orgBaseInfo.id);
+    console.log("BorrowerDetail - this.props.authStore", this.props.authStore);
   }
   render() {
     const { navigation } = this.props;
-    console.log("NBorrowerDetails ");
     return (
       <View>
         <Text>s</Text>

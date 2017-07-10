@@ -21,9 +21,9 @@ type Conditions = {
   to?: string
 };
 
-class Vehicles extends SuperStore {
-  @observable pagination: Pagination;
-  @observable results: VehiclesType;
+class VehiclesStore extends SuperStore {
+  @observable pagination: Pagination = {};
+  @observable results: VehiclesType = {};
   @observable refreshing: boolean = false;
 
   // http://shop.qgqg.me/api/vehicles?page=1&name=VehiclesType&from=2017-05-30&to=2017-05-30
@@ -42,6 +42,7 @@ class Vehicles extends SuperStore {
           total_count: data.total_count,
           total_page: data.total_page
         };
+        console.log("--------------------data------------------", data);
         this.results = normalize(data.results, vehicleSchema);
         this.fetchError = null;
       })
@@ -55,7 +56,7 @@ class Vehicles extends SuperStore {
   }
 }
 
-const vehiclesStore = new Vehicles();
+const vehiclesStore = new VehiclesStore();
 export default vehiclesStore;
 
-export { Vehicles };
+export { VehiclesStore };

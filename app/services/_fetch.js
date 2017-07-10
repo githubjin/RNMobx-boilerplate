@@ -6,6 +6,7 @@ import _ from "lodash";
 import { API_HEADER } from "../constants/config";
 import { getFromStorage } from "../services";
 import { JWT_KEY } from "../constants/config";
+import { getCurrentUser } from "./currentUser";
 /**
  * 添加基础 Reuest Headers
  * @param {string} url 
@@ -136,8 +137,20 @@ function getHeaderSync(jwt: ?string, org: ?string): Object {
  * 从LocalStorage获取JWT
  */
 function getHeader(org: ?string = null): Promise<any> {
-  return getFromStorage(JWT_KEY).then((jwt: string) => {
-    // console.log("get jwt from storage is :", jwt);
-    return getHeaderSync(jwt, org);
+  if (org) {
+    return getFromStorage(JWT_KEY).then((jwt: string) => {
+      // console.log("get jwt from storage is :", jwt);
+      return getHeaderSync(jwt, org);
+    });
+  }
+  return Promise.all([
+    getFromStorage(JWT_KEY),
+    getCurrentUser()
+  ]).then((jwtAndOrg: Array<*>) => {
+    // console.log("----------------jwtAndOrg------------", jwtAndOrg);
+    return getHeaderSync(
+      jwtAndOrg[0] ? jwtAndOrg[0] : "",
+      jwtAndOrg[1] ? jwtAndOrg[1].shopuser.shop.id : ""
+    );
   });
 }

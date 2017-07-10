@@ -12,21 +12,22 @@ import {
   TouchableWithoutFeedback,
   InteractionManager,
   Image,
-  FlatList
+  FlatList,
+  Alert
 } from "react-native";
 import { ActionSheet } from "antd-mobile";
 import { observer, inject } from "mobx-react/native";
 import { NavigationActions } from "react-navigation";
 
-// import { borrowersStore } from "../stores";
-import { Borrowers } from "../stores/borrowers";
-import type { Borrower } from "../stores/borrowers";
-import { showLong } from "../utils";
-import { CurrentUser } from "../stores/currentUser";
-import { AuthStore } from "../stores/authUser";
-import { ROUTE_BORROWER } from "../constants/routes";
-import CustomerItem from "./borrowers/BorrowerItem";
-import CustomerList from "./borrowers/BorrowerList";
+// import { borrowersStore } from "../../stores";
+import { Borrowers } from "../../stores/borrowers";
+import type { Borrower } from "../../stores/borrowers";
+import { showLong } from "../../utils";
+import { CurrentUser } from "../../stores/currentUser";
+import { AuthStore } from "../../stores/authUser";
+import { ROUTE_BORROWER } from "../../constants/routes";
+import CustomerItem from "./BorrowerItem";
+import CustomerList from "./BorrowerList";
 
 @inject("borrowersStore", "authStore", "currentUserStore")
 @observer
@@ -45,14 +46,8 @@ export default class Customer extends Component {
   }
   componentDidMount() {
     const { authStore, currentUserStore } = this.props;
-    console.log(
-      "1292191022190",
-      authStore,
-      currentUserStore,
-      currentUserStore.shopuser,
-      currentUserStore.avatar,
-      currentUserStore.id
-    );
+    console.log("1292191022190", authStore, currentUserStore);
+    // Alert.alert("Alert", JSON.stringify(currentUserStore));
     this.props.borrowersStore.loadMore(
       { page: 1 },
       { jwt: authStore.jwt, org: currentUserStore.shopuser.shop.id }

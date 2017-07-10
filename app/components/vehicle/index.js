@@ -5,25 +5,29 @@
 import React, { Component } from "react";
 import { View, ListView, Text, StyleSheet, RefreshControl } from "react-native";
 import { observer, inject } from "mobx-react/native";
-import { Vehicles } from "../stores/vehicles";
+import { VehiclesStore } from "../../stores/vehicles";
 
-@inject("vehicleStore")
+@inject("vehiclesStore")
 @observer
 export default class Vehicles extends Component {
   props: {
-    vehicleStore: Vehicles
+    vehiclesStore: VehiclesStore
   };
   componentDidMount() {
-    this.props.vehicleStore.loadmore();
+    this.props.vehiclesStore.loadmore();
   }
   getDatasource = () => {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
-    return ds.cloneWithRows(this.props.vehicleStore.results.result);
+    // console.log("this.props.vehiclesStore", this.props.vehiclesStore);
+    if (this.props.vehiclesStore.results) {
+      return ds.cloneWithRows(this.props.vehiclesStore.results.result || []);
+    }
+    return ds.cloneWithRows([]);
   };
   renderItem = (vehicleId: string) => {
-    let entity = this.props.vehicleStore.results.entities[vehicleId];
+    let entity = this.props.vehiclesStore.results.entities[vehicleId];
     return (
       <View key={vehicleId}>
         <Text>
@@ -33,24 +37,25 @@ export default class Vehicles extends Component {
     );
   };
   loadMore = () => {
-    this.props.vehicleStore.loadmore({
-      page: this.props.vehicleStore.pagination.page + 1
+    this.props.vehiclesStore.loadmore({
+      page: this.props.vehiclesStore.pagination.page + 1
     });
   };
   refresh = () => {
-    this.props.vehicleStore.loadmore();
+    this.props.vehiclesStore.loadmore();
   };
   render() {
-    const { vehicleStore } = this.props;
+    const { vehiclesStore } = this.props;
     return (
       <View style={styles.container}>
         <ListView
           dataSource={this.getDatasource()}
           renderRow={this.renderItem}
+          enableEmptySections={true}
           refreshControl={
             <RefreshControl
               onRefresh={this.refresh}
-              refreshing={this.props.vehicleStore.refreshing}
+              refreshing={this.props.vehiclesStore.refreshing}
             />
           }
         />

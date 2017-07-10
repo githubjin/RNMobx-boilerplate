@@ -7,13 +7,16 @@ import { StackNavigator, TabNavigator } from "react-navigation";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 import { Provider } from "mobx-react/native";
 import { observer, inject } from "mobx-react";
+import _ from "lodash/lang";
 
 import {
   Home,
   Others,
   Login,
   Splash,
-  Customer
+  Borrower,
+  Vehicle,
+  Borrowing
   // BorrowerDetail
 } from "./components";
 import { JWT_KEY } from "./constants/config";
@@ -37,8 +40,8 @@ const TabContainer: any = TabNavigator(
           <Icon name="speedometer" size={20} color={tintColor} />
       }
     },
-    Customer: {
-      screen: Customer,
+    Borrower: {
+      screen: Borrower,
       navigationOptions: {
         title: "客户",
         tabBarIcon: ({ tintColor }) =>
@@ -46,7 +49,7 @@ const TabContainer: any = TabNavigator(
       }
     },
     Capital: {
-      screen: Others,
+      screen: Vehicle,
       navigationOptions: {
         title: "资产",
         tabBarIcon: ({ tintColor }) =>
@@ -54,7 +57,7 @@ const TabContainer: any = TabNavigator(
       }
     },
     Business: {
-      screen: Others,
+      screen: Borrowing,
       navigationOptions: {
         title: "业务",
         tabBarIcon: ({ tintColor }) =>
@@ -151,7 +154,10 @@ class ContainerWraper extends Component {
     // );
     if (jwt) {
       authStore.setJwt(jwt).getOrgBaceInfo(jwt);
-      // currentUserStore.refresh(jwt);
+      if (_.isEmpty(currentUserStore.shopuser)) {
+        currentUserStore.loadFromLocalstorage();
+      }
+      // this.props.currentUserStore.refresh(jwt);
     }
   }
   render() {

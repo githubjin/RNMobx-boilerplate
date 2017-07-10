@@ -29,7 +29,6 @@ export default class CustomerItem extends Component {
   };
   render() {
     const { item, first } = this.props;
-    console.log("CustomerItem render : ", item);
     return (
       <View style={first ? [styles.item, styles.itemTop] : styles.item}>
         <Image source={{ uri: item.avatar }} style={styles.avatar} />
