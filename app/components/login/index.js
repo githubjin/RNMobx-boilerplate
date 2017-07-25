@@ -16,10 +16,49 @@ import { Button, Tag } from "antd-mobile";
 import { AuthStore } from "../../stores/authUser";
 import { Captcha } from "../../stores/captcha";
 import { CurrentUser } from "../../stores/currentUser";
-import { showShort } from "../../utils";
+import { showShort, normalize } from "../../utils";
 import { ERROR_TITLE } from "../../constants/messages";
-import { saveJwt, navigationReset, setCurrentUser } from "../../services";
+import * as COLORS from "../../constants/colors";
+import {
+  saveJwt,
+  navigationReset,
+  setCurrentUser,
+  clearStorage
+} from "../../services";
 import UIButton from "../lib/Button";
+
+const InputItem = ({
+  returnKeyType = "next",
+  keyboardType = null,
+  placeholder,
+  style = styles.input,
+  value,
+  changeText,
+  onFocusHandler,
+  onBlurHandler,
+  secureTextEntry = false
+}) => {
+  return (
+    <View style={styles.item}>
+      <TextInput
+        returnKeyType={returnKeyType}
+        secureTextEntry={secureTextEntry}
+        keyboardType={keyboardType}
+        autoCapitalize="none"
+        placeholder={placeholder}
+        autoFocus={false}
+        autoCorrect={false}
+        style={style}
+        value={value}
+        onChangeText={changeText}
+        underlineColorAndroid="transparent"
+        placeholderTextColor="#8290a4"
+        onFocus={onFocusHandler}
+        onBlur={onBlurHandler}
+      />
+    </View>
+  );
+};
 
 @inject("captchaStore", "authStore", "currentUserStore")
 @observer
@@ -41,8 +80,10 @@ export default class Login extends Component {
       username: "15200000009",
       password: "123123123",
       captcha: "",
-      fetching: false
+      fetching: false,
+      focuesInput: null
     };
+    // clearStorage();
   }
   componentDidMount() {
     this.props.captchaStore.refresh();
@@ -147,6 +188,21 @@ export default class Login extends Component {
       this.setState(obj);
     };
   };
+  onFocusHandler = (key: string) => {
+    return () => {
+      this.setState({
+        focuesInput: key
+      });
+    };
+  };
+  onBlurHandler = (key: string) => {
+    return () => {
+      if (key === this.state.focuesInput) {
+        this.setState({ focuesInput: null });
+      }
+    };
+  };
+
   render() {
     // console.log(JSON.stringify(this.props));
     const { captchaStore = {} } = this.props;
@@ -157,36 +213,22 @@ export default class Login extends Component {
           <View style={styles.header}>
             <Text style={styles.login}>登录</Text>
           </View>
-          <View style={styles.item}>
-            <TextInput
-              returnKeyType="next"
-              keyboardType="phone-pad"
-              autoCapitalize="none"
-              placeholder="手机号"
-              autoFocus={false}
-              autoCorrect={false}
-              style={styles.input}
-              value={this.state.username}
-              onChangeText={this.changeText("username")}
-              underlineColorAndroid="transparent"
-              placeholderTextColor="#8290a4"
-            />
-          </View>
-          <View style={styles.item}>
-            <TextInput
-              placeholder="密码"
-              returnKeyType="next"
-              autoCapitalize="none"
-              autoFocus={false}
-              autoCorrect={false}
-              style={styles.input}
-              secureTextEntry={true}
-              value={this.state.password}
-              onChangeText={this.changeText("password")}
-              underlineColorAndroid="transparent"
-              placeholderTextColor="#8290a4"
-            />
-          </View>
+          <InputItem
+            keyboardType="phone-pad"
+            placeholder="手机号"
+            value={this.state.username}
+            changeText={this.changeText("username")}
+            onFocusHandler={this.onFocusHandler("phone")}
+            onBlurHandler={this.onBlurHandler("phone")}
+          />
+          <InputItem
+            placeholder="密码"
+            secureTextEntry={true}
+            value={this.state.password}
+            changeText={this.changeText("password")}
+            onFocusHandler={this.onFocusHandler("password")}
+            onBlurHandler={this.onBlurHandler("password")}
+          />
           <View style={styles.item}>
             <View style={styles.captchaItem}>
               <TextInput
@@ -200,6 +242,8 @@ export default class Login extends Component {
                 onChangeText={this.changeText("captcha")}
                 underlineColorAndroid="transparent"
                 placeholderTextColor="#8290a4"
+                onFocus={this.onFocusHandler("captcha")}
+                onBlur={this.onBlurHandler("captcha")}
               />
               <TouchableOpacity onPress={this.refreshCaptcha}>
                 {img_url &&
@@ -253,10 +297,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     paddingHorizontal: 20,
-    backgroundColor: "#364150"
+    // backgroundColor: "#364150"
+    backgroundColor: COLORS.LOGIN_BACKGROUND_COLOR
   },
   wraper: {
-    backgroundColor: "#eceef1",
+    // backgroundColor: "#eceef1",
+    backgroundColor: COLORS.LOGIN_WINDOW_BACKGROUND,
     marginHorizontal: 30,
     paddingHorizontal: 30,
     marginTop: 10,
@@ -269,16 +315,19 @@ const styles = StyleSheet.create({
   },
   login: {
     fontSize: 22,
-    color: "#32c5d2",
+    // color: "#32c5d2",
+    color: COLORS.LOGIN_PRIMARY,
     textAlign: "center"
   },
   item: {
     width: "100%",
     marginBottom: 15,
     borderColor: "#dde3ec",
+    // borderColor: COLORS.LOGIN_INPUT_ACTIVE_BORDER_COLOR,
     borderWidth: 1,
     borderStyle: "solid",
-    backgroundColor: "#dde3ec"
+    // backgroundColor: "#dde3ec"
+    backgroundColor: COLORS.LOGIN_INPUT_BACKGROUND
   },
   input: {
     width: "100%",
@@ -289,7 +338,7 @@ const styles = StyleSheet.create({
   },
   captcha: {
     width: 100,
-    height: 40
+    height: 44
   },
   refreshIcon: { width: 100, alignItems: "center", justifyContent: "center" },
   captchaItem: {
@@ -298,12 +347,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   captchaInput: {
-    height: 40,
+    height: 42,
     flex: 1
   },
   loginBnt: {
     marginTop: 20,
-    backgroundColor: "#32c5d2",
+    // backgroundColor: "#53cac3",
+    backgroundColor: COLORS.LOGIN_PRIMARY,
     borderRadius: 0,
     paddingHorizontal: 20,
     paddingVertical: 10
@@ -320,7 +370,8 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   forgot: {
-    color: "#337ab7",
+    // color: "#337ab7",
+    color: COLORS.LOGIN_FORGET,
     fontSize: 14
   },
   signup: {

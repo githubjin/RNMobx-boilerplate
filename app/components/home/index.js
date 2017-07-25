@@ -20,9 +20,9 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 // import * as actions from "../../actions";
 import { AuthStore } from "../../stores/authUser";
-import { navigationReset, clearJwt } from "../../services";
+import { navigationReset, clearJwt, clearStorage } from "../../services";
 import { ROUTE_LOGIN } from "../../constants/routes";
-import { showShort, ScreenUtil } from "../../utils";
+import { showShort, ScreenUtil, normalize } from "../../utils";
 
 @inject("authStore")
 @observer
@@ -33,7 +33,7 @@ export default class Home extends Component {
   };
   componentDidMount() {
     // actions.repositories("0");
-    // clearJwt(() => {});
+    // clearStorage(() => {});
   }
   logout = () => {
     // console.log("why this.props.authStore is undefined ", authStore);
@@ -59,25 +59,6 @@ export default class Home extends Component {
         />
         <Box icon="shopping-cart" total="4" desc="总业务量" style={styles.three} />
         <Box icon="car" total="7" desc="登记资产" style={styles.four} />
-        <Text>
-          window.width: {Dimensions.get("window").width} - windoow.height:{" "}
-          {Dimensions.get("window").height} - fontScale:{" "}
-          {Dimensions.get("window").fontScale} - scale:{" "}
-          {Dimensions.get("window").scale}------ PixelRatio.get:{" "}
-          {PixelRatio.get()}- PixelRatio.getFrontScale:{" "}
-          {PixelRatio.getFontScale()} - PixelRatio.getPixelSizeForLayoutSize;{" "}
-          {PixelRatio.getPixelSizeForLayoutSize(1.5)}
-        </Text>
-        <Text
-          style={{
-            fontSize: 20,
-            borderWidth: 1,
-            borderColor: "#000000",
-            color: "#333333"
-          }}
-        >
-          FontSize: 20 - 字体大小: 20 - StatusBarHeight: {StatusBar.currentHeight}
-        </Text>
       </ScrollView>
     );
   }
@@ -98,34 +79,57 @@ const Box = ({ style, icon, total, desc }): React.ReactElement => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1
+  },
+  containerWraper: {
+    flex: 1,
+    backgroundColor: "#e2e2e2",
+    shadowRadius: 0.5,
+    fontSize: normalize(20),
+    color: "#e2e2e2",
+    fontFamily: "san-serif",
+    borderLeftWidth: 1,
+    borderTopWidth: 1,
+    borderTopColor: "#333",
+    marginTop: 30,
+    marginBottom: 30,
+    marginHorizontal: 100
+  },
+  containWrapper: {
+    ...Platform.select({
+      ios: {
+        color: "red"
+      },
+      android: {
+        color: "green"
+      }
+    })
   },
   statistic_row: {
     flexDirection: "row",
     justifyContent: "space-around"
   },
   statistic: {
-    height: ScreenUtil.scaleSize(120),
-    marginHorizontal: ScreenUtil.scaleSize(5),
+    height: normalize(120),
+    marginHorizontal: normalize(5),
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: ScreenUtil.scaleSize(5)
+    marginTop: normalize(5)
   },
   box: {
-    paddingRight: ScreenUtil.scaleSize(15)
+    paddingRight: normalize(15)
   },
   number: {
-    marginTop: ScreenUtil.scaleSize(25),
+    marginTop: normalize(25),
     color: "#ffffff",
-    fontSize: ScreenUtil.setSpText(34),
+    fontSize: normalize(34),
     textAlign: "right"
   },
   desc: {
     color: "#ffffff",
-    fontSize: ScreenUtil.setSpText(16),
+    fontSize: normalize(16),
     textAlign: "right"
   },
   one: {
@@ -147,16 +151,16 @@ const styles = StyleSheet.create({
         opacity: 0.3
       },
       android: {
-        opacity: 0.1
+        opacity: 0.2
       }
     }),
     ...Platform.select({
       android: {
-        marginLeft: -ScreenUtil.scaleSize(25)
+        marginLeft: -normalize(25)
       }
     }),
-    marginTop: ScreenUtil.scaleSize(35),
-    fontSize: ScreenUtil.setSpText(110),
-    lineHeight: Math.round(ScreenUtil.setSpText(110))
+    marginTop: normalize(35),
+    fontSize: normalize(110),
+    lineHeight: Math.round(normalize(110))
   }
 });

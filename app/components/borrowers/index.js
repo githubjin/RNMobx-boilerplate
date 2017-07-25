@@ -54,7 +54,7 @@ export default class Customer extends Component {
     );
   }
   componentWillReact() {
-    console.log("数据", JSON.stringify(this.props.borrowersStore.results));
+    // console.log("数据", JSON.stringify(this.props.borrowersStore.results));
     // this.customers = this.customers.concat(this.props.borrowersStore.results);
     // console.log(
     //   "this.props.currentUserStore",
@@ -63,13 +63,10 @@ export default class Customer extends Component {
     //   this.props.currentUserStore.mobile
     // );
   }
-  showBorrowerDetail = (borrowerId: string) => {
+  showBorrowerDetail = (item: Object) => {
     return () => {
-      console.log(
-        "this.props.navigation type is : ",
-        typeof this.props.navigation
-      );
-      this.props.navigation.navigate(ROUTE_BORROWER, { borrowerId });
+      // console.log("this.props.navigation type is : ", this.props.navigation);
+      this.props.navigation.navigate(ROUTE_BORROWER, { borrower: item });
     };
   };
   renderRow = (item: Borrower, index: number) => {
@@ -80,13 +77,15 @@ export default class Customer extends Component {
     return item.id;
   };
   render() {
-    // console.log(
-    //   "this.props.borrowersStore.results",
-    //   this.props.borrowersStore.results
-    // );
+    console.log(
+      `this.props.borrowersStore.results: ${this.props.borrowersStore.results}`
+    );
     return (
       <ScrollView style={styles.container}>
-        <CustomerList dataSource={this.props.borrowersStore.dataSource} />
+        <CustomerList
+          rows={this.props.borrowersStore.results}
+          openDetail={this.showBorrowerDetail}
+        />
       </ScrollView>
     );
   }
@@ -94,7 +93,8 @@ export default class Customer extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: "#ffffff"
   },
   list: {
     padding: 5

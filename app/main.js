@@ -16,8 +16,8 @@ import {
   Splash,
   Borrower,
   Vehicle,
-  Borrowing
-  // BorrowerDetail
+  Borrowing,
+  BorrowerDetail
 } from "./components";
 import { JWT_KEY } from "./constants/config";
 import { getFromStorage } from "./services";
@@ -103,9 +103,9 @@ const StackContainer = function({ initialRouteName }) {
           headerLeft: null
         }
       },
-      // Borrower: {
-      //   screen: BorrowerDetail
-      // },
+      BorrowerDetail: {
+        screen: BorrowerDetail
+      },
       Login: {
         screen: Login,
         navigationOptions: {

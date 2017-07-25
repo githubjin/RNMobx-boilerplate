@@ -20,7 +20,7 @@ class Captcha {
 
   @action
   refresh() {
-    // console.log("login captcha refresh : ");
+    // console.log(" ------------- login captcha refresh :  ------------- ");
     return post(apiUrl(api_captcha))
       .then((response: Response) => response.json())
       .then((data: SaptchaSchema) => {

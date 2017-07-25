@@ -15,7 +15,11 @@ export function getCurrentUser(): Promise<any> {
     if (content) {
       return JSON.parse(content);
     }
-    return null;
+    return {
+      shopuser: {
+        shop: {}
+      }
+    };
   });
 }
 

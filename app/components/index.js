@@ -9,7 +9,16 @@ import Vehicle from "./vehicle";
 import Splash from "./splash/Splash";
 import Borrower from "./borrowers";
 import Borrowing from "./borrowing";
-// import BorrowerDetail from "./borrowers/BorrowerDetail";
+import BorrowerDetail from "./borrowers/BorrowerDetail";
 
 // export { Home, Others, Login, Splash, Customer, BorrowerDetail };
-export { Home, Others, Login, Splash, Borrower, Vehicle, Borrowing };
+export {
+  Home,
+  Others,
+  Login,
+  Splash,
+  Borrower,
+  Vehicle,
+  Borrowing,
+  BorrowerDetail
+};
