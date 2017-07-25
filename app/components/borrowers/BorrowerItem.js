@@ -11,6 +11,9 @@ import {
   TouchableOpacity,
   Alert
 } from "react-native";
+import moment from "moment";
+import "moment/locale/zh-cn";
+moment.locale("zh-cn");
 
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 
@@ -43,21 +46,32 @@ export default class CustomerItem extends Component {
               <Text style={styles.title}>
                 {item.name}
               </Text>
-              <View style={styles.phoneWrapper}>
-                <Text style={styles.meta}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignContent: "center"
+                }}
+              >
+                <Text style={styles.mobile}>
                   {item.mobile}
-                  <Icon name="phone" style={styles.phoneIcon} />
                 </Text>
+                <TouchableOpacity>
+                  <Icon
+                    pointerEvents="auto"
+                    name="phone"
+                    style={styles.phoneIcon}
+                    size={22}
+                  />
+                </TouchableOpacity>
               </View>
             </View>
-            <View style={styles.row_content}>
-              <Text style={styles.content}>
-                {item.id}
-              </Text>
-              <Text style={styles.meta}>
-                {item.created_at}
-              </Text>
-            </View>
+            <Text style={styles.content} numberOfLines={2}>
+              {item.id}
+            </Text>
+            <Text style={styles.meta}>
+              {moment(item.created_at).fromNow()}
+            </Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -85,33 +99,48 @@ const styles = StyleSheet.create({
   row_title: {
     marginBottom: normalize(20) / PixelRatio.get(),
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    alignItems: "center"
   },
   title: {
     fontSize: normalize(32) / PixelRatio.get(),
     fontWeight: "700",
-    color: "#000000"
+    color: "#263238"
   },
   meta: {
     fontSize: normalize(24) / PixelRatio.get(),
     color: "#838383",
-    marginRight: normalize(50),
-    lineHeight: 20
+    // marginRight: normalize(50),
+    lineHeight: 20,
+    alignSelf: "flex-end",
+    marginTop: normalize(20) / PixelRatio.get()
+  },
+  mobile: {
+    color: "#838383",
+    fontSize: normalize(24) / PixelRatio.get(),
+    alignItems: "center",
+    marginRight: normalize(7)
   },
   row_content: {},
+  phoneIcon: {
+    width: 44 / PixelRatio.get(),
+    height: 44 / PixelRatio.get()
+  },
   content: {
-    fontSize: normalize(28) / PixelRatio.get(),
-    color: "#999999"
+    fontSize: normalize(23) / PixelRatio.get(),
+    color: "#333333"
   },
   contentWrapper: {
-    width: "100%"
+    // width: "100%"
+    flex: 1
   },
   bnt: {
     marginVertical: normalize(10) / PixelRatio.get()
   },
   phoneWrapper: {
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "flex-start",
+    alignItems: "flex-end"
   },
   iconStyle: {
     marginLeft: 10,

@@ -2,8 +2,9 @@
  * @flow
  */
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, PixelRatio } from "react-native";
 import { observer, inject } from "mobx-react";
+import moment from "moment";
 
 import { NavigationActions } from "react-navigation";
 import { BorrowerStore } from "../../stores/borrower";
@@ -46,48 +47,50 @@ export default class BorrowerDetail extends Component {
       }
     } = this.props;
     return (
-      <View>
+      <View style={styles.container}>
         <View style={styles.header}>
           <Text>借款人详细信息</Text>
+          <Text>
+            {moment(created_at).fromNow()}
+          </Text>
         </View>
         <View style={styles.content}>
-          <Image source={{ uri: avatar }} style={styles.avatar} />
-          <View>
-            <Text style={styles.borrwerMeta}>
-              {created_at}
-            </Text>
-            <Text style={styles.borrwerMeta}>
-              {name}
-            </Text>
-          </View>
           <Text style={styles.borrwerMeta}>
-            {id_no}
+            省份证：{id_no}
           </Text>
           <Text style={styles.borrwerMeta}>
-            {mobile}
+            手机号：{mobile}
           </Text>
         </View>
       </View>
     );
   }
 }
-const 
+// const
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#ffffff"
+  },
   header: {
     borderBottomWidth: 1,
     borderBottomColor: "#e3e3e3",
-    paddingVertical: 20
+    paddingVertical: normalize(16) / PixelRatio.get(),
+    paddingHorizontal: normalize(16) / PixelRatio.get(),
+    flexDirection: "row",
+    justifyContent: "space-between"
   },
   avatar: {
     width: normalize(40),
     height: normalize(40)
   },
   borrwerMeta: {
-    fontSize: normalize(15)
+    fontSize: normalize(15),
+    lineHeight: normalize(20)
   },
   content: {
-    justifyContent: "center",
-    alignItems: "center"
+    paddingVertical: normalize(10) / PixelRatio.get(),
+    paddingHorizontal: normalize(16) / PixelRatio.get()
   }
 });

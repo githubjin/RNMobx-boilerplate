@@ -53,7 +53,7 @@ export default class Home extends Component {
         <Box icon="group" total="3" desc="用户总量" style={styles.one} />
         <Box
           icon="bar-chart-o"
-          total="121637343.00"
+          total="121633.00"
           desc="总交易额"
           style={styles.two}
         />

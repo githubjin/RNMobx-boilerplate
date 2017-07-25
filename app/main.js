@@ -2,7 +2,7 @@
  * @flow
  */
 import React, { Component } from "react";
-import { PixelRatio } from "react-native";
+import { PixelRatio, Image, Text, View, Alert } from "react-native";
 import { StackNavigator, TabNavigator } from "react-navigation";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 import { Provider } from "mobx-react/native";
@@ -44,6 +44,7 @@ const TabContainer: any = TabNavigator(
       screen: Borrower,
       navigationOptions: {
         title: "客户",
+        headerBackTitle: null,
         tabBarIcon: ({ tintColor }) =>
           <Icon name="user" size={20} color={tintColor} />
       }
@@ -78,7 +79,7 @@ const TabContainer: any = TabNavigator(
     tabBarPosition: "bottom",
     tabBarOptions: {
       // activeTintColor: "#3e9ce9",
-      activeTintColor: "#26344b",
+      activeTintColor: "#53cac3",
       inactiveTintColor: "#999999",
       showIcon: true,
       style: {
@@ -104,7 +105,31 @@ const StackContainer = function({ initialRouteName }) {
         }
       },
       BorrowerDetail: {
-        screen: BorrowerDetail
+        screen: BorrowerDetail,
+        navigationOptions: ({ navigation }) => {
+          const {
+            state: {
+              params: {
+                borrower: { created_at, id_no, avatar, mobile, id, name }
+              }
+            }
+          } = navigation;
+          // console.log("navigationOptions : - : ", arguments);
+          return {
+            title: name,
+            headerRight: (
+              <Icon
+                name="phone"
+                size={22}
+                color="#ffffff"
+                style={{ marginRight: 16 / PixelRatio.get() }}
+                onPress={() => {
+                  Alert.alert("Alert", "Alert");
+                }}
+              />
+            )
+          };
+        }
       },
       Login: {
         screen: Login,
@@ -119,7 +144,8 @@ const StackContainer = function({ initialRouteName }) {
       navigationOptions: {
         headerStyle: {
           // backgroundColor: "#3e9ce9"
-          backgroundColor: "#26344b"
+          // backgroundColor: "#26344b"
+          backgroundColor: "#53cac3"
         },
         headerTitleStyle: {
           color: "#fff",
