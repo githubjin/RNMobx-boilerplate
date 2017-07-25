@@ -11,3 +11,5 @@ export const api_borrower_vehicles = "borrowers/:id/vehicles";
 export const api_vehicles = "vehicles";
 export const api_vehicle = "vehicles/:id";
 export const api_borrowings = "borrowings";
+export const api_vehicle_conditions = "vehicles/:id/conditions";
+export const api_borrowing = "borrowings/:id";

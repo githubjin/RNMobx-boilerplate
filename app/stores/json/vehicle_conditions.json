@@ -1,0 +1,51 @@
+{
+  "results": [
+    {
+      "summary": "\u597d",
+      "buy_day": "2011-07-14",
+      "registration_day": "2011-07-16",
+      "plate_price": "300000.00",
+      "loan_pending_amount": null,
+      "loan_pending_terms": null,
+      "evaluated_price": "250000.00",
+      "chassis_state": null,
+      "buy_price": "300000.00",
+      "electric_state": null,
+      "vehicle_id": "5ef22b00-2d0d-4d6e-92b8-cbea2623a5c0",
+      "claims_amount": null,
+      "purchase_type": 0,
+      "transmission_status": [0],
+      "loan_amount": null,
+      "has_claims_records": false,
+      "surface_status": 1,
+      "is_electric_ok": true,
+      "assigned_day": "2017-02-07",
+      "has_navigation": true,
+      "power_kw": "1000",
+      "loan_terms": null,
+      "starter_status": [0],
+      "is_work_ok": 1,
+      "is_leather": true,
+      "insurance_expired_day": "2018-10-17",
+      "created_at": "2017-02-07 14:34:24",
+      "certificate": [0, 1, 2, 3, 4, 5],
+      "has_sunroof": true,
+      "evaluator": {
+        "created_at": "2017-02-07 13:41:20",
+        "id_no": null,
+        "avatar": "",
+        "mobile": "15200000009",
+        "id": "4df54992-5815-4f4e-870e-6eea7f5a0098",
+        "name": "\u8d75\u5168\u80fd"
+      },
+      "engine_status": [0],
+      "collateral_times": -4,
+      "is_chassis_ok": true,
+      "id": "95814a1c-77f4-446c-b40e-9501988f547c",
+      "collateral_last_free": 0,
+      "interior_status": 1,
+      "mileage": 10234,
+      "exhaust_status": [0]
+    }
+  ]
+}

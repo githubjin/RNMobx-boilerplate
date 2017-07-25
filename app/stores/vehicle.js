@@ -4,9 +4,15 @@
  */
 import { observable, action } from "mobx";
 import _ from "lodash/object";
-import { api_vehicle } from "../constants/api";
+import { api_vehicle, api_vehicle_conditions } from "../constants/api";
 import { get, apiUrl } from "../services";
-import type { Vehicle as VehicleType, Borrower, GpsDevices } from "../types";
+import type {
+  Vehicle as VehicleType,
+  Borrower,
+  GpsDevices,
+  VehicleCondition,
+  ResponseData
+} from "../types";
 
 class Vehicle {
   @observable model: string;
@@ -25,6 +31,8 @@ class Vehicle {
   @observable brand: string;
   @observable borrower: Borrower;
   @observable gps_devices: GpsDevices[];
+
+  @observable conditions: VehicleCondition[];
 
   @action
   load(vehicleId: string, jwt?: string, org?: string): Promise<any> {
@@ -53,6 +61,20 @@ class Vehicle {
         this.brand = data.brand;
         this.borrower = data.borrower;
         this.gps_devices = data.gps_devices;
+      });
+  }
+
+  @action
+  loadConditions(vehicleId: string, jwt?: string, org?: string): Promise<any> {
+    return get(
+      apiUrl(api_vehicle_conditions.replace(":id", vehicleId), false),
+      {},
+      jwt,
+      org
+    )
+      .then(response => response.json())
+      .then((data: ResponseData<VehicleCondition>) => {
+        this.conditions = data.results;
       });
   }
 }

@@ -45,9 +45,6 @@ export default class BorrowerDetail extends Component {
         }
       }
     } = this.props;
-    // "created_at":"2017-07-06 11:40:15","id_no":"360735198710076859",
-    // "avatar":"https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/400.png",
-    // "mobile":"13699998888","id":"54dd5974-254b-4a27-81c3-3532c4297476","name":"方新童"
     return (
       <View>
         <View style={styles.header}>
@@ -74,6 +71,7 @@ export default class BorrowerDetail extends Component {
     );
   }
 }
+const 
 
 const styles = StyleSheet.create({
   header: {
