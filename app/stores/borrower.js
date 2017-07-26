@@ -8,11 +8,7 @@ import { ListView } from "react-native";
 
 import { get, apiUrl } from "../services";
 import { api_borrower_info, api_borrower_vehicles } from "../constants/api";
-import type {
-  ErrorMessage,
-  Vehicles as VehiclesType,
-  Vehicles
-} from "../types";
+import type { ErrorMessage, Vehicles, NormalizeVehicles } from "../types";
 import vehicleSchema from "./schemas/vehicle";
 
 type BorrowerInfo = {
@@ -31,7 +27,7 @@ class BorrowerStore {
   @observable id: string;
   @observable created_at: string;
   @observable id_no: string;
-  @observable vehicles: Vehicles;
+  @observable vehicles: NormalizeVehicles;
 
   vehiclesDataSource = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
@@ -70,8 +66,8 @@ class BorrowerStore {
       org
     )
       .then((response: Response) => response.json())
-      .then((data: { results: VehiclesType[] }) => {
-        console.log(`borrower ${borrowerId}'s vehicles are : `, data);
+      .then((data: { results: Object[] }) => {
+        // console.log(`borrower ${borrowerId}'s vehicles are : `, data);
         this.vehicles = normalize(data.results, vehicleSchema);
       });
   }

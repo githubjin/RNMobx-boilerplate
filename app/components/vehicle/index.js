@@ -3,39 +3,44 @@
  * @flow
  */
 import React, { Component } from "react";
-import { View, ListView, Text, StyleSheet, RefreshControl } from "react-native";
+import {
+  View,
+  ListView,
+  Text,
+  StyleSheet,
+  RefreshControl,
+  Alert,
+  PixelRatio
+} from "react-native";
 import { observer, inject } from "mobx-react/native";
 import { VehiclesStore } from "../../stores/vehicles";
+import { AuthStore } from "../../stores/authUser";
+import VehicleList from "./VehicleList";
+import * as colors from "../../constants/colors";
+import { normalize } from "../../utils";
+import VehicleDetail from "./VehicleDetail";
 
-@inject("vehiclesStore")
+@inject("vehiclesStore", "authStore")
 @observer
 export default class Vehicles extends Component {
   props: {
-    vehiclesStore: VehiclesStore
+    vehiclesStore: VehiclesStore,
+    authStore: AuthStore
   };
   componentDidMount() {
-    this.props.vehiclesStore.loadmore();
-  }
-  getDatasource = () => {
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
-    // console.log("this.props.vehiclesStore", this.props.vehiclesStore);
-    if (this.props.vehiclesStore.results) {
-      return ds.cloneWithRows(this.props.vehiclesStore.results.result || []);
-    }
-    return ds.cloneWithRows([]);
-  };
-  renderItem = (vehicleId: string) => {
-    let entity = this.props.vehiclesStore.results.entities[vehicleId];
-    return (
-      <View key={vehicleId}>
-        <Text>
-          {entity.brand}
-        </Text>
-      </View>
+    // Alert.alert("提示", "hello");
+    this.props.vehiclesStore.loadmore(
+      { page: 1 },
+      this.props.authStore.jwt,
+      this.props.authStore.orgBaseInfo.id
     );
-  };
+    // .then(() => {
+    //   console.log(
+    //     "vehicles render method called :",
+    //     this.props.vehiclesStore.results
+    //   );
+    // });
+  }
   loadMore = () => {
     this.props.vehiclesStore.loadmore({
       page: this.props.vehiclesStore.pagination.page + 1
@@ -48,17 +53,7 @@ export default class Vehicles extends Component {
     const { vehiclesStore } = this.props;
     return (
       <View style={styles.container}>
-        <ListView
-          dataSource={this.getDatasource()}
-          renderRow={this.renderItem}
-          enableEmptySections={true}
-          refreshControl={
-            <RefreshControl
-              onRefresh={this.refresh}
-              refreshing={this.props.vehiclesStore.refreshing}
-            />
-          }
-        />
+        <VehicleList data={this.props.vehiclesStore.results} />
       </View>
     );
   }
@@ -66,6 +61,9 @@ export default class Vehicles extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: "#ffffff"
   }
 });
+
+export { VehicleList, VehicleDetail };

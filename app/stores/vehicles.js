@@ -5,10 +5,11 @@
 
 import { observable, action } from "mobx";
 import { normalize } from "normalizr";
+import { Alert } from "react-native";
 
 import vehicleSchema from "./schemas/vehicle";
 
-import type { Pagination, Vehicles as VehiclesType } from "../types";
+import type { Pagination, NormalizeVehicles } from "../types";
 import { get, apiUrl } from "../services";
 import { api_vehicles } from "../constants/api";
 import { queryString } from "../utils";
@@ -23,14 +24,23 @@ type Conditions = {
 
 class VehiclesStore extends SuperStore {
   @observable pagination: Pagination = {};
-  @observable results: VehiclesType = {};
+  @observable results: NormalizeVehicles = {};
   @observable refreshing: boolean = false;
 
   // http://shop.qgqg.me/api/vehicles?page=1&name=VehiclesType&from=2017-05-30&to=2017-05-30
   @action
-  loadmore(conditions: Conditions = { page: 1 }) {
+  loadmore(
+    conditions: Conditions = { page: 1 },
+    jwt: ?string,
+    org: ?string
+  ): Promise<any> {
     this.toggleRefreshing();
-    get(apiUrl(`${api_vehicles}?${queryString(conditions)}`, false))
+    return get(
+      apiUrl(`${api_vehicles}?${queryString(conditions)}`, false),
+      {},
+      jwt,
+      org
+    )
       .then((response: Response) => {
         this.toggleRefreshing();
         return response.json();
@@ -42,13 +52,14 @@ class VehiclesStore extends SuperStore {
           total_count: data.total_count,
           total_page: data.total_page
         };
-        console.log("--------------------data------------------", data);
         this.results = normalize(data.results, vehicleSchema);
         this.fetchError = null;
       })
       .catch(error => {
         this.toggleRefreshing();
         this.fetchError = error;
+        // console.log("vehicles stack list error", error);
+        Alert.alert("Alert", JSON.stringify(error));
       });
   }
   toggleRefreshing() {

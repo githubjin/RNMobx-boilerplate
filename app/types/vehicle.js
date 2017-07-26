@@ -22,8 +22,7 @@ export type Vehicle = {
   production_day: string,
   color: string,
   id: string,
-  borrowers: Borrower[],
-  borrower: Borrower,
+  borrower: string,
   type: number,
   driver_type: number,
   plate_number: string,
@@ -40,6 +39,19 @@ export type Vehicle = {
 export type Vehicles = {
   result: { vehicles: string[] },
   entities: {
+    vehicles: {
+      [string]: Vehicle
+    },
+    borrower: Borrower
+  }
+};
+
+export type NormalizeVehicles = {
+  result: string[],
+  entities: {
+    borrower: {
+      [string]: Borrower
+    },
     vehicles: {
       [string]: Vehicle
     }

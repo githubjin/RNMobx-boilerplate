@@ -3,10 +3,12 @@
  * @flow
  */
 import { schema, normalize } from "normalizr";
-const borrower = new schema.Entity("borrowers");
+const user = new schema.Entity("borrower");
+const gps = new schema.Entity("gps");
 
 const vehicleSchema = new schema.Entity("vehicles", {
-  borrower
+  borrower: user,
+  gps_devices: [gps]
 });
 
-export default vehicleSchema;
+export default [vehicleSchema];

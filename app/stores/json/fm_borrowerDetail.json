@@ -1,0 +1,56 @@
+{
+  "entities": {
+    "borrower": {
+      "a263ec7a-35c9-4a83-845c-e6ffa643f513": {
+        "created_at": "2017-03-10 15:56:48",
+        "id_no": "510131198508022793",
+        "avatar": "https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/112.png",
+        "mobile": "15500000010",
+        "id": "a263ec7a-35c9-4a83-845c-e6ffa643f513",
+        "name": "贺玉二"
+      }
+    },
+    "vehicles": {
+      "ca4ff703-4233-40b6-9c1a-a88ef47f1977": {
+        "brand": "阿斯顿·马丁",
+        "production_day": "2017-01-12",
+        "plate_number": "453455555555",
+        "type": 1,
+        "color": "11",
+        "shifting": 1,
+        "borrower": "a263ec7a-35c9-4a83-845c-e6ffa643f513",
+        "created_at": "2017-03-31 17:55:58",
+        "driver_type": 0,
+        "model": "2010款 阿斯顿马丁ONE-77 7.3 限量版",
+        "series": "阿斯顿马丁ONE-77",
+        "displacement": "45",
+        "vin": "12453454543435555",
+        "id": "ca4ff703-4233-40b6-9c1a-a88ef47f1977",
+        "gps_devices": [],
+        "engine_number": "75487"
+      },
+      "ac8467d6-f1c7-42a4-a18a-c76c46fbc0c8": {
+        "brand": "奥迪",
+        "production_day": "2017-01-18",
+        "plate_number": "沪12738",
+        "type": 2,
+        "color": "9",
+        "shifting": 0,
+        "borrower": "a263ec7a-35c9-4a83-845c-e6ffa643f513",
+        "created_at": "2017-03-10 16:06:15",
+        "driver_type": 0,
+        "model": "2004款 奥迪A6 2.8L 行政版",
+        "series": "奥迪A6",
+        "displacement": "2",
+        "vin": "18273847586738227",
+        "id": "ac8467d6-f1c7-42a4-a18a-c76c46fbc0c8",
+        "gps_devices": [],
+        "engine_number": "SDS1212121"
+      }
+    }
+  },
+  "result": [
+    "ca4ff703-4233-40b6-9c1a-a88ef47f1977",
+    "ac8467d6-f1c7-42a4-a18a-c76c46fbc0c8"
+  ]
+}

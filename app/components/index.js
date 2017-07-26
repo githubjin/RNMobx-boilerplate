@@ -5,7 +5,7 @@
 import Home from "./home";
 import Others from "./others/Others";
 import Login from "./login";
-import Vehicle from "./vehicle";
+import Vehicle, { VehicleDetail } from "./vehicle";
 import Splash from "./splash/Splash";
 import Borrower from "./borrowers";
 import Borrowing from "./borrowing";
@@ -20,5 +20,6 @@ export {
   Borrower,
   Vehicle,
   Borrowing,
-  BorrowerDetail
+  BorrowerDetail,
+  VehicleDetail
 };

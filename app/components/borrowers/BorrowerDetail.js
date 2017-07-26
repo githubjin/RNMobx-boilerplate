@@ -2,9 +2,10 @@
  * @flow
  */
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image, PixelRatio } from "react-native";
+import { View, Text, StyleSheet, Image, PixelRatio, Alert } from "react-native";
 import { observer, inject } from "mobx-react";
 import moment from "moment";
+import ScrollableTabView from "react-native-scrollable-tab-view";
 
 import { NavigationActions } from "react-navigation";
 import { BorrowerStore } from "../../stores/borrower";
@@ -12,6 +13,8 @@ import { AuthStore } from "../../stores/authUser";
 import { CurrentUser } from "../../stores/currentUser";
 import { normalize } from "../../utils";
 import * as colors from "../../constants/colors";
+// import type { NormalizeVehicles } from "../../types";
+import { VehicleList } from "../vehicle";
 
 @inject("borrowerStore", "authStore", "currentUserStore")
 @observer
@@ -23,19 +26,26 @@ export default class BorrowerDetail extends Component {
     currentUserStore: CurrentUser
   };
   componentDidMount() {
-    console.log(
-      `this.props.navigation.state.params are : ${JSON.stringify(
-        this.props.navigation.state.params.borrower
-      )}`
-    );
+    // console.log(
+    //   `this.props.navigation.state.params are : ${JSON.stringify(
+    //     this.props.navigation.state.params.borrower
+    //   )}`
+    // );
+    const {
+      navigation: { state: { params: { borrower: { id } } } },
+      authStore: { jwt, orgBaseInfo: { id: orgId } }
+    } = this.props;
     this.props.borrowerStore
-      .loadBorrower(
-        this.props.navigation.state.params.borrowerId,
-        this.props.authStore.jwt,
-        this.props.authStore.orgBaseInfo.id
-      )
-      .then(() => {
-        console.log("0-0-0-0-0-0-0-", this.props.borrowerStore);
+      .loadVehicles(id, jwt, orgId)
+      .then(data => {
+        console.log(
+          `borrower detail vehicle are : ${JSON.stringify(
+            this.props.borrowerStore.vehicles
+          )}`
+        );
+      })
+      .catch(reason => {
+        Alert.alert("提示", "获取车辆信息失败！");
       });
   }
   render() {
@@ -48,13 +58,13 @@ export default class BorrowerDetail extends Component {
     } = this.props;
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Text>借款人详细信息</Text>
-          <Text>
+        <View style={[styles.header, styles.hp, styles.hbb]}>
+          <Text style={styles.headetrTitle}>用户信息</Text>
+          <Text style={styles.createdAt}>
             {moment(created_at).fromNow()}
           </Text>
         </View>
-        <View style={styles.content}>
+        <View style={[styles.content, styles.hp, styles.hbb]}>
           <Text style={styles.borrwerMeta}>
             省份证：{id_no}
           </Text>
@@ -62,9 +72,22 @@ export default class BorrowerDetail extends Component {
             手机号：{mobile}
           </Text>
         </View>
+        <View style={styles.hbb}>
+          <Text style={[styles.spiteHeader, styles.hp]}>车辆</Text>
+        </View>
+        <VehicleList
+          data={this.props.borrowerStore.vehicles}
+          showOperators={true}
+          navigateToVehicleDetail={this.navigateToVehicleDetail}
+        />
       </View>
     );
   }
+  navigateToVehicleDetail = vehicle => {
+    return () => {
+      this.props.navigation.navigate("VehicleDetail", { vehicle });
+    };
+  };
 }
 // const
 
@@ -73,13 +96,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ffffff"
   },
+  hp: {
+    paddingHorizontal: normalize(4) * PixelRatio.get()
+  },
+  hbb: {
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: "#e3e3e3"
+  },
   header: {
-    borderBottomWidth: 1,
-    borderBottomColor: "#e3e3e3",
     paddingVertical: normalize(16) / PixelRatio.get(),
     paddingHorizontal: normalize(16) / PixelRatio.get(),
     flexDirection: "row",
     justifyContent: "space-between"
+  },
+  headetrTitle: {
+    fontSize: normalize(18)
   },
   avatar: {
     width: normalize(40),
@@ -92,5 +123,12 @@ const styles = StyleSheet.create({
   content: {
     paddingVertical: normalize(10) / PixelRatio.get(),
     paddingHorizontal: normalize(16) / PixelRatio.get()
+  },
+  createdAt: {
+    fontSize: normalize(15)
+  },
+  spiteHeader: {
+    paddingVertical: normalize(5) * PixelRatio.get(),
+    fontSize: normalize(18)
   }
 });
