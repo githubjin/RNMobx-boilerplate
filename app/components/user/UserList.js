@@ -3,8 +3,11 @@
  */
 import React, { Component } from "react";
 import { StyleSheet, View, Text, FlatList } from "react-native";
+import Icon from "react-native-vector-icons/SimpleLineIcons";
+// import faIcon from "react-native-vector-icons/FontAwesome";
 
 import type { UserType } from "../../types";
+import { statusArray } from "../../constants/metaData";
 
 export default class UserList extends Component {
   props: {
@@ -39,16 +42,18 @@ function UserItem({ item }: { item: UserType }) {
         {item.user.name}
       </Text>
       <Text>
-        {item.id_verified}
+        {!item.id_verified && <Icon name="phone" />}
+        {!item.id_verified && <Icon name="envelope" />}
+        {!item.id_verified && <Icon name="user" />}
       </Text>
       <Text>
         {item.user.created_at}
       </Text>
       <Text>
-        {item.roles}
+        {item.roles.map(role => role.name)}
       </Text>
       <Text>
-        {item.status}
+        {statusArray[item.status]}
       </Text>
       <Text>
         {item.user.id}

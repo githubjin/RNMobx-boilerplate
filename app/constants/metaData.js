@@ -95,6 +95,7 @@ export const termUnit = dictChoices(rangeChoices(["天", "个月"]));
 export const borrowingTypeDict = dictChoices(
   rangeChoices(["抵押借款", "质押借款", "库存融资"])
 );
+export const statusArray = ["待激活", "可用", "不可用"];
 
 export type CarColorType = {
   class: string,
