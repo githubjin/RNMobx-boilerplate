@@ -3,7 +3,7 @@
  * @flow
  */
 
-import type { Vehicle } from "./vehicle";
+import type { Vehicle } from ./vehicle;
 
 /**
   * 资产
@@ -86,4 +86,53 @@ export type BorrowingApplication = {
   province: string,
   borrowing_type: number,
   purpose: number
+};
+
+export type Picture = {
+  source_link: string,
+  filename: string,
+  rotate: number,
+  key: string,
+  size: number
+};
+
+export type Fee = {
+  violation_deposit_fee: { value: string },
+  gps_deposit_fee: { value: string },
+  parking_fee: { value: string },
+  evaluation_fee: { value: string },
+  risk_deposit_fee: { value: string },
+  other_fee: { value: string, name: string },
+  agency_fee: { value: string },
+  gps_fee: { value: string }
+};
+
+export type Borrowing = {
+  renew_chain: string,
+  title: string,
+  contract_pics: Picture[],
+  prev_billing_date: string,
+  salesman_id: string,
+  term: number,
+  term_unit: number,
+  amount: string,
+  cover_pic: Picture[],
+  no: number,
+  application:  BorrowingApplication,
+  supporting_pics: Picture[],
+  last_billing_date: string,
+  violation_records: Picture[],
+  apply_pics: Picture[],
+  loan_id: string,
+  repay_type: number,
+  fees: Fee,
+  call_records: Picture[],
+  next_billing_date: string,
+  created_at: string,
+  interest_rate: string,
+  status: number,
+  id: string,
+  repay_schema: Array<*>,
+  type: number,
+  start_billing_date: string
 };

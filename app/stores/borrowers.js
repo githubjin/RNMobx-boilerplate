@@ -6,6 +6,7 @@ import { observable, action, computed } from "mobx";
 import { ListView } from "react-native";
 import { get, apiUrl } from "../services";
 import { api_borrowers } from "../constants/api";
+import { queryString } from "../utils";
 
 export type Borrower = {
   id: string,
@@ -45,12 +46,12 @@ class Borrowers {
   }
   @action
   loadMore(
-    options: QueryOptions = { page: 1 },
+    conditions: QueryOptions = { page: 1 },
     { jwt, org }: AuthFields
   ): Promise<any> {
-    console.log("Customer loadMore is called, conditions are", options);
+    console.log("Customer loadMore is called, conditions are", conditions);
     return get(
-      apiUrl(`${api_borrowers}?page=${options.page}`, false),
+      apiUrl(`${api_borrowers}?${queryString(conditions)}`, false),
       {},
       jwt,
       org

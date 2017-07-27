@@ -83,24 +83,10 @@ function DetailItem({
   color: string
 }) {
   return (
-    <View
-      style={{
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderBottomColor: color,
-        marginBottom: 1
-      }}
-    >
-      <Text
-        style={{
-          fontSize: normalize(16),
-          color: FONT_COLOR_LIST_ITEM_TITLE,
-          fontWeight: "500"
-        }}
-      >
+    <View style={[styles.itemContainer, { borderBottomColor: color }]}>
+      <Text style={styles.itemLabel}>
         {label}：
-        <Text style={{ fontSize: normalize(14), color: FONT_COCLOR_CONTENT }}>
-          {value}
-        </Text>
+        <Text style={styles.itemVelue}>{value}</Text>
       </Text>
     </View>
   );
@@ -111,5 +97,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ffffff",
     padding: normalize(4)
+  },
+  itemContainer: {
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    marginBottom: 1
+  },
+  itemVelue: {
+    fontSize: normalize(14),
+    color: FONT_COCLOR_CONTENT
+  },
+  itemLabel: {
+    fontSize: normalize(16),
+    color: FONT_COLOR_LIST_ITEM_TITLE,
+    fontWeight: "500"
   }
 });

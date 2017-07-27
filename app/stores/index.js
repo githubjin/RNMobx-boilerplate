@@ -9,6 +9,10 @@ import vehiclesStore from "./vehicles";
 import vehicleStore from "./vehicle";
 import borrowerStore from "./borrower";
 import borrowingsStore from "./borrowings";
+import borrowingStore from "./borrowing";
+import appointmentStore from "./appointment";
+import accountStore from "./account";
+import userStore from "./user";
 
 // console.log("authStore is : ", authStore);
 // console.log("captchaStore is : ", captchaStore);
@@ -21,5 +25,9 @@ export {
   vehiclesStore,
   authStore,
   vehicleStore,
-  borrowingsStore
+  borrowingsStore,
+  borrowingStore,
+  appointmentStore,
+  accountStore,
+  userStore
 };

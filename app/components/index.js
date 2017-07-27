@@ -3,13 +3,16 @@
  */
 
 import Home from "./home";
-import Others from "./others/Others";
+import Others from "./others";
 import Login from "./login";
-import Vehicle, { VehicleDetail } from "./vehicle";
+import Vehicle, { VehicleDetail, VehicleConditions } from "./vehicle";
 import Splash from "./splash/Splash";
 import Borrower from "./borrowers";
 import Borrowing from "./borrowing";
 import BorrowerDetail from "./borrowers/BorrowerDetail";
+import Appointment from "./appointment";
+import Account from "./account";
+import Users from "./user";
 
 // export { Home, Others, Login, Splash, Customer, BorrowerDetail };
 export {
@@ -21,5 +24,9 @@ export {
   Vehicle,
   Borrowing,
   BorrowerDetail,
-  VehicleDetail
+  VehicleDetail,
+  VehicleConditions,
+  Appointment,
+  Account,
+  Users
 };

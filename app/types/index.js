@@ -12,6 +12,10 @@ import type {
 import type { ErrorMessage } from "./error";
 import type { VehicleCondition } from "./condition";
 import type { ResponseData } from "./result";
+import type { Borrowing } from "./borrowing";
+import type { AppointmentType } from "./appointment";
+import type { AccountType } from "./account";
+import type { UserType } from "./user";
 
 export type {
   Pagination,
@@ -22,5 +26,9 @@ export type {
   Vehicle,
   VehicleCondition,
   NormalizeVehicles,
-  ResponseData
+  ResponseData,
+  Borrowing,
+  AppointmentType,
+  AccountType,
+  UserType
 };

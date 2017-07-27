@@ -19,6 +19,7 @@ import VehicleList from "./VehicleList";
 import * as colors from "../../constants/colors";
 import { normalize } from "../../utils";
 import VehicleDetail from "./VehicleDetail";
+import VehicleConditions from "./VehicleConditions";
 
 @inject("vehiclesStore", "authStore")
 @observer
@@ -66,4 +67,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export { VehicleList, VehicleDetail };
+export { VehicleList, VehicleDetail, VehicleConditions };

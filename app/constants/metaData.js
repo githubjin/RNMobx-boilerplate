@@ -23,6 +23,13 @@ function rangeChoices(option_list, start = 0) {
     return { name: item, value: index + start };
   });
 }
+function dictChoices(choices) {
+  var t = {};
+  choices.map(function(item) {
+    t[item["value"]] = item["name"];
+  });
+  return t;
+}
 
 export const carType = [
   { name: "小型汽车", value: 2 },
@@ -53,6 +60,41 @@ export const carType = [
 
 export const shiftingType = rangeChoices(["手动", "自动"]);
 export const driverType = rangeChoices(["两驱", "四驱"]);
+
+export const autoReviewStatusDict = {
+  0: { title: "已创建机审", color: "#F1C40F" },
+  1: { title: "正在机审", color: "#659be0" },
+  2: { title: "机审通过", color: "#36c6d3" },
+  3: { title: "机审拒绝", color: "#ed6b75" }
+};
+
+export const phoneReviewStatusDict = {
+  0: { title: "等待电核", color: "#F1C40F" },
+  1: { title: "电核完成", color: "#36c6d3" }
+};
+
+export const borrowingStatusDict = {
+  "0": { title: "待初审", color: "#F1C40F", stage: "初审", action: "shop_review" },
+  "1": { title: "待主审", color: "#659be0", stage: "主审", action: "master_review" },
+  "-1": { title: "初审拒绝", color: "#ed6b75" },
+  "2": {
+    title: "待财审",
+    color: "primary",
+    stage: "财审",
+    action: "accountant_review"
+  },
+  "-2": { title: "主审拒绝", color: "#ed6b75" },
+  "3": { title: "待复审", color: "#36c6d3", stage: "复审", action: "retrial" },
+  "-3": { title: "财审拒绝", color: "#ed6b75" },
+  "4": { title: "还款中", color: "#bac3d0" },
+  "-4": { title: "复审拒绝", color: "#ed6b75" },
+  "5": { title: "还款完成", color: "#bac3d0" },
+  "-5": { title: "坏账", color: "#ed6b75" }
+};
+export const termUnit = dictChoices(rangeChoices(["天", "个月"]));
+export const borrowingTypeDict = dictChoices(
+  rangeChoices(["抵押借款", "质押借款", "库存融资"])
+);
 
 export type CarColorType = {
   class: string,

@@ -13,3 +13,9 @@ export const api_vehicle = "vehicles/:id";
 export const api_borrowings = "borrowings";
 export const api_vehicle_conditions = "vehicles/:id/conditions";
 export const api_borrowing = "borrowings/:id";
+// 预约
+export const api_appointments = "appointments";
+// 账户
+export const api_account = "shops/:id/account";
+// 员工 用户
+export const api_users = "users";

@@ -1,0 +1,23 @@
+{
+  "results": [
+    {
+      "name": "test",
+      "mobile": "1310561305",
+      "remark": "等待",
+      "amount": 3000,
+      "term": 1,
+      "term_unit": 1,
+      "status": 2,
+      "shop": {
+        "id": "1",
+        "name": "北京老街店"
+      },
+      "id": "09129292119-kskl-12921",
+      "history": []
+    }
+  ],
+  "total_page": 1,
+  "total_count": 0,
+  "page_size": 10,
+  "page": 1
+}

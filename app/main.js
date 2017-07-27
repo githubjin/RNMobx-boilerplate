@@ -18,7 +18,11 @@ import {
   Vehicle,
   Borrowing,
   BorrowerDetail,
-  VehicleDetail
+  VehicleDetail,
+  VehicleConditions,
+  Appointment,
+  Account,
+  Users
 } from "./components";
 import { JWT_KEY } from "./constants/config";
 import { getFromStorage } from "./services";
@@ -134,6 +138,15 @@ const StackContainer = function({ initialRouteName }) {
       },
       VehicleDetail: {
         screen: VehicleDetail
+      },
+      Appointment: {
+        screen: Appointment
+      },
+      Account: {
+        screen: Account
+      },
+      Users: {
+        screen: Users
       },
       Login: {
         screen: Login,

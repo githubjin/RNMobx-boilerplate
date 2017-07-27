@@ -1,22 +1,27 @@
 /**
  * @flow
  */
+
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Alert } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { observer, inject } from "mobx-react";
 
-import BorrowingList from "./BorrowingList";
-import { Borrowings as BorrowingsStore } from "../../stores/borrowings";
 import { AuthStore } from "../../stores/authUser";
-@inject("authStore", "borrowingsStore")
+import { UserStore } from "../../stores/user";
+import UserList from "./UserList";
+
+/**
+ * 员工 信息列表 入口
+ */
+@inject("authStore", "userStore")
 @observer
-export default class Borrowing extends Component {
+export default class User extends Component {
   props: {
     authStore: AuthStore,
-    borrowingsStore: BorrowingsStore
+    userStore: UserStore
   };
   componentDidMount() {
-    this.props.borrowingsStore
+    this.props.userStore
       .loadMore(
         { page: 1 },
         this.props.authStore.jwt,
@@ -24,13 +29,13 @@ export default class Borrowing extends Component {
       )
       .then(() => {})
       .catch(reason => {
-        console.log("this.props.borrowingStore.loadMore error : ", reason);
+        console.log("load user lsit error", reason);
       });
   }
   render() {
     return (
       <View style={styles.container}>
-        <BorrowingList data={this.props.borrowingsStore.borrowings} />
+        <UserList data={this.props.userStore.users} />
       </View>
     );
   }

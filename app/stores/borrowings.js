@@ -10,7 +10,7 @@ import { queryString } from "../utils";
 import SuperStore from "./SuperStore";
 import { api_borrowings } from "../constants/api";
 
-import type { Pagination } from "../types";
+import type { Pagination, Borrowing } from "../types";
 
 type Condition = {
   page: number,
@@ -26,12 +26,21 @@ type Condition = {
 };
 // Warn : 业务数据schema 没有细化
 class Borrowings extends SuperStore {
-  @observable pagination: ?Pagination;
-  @observable borrowings: Object[];
+  @observable pagination: ?Pagination = {};
+  @observable borrowings: Borrowing[] = [];
 
   @action
-  loadMore(conditions: Condition = { page: 1 }) {
-    get(apiUrl(`${api_borrowings}?${queryString(conditions)}`))
+  loadMore(
+    conditions: Condition = { page: 1 },
+    jwt?: string,
+    org?: string
+  ): Promise<*> {
+    return get(
+      apiUrl(`${api_borrowings}?${queryString(conditions)}`, false),
+      {},
+      jwt,
+      org
+    )
       .then((response: Response) => response.json())
       .then(data => {
         this.pagination = {
@@ -41,9 +50,18 @@ class Borrowings extends SuperStore {
           page_size: data.page_size
         };
         this.borrowings = data.results;
-      })
-      .catch(error => {
-        this.fetchError = error;
+      });
+  }
+
+  /**
+   * action for pre borrowing dec - 
+   */
+  @action
+  loadBorrowingBy(id: string, jwt: string, org: string): Promise<any> {
+    return get(apiUrl(`${api_borrowing}/${id}`, false), {}, jwt, org)
+      .then(response => response.json())
+      .then(data => {
+        this.borrowing = data;
       });
   }
 }
