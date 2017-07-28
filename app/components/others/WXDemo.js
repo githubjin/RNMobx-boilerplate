@@ -25,20 +25,6 @@ export default class WXDemo extends Component {
     const { width, height } = Dimensions.get("window");
     return (
       <ScrollView style={styles.container}>
-        {/*<Image
-          style={styles.image}
-          source={{
-            uri:
-              "https://eightwords.oss-cn-beijing.aliyuncs.com/TkFaMm3k1i/QXJ0aWNsZTo1YjJvVHF5V3hs/rc-upload-1496495278481-3.jpg!origin_thumb?OSSAccessKeyId=LTAI2ByrdckqgrnG&Expires=1498380233&Signature=D3wW3IkRdjBABLEPwW%2Bim2yAnB0%3D"
-          }}
-        />
-        <Image
-          style={styles.px_image}
-          source={{
-            uri:
-              "https://eightwords.oss-cn-beijing.aliyuncs.com/TkFaMm3k1i/QXJ0aWNsZTo1YjJvVHF5V3hs/rc-upload-1496495278481-3.jpg!origin_thumb?OSSAccessKeyId=LTAI2ByrdckqgrnG&Expires=1498380233&Signature=D3wW3IkRdjBABLEPwW%2Bim2yAnB0%3D"
-          }}
-        />*/}
         <Icon name="user" />
         <Item />
         <Item />

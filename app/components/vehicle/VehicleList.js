@@ -112,17 +112,21 @@ function VehicleCard({
             paddingTop: normalize(10)
           }}
         >
-          <TouchableOpacity onPress={seeDetail}>
-            <Text style={styles.operatorBnt}>查看详情</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={seeConditionDetail}>
-            <Text style={styles.operatorBnt}>车况信息</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={seeViolations}>
-            <Text style={styles.operatorBnt}>车辆违章</Text>
-          </TouchableOpacity>
+          <OperatorButton label="查看详情" onPress={seeDetail} />
+          <OperatorButton label="车况信息" onPress={seeConditionDetail} />
+          <OperatorButton label="车辆违章" onPress={seeViolations} />
         </View>}
     </View>
+  );
+}
+
+function OperatorButton({ label, onPress }) {
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <Text style={styles.operatorBnt}>
+        {label}
+      </Text>
+    </TouchableOpacity>
   );
 }
 
