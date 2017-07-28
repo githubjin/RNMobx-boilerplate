@@ -17,7 +17,7 @@ moment.locale("zh-cn");
 
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 
-import { observer } from "mobx-react";
+import { observer } from "mobx-react/native";
 import type { Borrower } from "../../stores/borrowers";
 import { ROUTE_BORROWER } from "../../constants/routes";
 import { normalize } from "../../utils";

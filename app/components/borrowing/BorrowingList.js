@@ -3,7 +3,7 @@
  */
 import React, { Component } from "react";
 import { FlatList, View, Text, StyleSheet, Platform } from "react-native";
-import { observer, inject } from "mobx-react";
+import { observer, inject } from "mobx-react/native";
 
 import type { Boorrowing } from "../../types";
 import {
