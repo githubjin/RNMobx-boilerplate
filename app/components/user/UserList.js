@@ -9,6 +9,7 @@ import Icon from "react-native-vector-icons/SimpleLineIcons";
 import type { UserType } from "../../types";
 import { statusArray } from "../../constants/metaData";
 import { BORDER_PRIMARY_COLOR } from "../../constants/colors";
+import normalize from "../../utils/normalizeText";
 
 export default class UserList extends Component {
   props: {
@@ -56,30 +57,30 @@ function UserItem({ item }: { item: UserType }) {
         })
       }}
     >
-      <View>
-        <Text style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          {item.user.mobile}
-        </Text>
-        <Text>
+      <View style={{ flexDirection: "row", justifyContent: "spece-between" }}>
+        <Text style={styles.cardHeader}>
           {item.user.name}
         </Text>
+        <Text style={styles.cardHeaderMobile}>
+          {item.user.mobile}
+        </Text>
       </View>
-      <Text>
+      <Text style={styles.cardMeta}>
         {item.user.created_at}
       </Text>
       <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
         {item.roles.map(role =>
-          <Text>
+          <Text style={styles.cardContent}>
             {role.name}
           </Text>
         )}
       </View>
-      <Text>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         {!item.id_verified && <Icon name="phone" />}
         {!item.id_verified && <Icon name="envelope" />}
         {!item.id_verified && <Icon name="user" />}
-      </Text>
-      <Text>
+      </View>
+      <Text style={styles.cardContent}>
         {statusArray[item.status]}
       </Text>
       <Text>
@@ -95,6 +96,19 @@ UserList.defaultProps = {
 
 const styles = StyleSheet.create({
   itemContainer: {
-    paddingVertical: 10
+    paddingVertical: normalize(10)
+  },
+  cardHeader: {
+    fontSize: normalize(18),
+    fontWeight: "700"
+  },
+  cardHeaderMobile: {
+    fontSize: normalize(17)
+  },
+  cardContent: {
+    fontSize: normalize(15)
+  },
+  cardMeta: {
+    fontSize: normalize(14)
   }
 });

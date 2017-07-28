@@ -27,8 +27,8 @@ import { normalize } from "../../utils";
 export default class VehicleList extends Component {
   props: {
     data: NormalizeVehicles,
-    showOperators: boolean,
-    navigateToVehicleDetail?: (vehicle: Object) => void
+    showOperators?: boolean,
+    navigateToVehicleDetail?: (vehicle: Object) => () => void
   };
   renderItem = ({ item }: { item: string }) => {
     if (_.isEmpty(item)) {
@@ -46,7 +46,10 @@ export default class VehicleList extends Component {
         color={vehicle.color}
         created_at={vehicle.created_at}
         avatar={user.avatar}
-        seeDetail={this.props.navigateToVehicleDetail(vehicle)}
+        seeDetail={
+          this.props.navigateToVehicleDetail &&
+          this.props.navigateToVehicleDetail(vehicle)
+        }
         seeConditionDetail={() => {}}
         seeViolations={() => {}}
         showOperators={showOperators}
@@ -71,7 +74,7 @@ VehicleList.defaultProps = {
   data: {
     result: []
   },
-  navigateToVehicleDetail: () => () => {}
+  showOperators: false
 };
 
 function VehicleCard({
@@ -85,7 +88,7 @@ function VehicleCard({
   seeConditionDetail,
   seeViolations,
   showOperators
-}) {
+}: Object) {
   const trueColor = getColorByColorId(color).color || "transparent";
   return (
     <View style={[styles.container, { borderBottomColor: trueColor }]}>
