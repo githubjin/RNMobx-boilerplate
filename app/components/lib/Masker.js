@@ -128,7 +128,7 @@ export default class ConditionMasker extends Component {
 const styles = StyleSheet.create({
   constainer: {
     // flex: 1
-    // backgroundColor: "transparent"
+    // backgroundColor: "transparent",
   },
   overlay: {
     backgroundColor: "#333333",
@@ -148,5 +148,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 0,
     right: 0
+  },
+  overlayMasker: {
+    ...StyleSheet.absoluteFillObject,
+    borderBoottomWidth: StyleSheet.hairlineWidth,
+    borderBoottomColor: "#333333"
   }
 });

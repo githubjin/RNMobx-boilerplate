@@ -16,6 +16,7 @@ import {
   ScrollView
 } from "react-native";
 import PropTypes from "prop-types";
+import moment from "moment";
 import { ScreenUtil } from "../../utils";
 
 import Icon from "react-native-vector-icons/SimpleLineIcons";
@@ -27,12 +28,6 @@ export default class WXDemo extends Component {
       <ScrollView style={styles.container}>
         <Icon name="user" />
         <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
       </ScrollView>
     );
   }
@@ -42,14 +37,19 @@ type Props = {
   first?: boolean
 };
 
-const Item = ({ first = false }: Props) =>
+const Item = ({ first = false, date = "2017-08-01 17:19" }: Props) =>
   <View style={first ? [styles.item, styles.itemTop] : styles.item}>
     <View style={styles.row_title}>
-      <Text style={styles.title}>订阅号</Text>
-      <Text style={styles.meta}>12:15</Text>
+      <Text style={styles.title}>subject</Text>
+      <Text style={styles.meta}>
+        {moment(date).format("YYYY-MM-DD hh:mm:ss")}
+      </Text>
     </View>
     <View style={styles.row_content}>
-      <Text style={styles.content}>好好读书，才是我们读书将的最好宿命</Text>
+      <Text style={styles.content}>
+        parentText
+        <Text>subText</Text>
+      </Text>
     </View>
   </View>;
 
