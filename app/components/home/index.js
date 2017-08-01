@@ -44,7 +44,8 @@ export default class Home extends Component {
         navigationReset(this.props.navigation, ROUTE_LOGIN);
       })
       .catch(error => {
-        showShort("提示", error);
+        console.log("home load error", error);
+        console.log("提示", error);
       });
   };
   render() {

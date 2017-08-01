@@ -16,6 +16,9 @@ import UserList from "./UserList";
 @inject("authStore", "userStore")
 @observer
 export default class User extends Component {
+  static navigationOptions = {
+    title: "员工"
+  };
   props: {
     authStore: AuthStore,
     userStore: UserStore

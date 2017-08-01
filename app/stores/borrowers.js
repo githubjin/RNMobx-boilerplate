@@ -69,6 +69,7 @@ class Borrowers {
         // Borrower results 未处理
       })
       .catch(error => {
+        console.log("borrowers load error:", error);
         this.fetchError = error;
       });
   }

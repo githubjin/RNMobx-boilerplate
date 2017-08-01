@@ -14,6 +14,9 @@ import AppointmentList from "./AppointmentList";
 @inject("authStore", "appointmentStore")
 @observer
 export default class Appointment extends Component {
+  static navigationOptions = {
+    title: "预约"
+  };
   props: {
     authStore: AuthStore,
     appointmentStore: AppointmentStore

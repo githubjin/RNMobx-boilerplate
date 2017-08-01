@@ -74,6 +74,7 @@ const TabContainer: any = TabNavigator(
       screen: Others,
       navigationOptions: {
         title: "其他",
+        headerBackTitle: null,
         tabBarIcon: ({ tintColor }) =>
           <Icon name="list" size={20} color={tintColor} />
       }
