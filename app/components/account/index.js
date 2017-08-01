@@ -2,11 +2,17 @@
  * @flow
  */
 import React, { Component } from "react";
-import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator
+  // NavigationExperimental
+} from "react-native";
 import { observer, inject } from "mobx-react";
-
 import { AuthStore } from "../../stores/authUser";
 import { AccountStore } from "../../stores/account";
+// const { Card, CardStack } = NavigationExperimental;
 
 @inject("authStore", "accountStore")
 @observer

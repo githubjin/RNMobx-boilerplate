@@ -15,6 +15,7 @@ const { PixelRatio, Dimensions } = React;
 const pixelRatio = PixelRatio.get(); // 像素密度
 const deviceHeight = Dimensions.get("window").height; // 屏幕像素高度
 const deviceWidth = Dimensions.get("window").width; // 平模像素宽度
+// const deviceScreenScale = Dimensions.get("screen").scale;
 
 // -- Testing Only --
 // const fontScale = PixelRatio.getFontScale();

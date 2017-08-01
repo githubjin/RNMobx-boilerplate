@@ -13,7 +13,8 @@ import {
   InteractionManager,
   Image,
   FlatList,
-  Alert
+  Alert,
+  Button
 } from "react-native";
 import { ActionSheet } from "antd-mobile";
 import { observer, inject } from "mobx-react/native";
@@ -28,6 +29,9 @@ import { AuthStore } from "../../stores/authUser";
 import { ROUTE_BORROWER } from "../../constants/routes";
 import CustomerItem from "./BorrowerItem";
 import CustomerList from "./BorrowerList";
+import Conditions from "./Conditions";
+import ConditionForm from "./ConditionForm";
+import { Masker } from "../lib";
 
 @inject("borrowersStore", "authStore", "currentUserStore")
 @observer
@@ -38,10 +42,18 @@ export default class Customer extends Component {
     currentUserStore: CurrentUser,
     navigation: NavigationActions
   };
+  state: {
+    maskerShow: boolean,
+    currentField: string
+  };
   ds: ListView.DataSource;
   // customers: Borrower[];
   constructor(props: any) {
     super(props);
+    this.state = {
+      maskerShow: false,
+      currentField: "mobile"
+    };
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
   }
   componentDidMount() {
@@ -76,17 +88,42 @@ export default class Customer extends Component {
   keyExtractor = (item: Borrower, index: number): string => {
     return item.id;
   };
+  toggleMasker = (fieldName: string) => {
+    return () => {
+      this.setState({
+        maskerShow: !this.state.maskerShow,
+        currentField: fieldName
+      });
+    };
+  };
+  doFilter = (fieldNames: string[] = [], values: string[] = []) => {
+    let conditions = { page: 1 };
+    fieldNames.forEach((field, index) => {
+      conditions[field] = values[index];
+    });
+    this.props.borrowersStore.loadMore(conditions);
+  };
+
   render() {
-    console.log(
-      `this.props.borrowersStore.results: ${this.props.borrowersStore.results}`
-    );
+    const { maskerShow, currentField } = this.state;
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
+        <Conditions onPress={this.toggleMasker} />
+        <Masker
+          maskerShow={this.state.maskerShow}
+          toggleMasker={this.toggleMasker}
+        >
+          <ConditionForm
+            onOk={this.doFilter}
+            onCancel={this.toggleMasker}
+            fieldName={currentField}
+          />
+        </Masker>
         <CustomerList
           rows={this.props.borrowersStore.results}
           openDetail={this.showBorrowerDetail}
         />
-      </ScrollView>
+      </View>
     );
   }
 }
