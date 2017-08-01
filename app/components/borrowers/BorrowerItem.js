@@ -26,19 +26,12 @@ export default class CustomerItem extends Component {
   props: {
     item: Borrower,
     first: boolean,
-    navigation: Object,
-    openDetail: (item: Object) => void
-  };
-  componentDidMount() {
-    // console.log("Customer Item is mounted", this.props.item);
-  }
-  showBorrowerDetail = (item: Borrower) => {
-    this.props.navigation.navigate(ROUTE_BORROWER, { borrower: item });
+    openDetail: (item: Object) => () => void
   };
   render() {
-    const { item, first } = this.props;
+    const { item, first, openDetail } = this.props;
     return (
-      <TouchableOpacity onPress={this.props.openDetail(item)}>
+      <TouchableOpacity onPress={openDetail(item)}>
         <View style={first ? [styles.item, styles.itemTop] : styles.item}>
           <Image source={{ uri: item.avatar }} style={styles.avatar} />
           <View style={styles.contentWrapper}>
@@ -60,8 +53,8 @@ export default class CustomerItem extends Component {
                   <Icon
                     pointerEvents="auto"
                     name="phone"
+                    size={44 / PixelRatio.get()}
                     style={styles.phoneIcon}
-                    size={22}
                   />
                 </TouchableOpacity>
               </View>
@@ -122,10 +115,7 @@ const styles = StyleSheet.create({
     marginRight: normalize(7)
   },
   row_content: {},
-  phoneIcon: {
-    width: 44 / PixelRatio.get(),
-    height: 44 / PixelRatio.get()
-  },
+  phoneIcon: {},
   content: {
     fontSize: normalize(23) / PixelRatio.get(),
     color: "#333333"
