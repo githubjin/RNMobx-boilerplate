@@ -90,10 +90,11 @@ export default class Customer extends Component {
   };
   toggleMasker = (fieldName: string) => {
     return () => {
-      this.setState({
-        maskerShow: !this.state.maskerShow,
-        currentField: fieldName
-      });
+      let obj = { maskerShow: !this.state.maskerShow };
+      if (fieldName) {
+        obj["currentField"] = fieldName;
+      }
+      this.setState(obj);
     };
   };
   doFilter = (fieldNames: string[] = [], values: string[] = []) => {
@@ -101,7 +102,11 @@ export default class Customer extends Component {
     fieldNames.forEach((field, index) => {
       conditions[field] = values[index];
     });
-    this.props.borrowersStore.loadMore(conditions);
+    const { authStore, currentUserStore } = this.props;
+    this.props.borrowersStore.loadMore(conditions, {
+      jwt: authStore.jwt,
+      org: currentUserStore.shopuser.shop.id
+    });
   };
 
   render() {

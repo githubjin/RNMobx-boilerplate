@@ -11,15 +11,14 @@ import {
   Animated,
   Dimensions,
   TouchableWithoutFeedback,
-  Alert,
-  TextInput
+  Alert
 } from "react-native";
 
 import { Button } from "../lib";
 
 const deviceWidth = Dimensions.get("window").width;
 const deviceHeight = Dimensions.get("window").height;
-const drawerHeight = deviceHeight * 0.5;
+const drawerHeight = 120;
 const transformYMax = deviceHeight * 0.7;
 
 type MaskerTypes = {
@@ -90,9 +89,9 @@ export default class ConditionMasker extends Component {
       transform: [{ translateY: drawerTranslateY }]
     };
     const drawerStaticStyle = {
-      top: 0,
       height: drawerHeight,
-      backgroundColor: "#ffffff"
+      backgroundColor: "#ffffff",
+      top: 32
     };
     // overlay style
     let overlayOpacity = openValue.interpolate({
@@ -104,10 +103,10 @@ export default class ConditionMasker extends Component {
       opacity: overlayOpacity
     };
     return (
-      <View style={styles.constainer}>
+      <View style={styles.constainer} pointerEvents={pointerevents}>
         <TouchableWithoutFeedback
           pointerEvents={pointerevents}
-          onPress={toggleMasker}
+          onPress={toggleMasker()}
         >
           <Animated.View
             pointerEvents={pointerevents}
@@ -127,31 +126,17 @@ export default class ConditionMasker extends Component {
 
 const styles = StyleSheet.create({
   constainer: {
-    // flex: 1
-    // backgroundColor: "transparent",
+    flex: 1,
+    backgroundColor: "transparent",
+    zIndex: 999,
+    ...StyleSheet.absoluteFillObject
   },
   overlay: {
     backgroundColor: "#333333",
-    position: "absolute",
     zIndex: 1000,
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0
-  },
-  main: {
-    flex: 1,
-    zIndex: 0
+    ...StyleSheet.absoluteFillObject
   },
   drawer: {
-    zIndex: 1001,
-    position: "absolute",
-    left: 0,
-    right: 0
-  },
-  overlayMasker: {
-    ...StyleSheet.absoluteFillObject,
-    borderBoottomWidth: StyleSheet.hairlineWidth,
-    borderBoottomColor: "#333333"
+    zIndex: 1001
   }
 });
