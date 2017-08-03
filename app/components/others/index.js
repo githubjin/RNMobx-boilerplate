@@ -18,10 +18,10 @@ export default class App extends Component {
     this.props.navigation.navigate("Appointment");
   };
   navigateTpEmploy = () => {
-    this.props.navigation.navigate("Account");
+    this.props.navigation.navigate("Users");
   };
   navigateToAccount = () => {
-    this.props.navigation.navigate("Users");
+    this.props.navigation.navigate("Account");
   };
   render() {
     return (

@@ -42,7 +42,7 @@ export default class ConditionForm extends Component {
     const { onCancel, onOk, fieldName } = this.props;
     const { mobile, name, from, to } = this.state;
     return (
-      <View>
+      <View style={{ zIndex: 1000 }}>
         <FieldInput
           fieldName="mobile"
           currentField={fieldName}
@@ -73,12 +73,14 @@ function FieldInput({ fieldName, currentField, value }) {
     return null;
   }
   return (
-    <TextInput
-      pointerEvents="auto"
-      value={value}
-      style={styles.textInput}
-      underlineColorAndroid="none"
-    />
+    <View style={{ borderColor: "#333", borderWidth: 1 }}>
+      <TextInput
+        value={value}
+        style={styles.textInput}
+        underlineColorAndroid="transparent"
+        spellCheck={false}
+      />
+    </View>
   );
 }
 

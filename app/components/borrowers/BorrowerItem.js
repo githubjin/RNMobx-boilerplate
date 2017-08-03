@@ -9,7 +9,8 @@ import {
   StyleSheet,
   PixelRatio,
   TouchableOpacity,
-  Alert
+  Alert,
+  Platform
 } from "react-native";
 import moment from "moment";
 import "moment/locale/zh-cn";
@@ -87,7 +88,19 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#f2f2f0",
     flexDirection: "row",
-    width: "100%"
+    width: "100%",
+    marginVertical: 8,
+    ...Platform.select({
+      ios: {
+        shadowOffset: { width: 1, height: 1 },
+        shadowRadius: 0.5,
+        shadowColor: "#333",
+        shadowOpacity: 0.1
+      },
+      android: {
+        elevation: 1
+      }
+    })
   },
   row_title: {
     marginBottom: normalize(20) / PixelRatio.get(),

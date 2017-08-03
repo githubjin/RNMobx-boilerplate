@@ -37,6 +37,10 @@ export default class CustomerList extends Component {
   }
 }
 
+CustomerList.defaultPrpos = {
+  rows: []
+};
+
 const styles = StyleSheet.create({
   list: {}
 });

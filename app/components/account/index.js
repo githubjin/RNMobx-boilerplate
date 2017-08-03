@@ -17,6 +17,9 @@ import { AccountStore } from "../../stores/account";
 @inject("authStore", "accountStore")
 @observer
 export default class Account extends Component {
+  static navigationOptions = {
+    title: "账号"
+  };
   props: {
     authStore: AuthStore,
     accountStore: AccountStore

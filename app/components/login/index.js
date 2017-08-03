@@ -259,7 +259,7 @@ export default class Login extends Component {
             disabled={this.state.fetching}
             text="登录"
             leftIcon={
-              this.state.fetching ? <ActivityIndicator size={20} /> : null
+              this.state.fetching ? <ActivityIndicator size="small" /> : null
             }
             style={styles.loginBnt}
             onPress={this.login}

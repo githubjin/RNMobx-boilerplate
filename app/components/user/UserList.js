@@ -57,7 +57,7 @@ function UserItem({ item }: { item: UserType }) {
         })
       }}
     >
-      <View style={{ flexDirection: "row", justifyContent: "spece-between" }}>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <Text style={styles.cardHeader}>
           {item.user.name}
         </Text>
@@ -70,7 +70,7 @@ function UserItem({ item }: { item: UserType }) {
       </Text>
       <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
         {item.roles.map(role =>
-          <Text style={styles.cardContent}>
+          <Text key={role.id} style={styles.cardContent}>
             {role.name}
           </Text>
         )}

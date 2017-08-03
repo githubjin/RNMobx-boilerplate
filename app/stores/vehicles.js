@@ -58,8 +58,8 @@ class VehiclesStore extends SuperStore {
       .catch(error => {
         this.toggleRefreshing();
         this.fetchError = error;
-        // console.log("vehicles stack list error", error);
-        Alert.alert("Alert", JSON.stringify(error));
+        console.log("vehicles stack list error", error);
+        // Alert.alert("vehicle load error", JSON.stringify(error));
       });
   }
   toggleRefreshing() {
