@@ -10,9 +10,11 @@ import {
   TouchableOpacity,
   PixelRatio,
   TouchableHighlight,
-  Dimensions
+  Dimensions,
+  Alert
 } from "react-native";
 import { observer, inject } from "mobx-react";
+import _ from "lodash";
 
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 
@@ -44,7 +46,7 @@ export default class App extends Component {
         <MenuItem label="帐号" onPress={this.navigateToAccount} />
         <MenuItem label="个人信息" onPress={this.navigateToAccount} icon="user" />
         <MenuItem label="修改密码" onPress={this.navigateToAccount} icon="wrench" />
-        {this.renderMenuGrid()}
+        {this.renderMenuGrid().map(row => row)}
       </View>
     );
   }
@@ -53,19 +55,43 @@ export default class App extends Component {
       this.props.navigation.navigate(route);
     };
   };
-  renderMenuGrid = () => {
+  renderMenuGrid = (columns: number = 4): Array<*> => {
     const permissions = this.props.currentUserStore.permissonRoles;
+    let yu = permissions.length % columns;
+    // Alert.alert("Alett", `${yu}`);
+    if (yu > 0) {
+      _.times(columns - yu, () => {
+        permissions.push({ empty: true });
+      });
+    }
+    let rows = [];
+    for (let k = 0; k < permissions.length / columns; k++) {
+      rows.push(this.renderGridRow(permissions, k * columns, columns));
+    }
+    return rows;
+  };
+  renderGridRow = (
+    permissions: Object[],
+    index: number,
+    columns: number
+  ): any => {
+    if (permissions.length <= index) {
+      return null;
+    }
     return (
-      <View style={styles.menuGrid}>
-        {permissions.map((permission: MenuType, index: number) => {
-          return (
-            <MenuGridItem
-              key={`${permission.route}_${index}`}
-              {...permission}
-              onPress={this.navigateSomeStack}
-            />
-          );
-        })}
+      <View style={styles.menuGrid} key={`menu_row_${index}`}>
+        {_.map(
+          _.slice(permissions, index, index + columns),
+          (permission, index) => {
+            return (
+              <MenuGridItem
+                key={`${permission.route}_${index}`}
+                {...permission}
+                onPress={this.navigateSomeStack}
+              />
+            );
+          }
+        )}
       </View>
     );
   };
@@ -79,7 +105,8 @@ function MenuGridItem({
   url,
   route,
   permission_code,
-  onPress
+  onPress,
+  empty = false
 }: {
   name: string,
   icon: string,
@@ -87,12 +114,23 @@ function MenuGridItem({
   url: string,
   route: string,
   permission_code: string,
-  onPress: (route: string) => () => void
+  onPress: (route: string) => () => void,
+  empty: boolean
 }) {
+  if (empty) {
+    return (
+      <View
+        style={[
+          styles.menuGridItem,
+          { borderWidth: 0, borderColor: "transparent" }
+        ]}
+      />
+    );
+  }
   return (
     <TouchableOpacity onPress={onPress(route)}>
       <View style={styles.menuGridItem}>
-        <Icon name={icon} size={18} style={styles.menuIcon} />
+        <Icon name={icon} size={16} style={styles.menuIcon} />
         <Text style={styles.menuLabel}>
           {name}
         </Text>
@@ -136,7 +174,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "space-between",
-    paddingRight: 8,
+    paddingRight: 4,
     paddingTop: 8,
     marginTop: 30
   },
