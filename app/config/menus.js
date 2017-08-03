@@ -19,7 +19,7 @@ export const menus = {
       //   icon: "icon-speedometer",
       endpoint: "index",
       url: "/",
-      permission_code: ""
+      permission_code: "AUTHED"
     },
     {
       name: "客户",
@@ -60,7 +60,7 @@ export const menus = {
     {
       name: "员工",
       route: "Users",
-      icon: "users",
+      icon: "people",
       //   icon: "icon-users",
       endpoint: "system",
       url: "/system",
@@ -69,7 +69,7 @@ export const menus = {
     {
       name: "账户",
       route: "Account",
-      icon: "glyphicon glyphicon-credit-card",
+      icon: "credit-card",
       //   icon: "glyphicon glyphicon-credit-card",
       endpoint: "account",
       url: "/account",
@@ -97,13 +97,14 @@ export const menus = {
 };
 // 超级管理员
 export const ROLE_SUPER_ADMIN = "SUPER_ADMIN";
+export const ROLE_LOGINED = "AUTHED";
 
 // 检查是否存在permisson 对用的菜单
 export function checkValidMenu(permissionCode: string): boolean {
   return menus.site_menu.some(menu => menu.permission_code === permissionCode);
 }
 // 根据 permission_code 查找菜单项
-export function findMenuBy(permission: string): MenuType {
+export function findMenuBy(permission: string): MenuType[] {
   let filtedMenus = menus.site_menu.filter(
     menu => menu.permission_code === permission
   );

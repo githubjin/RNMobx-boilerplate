@@ -9,7 +9,8 @@ import {
   ScrollView,
   TouchableOpacity,
   PixelRatio,
-  TouchableHighlight
+  TouchableHighlight,
+  Dimensions
 } from "react-native";
 import { observer, inject } from "mobx-react";
 
@@ -17,6 +18,8 @@ import Icon from "react-native-vector-icons/SimpleLineIcons";
 
 import { CurrentUser as CurrentUserStore } from "../../stores/currentUser";
 import type { MenuType } from "../../config/menus";
+
+const width = Dimensions.get("window").width;
 
 @inject("currentUserStore")
 @observer
@@ -54,9 +57,13 @@ export default class App extends Component {
     const permissions = this.props.currentUserStore.permissonRoles;
     return (
       <View style={styles.menuGrid}>
-        {permissions.map((permission: MenuType) => {
+        {permissions.map((permission: MenuType, index: number) => {
           return (
-            <MenuGridItem {...permission} onPress={this.navigateSomeStack} />
+            <MenuGridItem
+              key={`${permission.route}_${index}`}
+              {...permission}
+              onPress={this.navigateSomeStack}
+            />
           );
         })}
       </View>
@@ -65,33 +72,32 @@ export default class App extends Component {
 }
 
 // Grid Menu Item
-function MenuGridItem(
-  {
-    name,
-    icon,
-    endpoint,
-    url,
-    route,
-    permission_code
-  }: {
-    name: string,
-    icon: string,
-    endpoint: string,
-    url: string,
-    route: string,
-    permission_code: string
-  },
+function MenuGridItem({
+  name,
+  icon,
+  endpoint,
+  url,
+  route,
+  permission_code,
+  onPress
+}: {
+  name: string,
+  icon: string,
+  endpoint: string,
+  url: string,
+  route: string,
+  permission_code: string,
   onPress: (route: string) => () => void
-) {
+}) {
   return (
-    <TouchableHighlight onPress={onPress(route)}>
-      <View style={styles.gridItem}>
-        <Icon name={icon} style={styles.menuIcon} />
+    <TouchableOpacity onPress={onPress(route)}>
+      <View style={styles.menuGridItem}>
+        <Icon name={icon} size={18} style={styles.menuIcon} />
         <Text style={styles.menuLabel}>
           {name}
         </Text>
       </View>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 }
 
@@ -126,20 +132,28 @@ const styles = StyleSheet.create({
     fontWeight: "700"
   },
   menuGrid: {
+    flex: 1,
     flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-around"
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+    paddingRight: 8,
+    paddingTop: 8,
+    marginTop: 30
   },
-  menuItem: {
-    width: "30%",
-    justifyContent: "center",
-    alignItem: "center"
+  menuGridItem: {
+    alignSelf: "stretch",
+    marginLeft: 4,
+    marginRight: 0,
+    marginTop: 0,
+    marginBottom: 0,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: "#333333",
+    alignItems: "center"
   },
   menuIcon: {
-    width: 22,
-    height: 22
+    marginBottom: 8
   },
   menuLabel: {
-    size: 16
+    fontSize: 16
   }
 });

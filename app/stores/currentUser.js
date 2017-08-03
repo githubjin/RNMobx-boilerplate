@@ -12,7 +12,8 @@ import {
   menus,
   checkValidMenu,
   findMenuBy,
-  ROLE_SUPER_ADMIN
+  ROLE_SUPER_ADMIN,
+  ROLE_LOGINED
 } from "../config/menus";
 import type { MenuType } from "../config/menus";
 
@@ -65,7 +66,6 @@ class CurrentUser extends SuperStore {
         // console.log("current user and shop information : ", data);
         if (data) {
           this.copyFields(data);
-          this.pickPermissions(data);
         }
       });
   }
@@ -87,6 +87,7 @@ class CurrentUser extends SuperStore {
     } else {
       _data = data;
     }
+    this.pickPermissions(_data);
     this.email = _data.email;
     this.avatar = _data.avatar;
     this.created_at = _data.created_at;
@@ -101,20 +102,21 @@ class CurrentUser extends SuperStore {
 
   // 获取权限列表
   pickPermissions(data: Object): MenuType[] {
-    let roles: Object[] = _.result(menus, "shopuser.roles");
+    let roles: Object[] = _.result(data, "shopuser.roles");
     let permissonRoles = [];
+    permissonRoles.push(findMenuBy(ROLE_LOGINED));
     if (data.is_admin) {
-      permissonRoles.push(ROLE_SUPER_ADMIN);
+      permissonRoles.push(findMenuBy(ROLE_SUPER_ADMIN));
     }
     _(roles).forEach(role => {
       _(role.permissions).forEach(permission => {
-        let menu: MenuType = findMenuBy(permission.code);
+        let menu: MenuType[] = findMenuBy(permission.code);
         if (menu) {
           permissonRoles.push(menu);
         }
       });
     });
-    this.permissonRoles = permissonRoles;
+    this.permissonRoles = _.uniqWith(permissonRoles, _.isEqual);
   }
 }
 
