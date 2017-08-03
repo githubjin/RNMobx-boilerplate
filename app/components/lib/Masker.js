@@ -11,8 +11,7 @@ import {
   Animated,
   Dimensions,
   TouchableWithoutFeedback,
-  Alert,
-  TextInput
+  Alert
 } from "react-native";
 
 import { Button } from "../lib";
@@ -76,11 +75,7 @@ export default class ConditionMasker extends Component {
     const pointerevents = maskerShow ? "auto" : "none";
     // drawer style
     let outRange = [];
-    // if (maskerShow) {
-    // outRange = [drawerHeight, 0];
-    // } else {
     outRange = [-transformYMax, 0];
-    // }
     let drawerTranslateY = openValue.interpolate({
       inputRange: [0, 1],
       outputRange: outRange,
@@ -90,7 +85,6 @@ export default class ConditionMasker extends Component {
       transform: [{ translateY: drawerTranslateY }]
     };
     const drawerStaticStyle = {
-      top: 0,
       height: drawerHeight,
       backgroundColor: "#ffffff"
     };
@@ -147,7 +141,8 @@ const styles = StyleSheet.create({
     zIndex: 1001,
     position: "absolute",
     left: 0,
-    right: 0
+    right: 0,
+    top: 0
   },
   overlayMasker: {
     ...StyleSheet.absoluteFillObject,
