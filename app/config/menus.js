@@ -6,7 +6,8 @@ export type MenuType = {
   icon: string,
   endpoint: string,
   url: string,
-  permission_code: string
+  permission_code: string,
+  route: string
 };
 export const menus = {
   site_name: "门店后台主页",

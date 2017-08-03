@@ -8,7 +8,8 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
-  PixelRatio
+  PixelRatio,
+  TouchableHighlight
 } from "react-native";
 import { observer, inject } from "mobx-react";
 
@@ -38,46 +39,63 @@ export default class App extends Component {
         <MenuItem label="预约" onPress={this.navigateToAppointment} />
         <MenuItem label="员工" onPress={this.navigateTpEmploy} />
         <MenuItem label="帐号" onPress={this.navigateToAccount} />
+        <MenuItem label="个人信息" onPress={this.navigateToAccount} icon="user" />
+        <MenuItem label="修改密码" onPress={this.navigateToAccount} icon="wrench" />
         {this.renderMenuGrid()}
       </View>
     );
   }
-
+  navigateSomeStack = (route: string) => {
+    return () => {
+      this.props.navigation.navigate(route);
+    };
+  };
   renderMenuGrid = () => {
     const permissions = this.props.currentUserStore.permissonRoles;
     return (
       <View style={styles.menuGrid}>
         {permissions.map((permission: MenuType) => {
-          return <MenuGridItem {...permission} />;
+          return (
+            <MenuGridItem {...permission} onPress={this.navigateSomeStack} />
+          );
         })}
       </View>
     );
   };
 }
 
-function MenuGridItem({
-  name,
-  icon,
-  endpoint,
-  url,
-  permission_code
-}: {
-  name: string,
-  icon: string,
-  endpoint: string,
-  url: string,
-  permission_code: string
-}) {
+// Grid Menu Item
+function MenuGridItem(
+  {
+    name,
+    icon,
+    endpoint,
+    url,
+    route,
+    permission_code
+  }: {
+    name: string,
+    icon: string,
+    endpoint: string,
+    url: string,
+    route: string,
+    permission_code: string
+  },
+  onPress: (route: string) => () => void
+) {
   return (
-    <View style={styles.gridItem}>
-      <Icon name={icon} style={styles.menuIcon} />
-      <Text style={styles.menuLabel}>
-        {name}
-      </Text>
-    </View>
+    <TouchableHighlight onPress={onPress(route)}>
+      <View style={styles.gridItem}>
+        <Icon name={icon} style={styles.menuIcon} />
+        <Text style={styles.menuLabel}>
+          {name}
+        </Text>
+      </View>
+    </TouchableHighlight>
   );
 }
 
+// List Menu Item
 function MenuItem({ label, onPress }) {
   return (
     <TouchableOpacity onPress={onPress}>
