@@ -22,7 +22,9 @@ import {
   VehicleConditions,
   Appointment,
   Account,
-  Users
+  Users,
+  PermissonManager,
+  ShopManager
 } from "./components";
 import { JWT_KEY } from "./constants/config";
 import { getFromStorage } from "./services";
@@ -112,6 +114,7 @@ const StackContainer = function({ initialRouteName }) {
       },
       BorrowerDetail: {
         screen: BorrowerDetail,
+        headerBackTitle: null,
         navigationOptions: ({ navigation }) => {
           const {
             state: {
@@ -145,6 +148,12 @@ const StackContainer = function({ initialRouteName }) {
       },
       Account: {
         screen: Account
+      },
+      PermissonManager: {
+        screen: PermissonManager
+      },
+      ShopManager: {
+        screen: ShopManager
       },
       Users: {
         screen: Users

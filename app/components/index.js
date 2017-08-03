@@ -13,6 +13,8 @@ import BorrowerDetail from "./borrowers/BorrowerDetail";
 import Appointment from "./appointment";
 import Account from "./account";
 import Users from "./user";
+import PermissonManager from "./PermissionManager";
+import ShopManager from "./ShopManager";
 
 // export { Home, Others, Login, Splash, Customer, BorrowerDetail };
 export {
@@ -28,5 +30,7 @@ export {
   VehicleConditions,
   Appointment,
   Account,
-  Users
+  Users,
+  PermissonManager,
+  ShopManager
 };

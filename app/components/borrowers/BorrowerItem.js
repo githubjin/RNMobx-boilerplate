@@ -21,7 +21,7 @@ import Icon from "react-native-vector-icons/SimpleLineIcons";
 import { observer } from "mobx-react/native";
 import type { Borrower } from "../../stores/borrowers";
 import { ROUTE_BORROWER } from "../../constants/routes";
-import { normalize } from "../../utils";
+import { normalize, dimensionRelativeToIphone } from "../../utils";
 
 export default class CustomerItem extends Component {
   props: {
@@ -79,9 +79,12 @@ const styles = StyleSheet.create({
     borderTopColor: "#f2f2f0"
   },
   avatar: {
-    width: normalize(39),
-    height: normalize(39),
-    marginRight: normalize(20) / PixelRatio.get()
+    width: dimensionRelativeToIphone(65),
+    height: dimensionRelativeToIphone(65),
+    marginRight: normalize(20) / PixelRatio.get(),
+    borderRadius: 2,
+    borderWidth: 0,
+    borderColor: "transparent"
   },
   item: {
     padding: normalize(20) / PixelRatio.get(),
@@ -89,7 +92,6 @@ const styles = StyleSheet.create({
     borderBottomColor: "#f2f2f0",
     flexDirection: "row",
     width: "100%",
-    marginVertical: 8,
     ...Platform.select({
       ios: {
         shadowOffset: { width: 1, height: 1 },

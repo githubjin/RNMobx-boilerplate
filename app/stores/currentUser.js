@@ -4,9 +4,17 @@
  */
 
 import { observable, action } from "mobx";
+import _ from "lodash";
 import { apiUrl, _fetch, get, getCurrentUser } from "../services";
 import { api_current_user } from "../constants/api";
 import SuperStore from "./SuperStore";
+import {
+  menus,
+  checkValidMenu,
+  findMenuBy,
+  ROLE_SUPER_ADMIN
+} from "../config/menus";
+import type { MenuType } from "../config/menus";
 
 type Permission = {
   name: string,
@@ -42,13 +50,23 @@ class CurrentUser extends SuperStore {
   // @observable roles: Role[];
   @observable shopuser: ShopUser = {};
 
+  @observable permissonRoles: MenuType[] = [];
+
+  /**
+   * 获取当前用户信息
+   * @param {string} jwt 
+   * @param {string} org 
+   */
   @action
   refresh(jwt: string, org: string): Promise<any> {
     return get(apiUrl(api_current_user, false), {}, jwt, org)
       .then((response: Response) => response.json())
       .then(data => {
         // console.log("current user and shop information : ", data);
-        this.copyFields(data);
+        if (data) {
+          this.copyFields(data);
+          this.pickPermissions(data);
+        }
       });
   }
 
@@ -79,6 +97,24 @@ class CurrentUser extends SuperStore {
     // this.roles = _data.roles;
     this.shopuser = _data.shopuser;
     // console.log("------loadFromLocalstorage.usershop--", this.shopuser);
+  }
+
+  // 获取权限列表
+  pickPermissions(data: Object): MenuType[] {
+    let roles: Object[] = _.result(menus, "shopuser.roles");
+    let permissonRoles = [];
+    if (data.is_admin) {
+      permissonRoles.push(ROLE_SUPER_ADMIN);
+    }
+    _(roles).forEach(role => {
+      _(role.permissions).forEach(permission => {
+        let menu: MenuType = findMenuBy(permission.code);
+        if (menu) {
+          permissonRoles.push(menu);
+        }
+      });
+    });
+    this.permissonRoles = permissonRoles;
   }
 }
 

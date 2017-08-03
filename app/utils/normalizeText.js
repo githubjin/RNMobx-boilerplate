@@ -8,9 +8,24 @@
 // date: 14/10/2016
 // version: 03
 //
+/** PixelRatio.get() === 1
+   *     - mdpi Android devices (160 dpi)
+   *   - PixelRatio.get() === 1.5
+   *     - hdpi Android devices (240 dpi)
+   *   - PixelRatio.get() === 2
+   *     - iPhone 4, 4S
+   *     - iPhone 5, 5c, 5s
+   *     - iPhone 6
+   *     - xhdpi Android devices (320 dpi)
+   *   - PixelRatio.get() === 3
+   *     - iPhone 6 plus
+   *     - xxhdpi Android devices (480 dpi)
+   *   - PixelRatio.get() === 3.5
+   *     - Nexus 6
+*/
 
-const React = require("react-native"); // eslint-disable-line no-undef
-const { PixelRatio, Dimensions } = React;
+const ReactNative = require("react-native"); // eslint-disable-line no-undef
+const { PixelRatio, Dimensions } = ReactNative;
 
 const pixelRatio = PixelRatio.get(); // 像素密度
 const deviceHeight = Dimensions.get("window").height; // 屏幕像素高度
