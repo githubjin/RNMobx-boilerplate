@@ -49,11 +49,25 @@ const TabContainer: any = TabNavigator(
     },
     Borrower: {
       screen: Borrower,
-      navigationOptions: {
-        title: "客户",
-        headerBackTitle: null,
-        tabBarIcon: ({ tintColor }) =>
-          <Icon name="user" size={20} color={tintColor} />
+      navigationOptions: ({ navigation }) => {
+        const {
+          state: { params: { rightIconOnPress = () => {} } }
+        } = navigation;
+        return {
+          title: "客户",
+          headerBackTitle: null,
+          headerRight: (
+            <Icon
+              name="plus"
+              size={22}
+              color="#ffffff"
+              style={{ marginRight: 16 / PixelRatio.get() }}
+              onPress={rightIconOnPress}
+            />
+          ),
+          tabBarIcon: ({ tintColor }) =>
+            <Icon name="user" size={20} color={tintColor} />
+        };
       }
     },
     Capital: {

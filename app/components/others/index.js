@@ -38,14 +38,14 @@ export default class App extends Component {
   navigateToAccount = () => {
     this.props.navigation.navigate("Account");
   };
+  // <MenuItem label="预约" onPress={this.navigateToAppointment} />
+  //     <MenuItem label="员工" onPress={this.navigateTpEmploy} />
+  //     <MenuItem label="帐号" onPress={this.navigateToAccount} />
+  //     <MenuItem label="个人信息" onPress={this.navigateToAccount} icon="user" />
+  //     <MenuItem label="修改密码" onPress={this.navigateToAccount} icon="wrench" />
   render() {
     return (
       <View style={styles.container}>
-        <MenuItem label="预约" onPress={this.navigateToAppointment} />
-        <MenuItem label="员工" onPress={this.navigateTpEmploy} />
-        <MenuItem label="帐号" onPress={this.navigateToAccount} />
-        <MenuItem label="个人信息" onPress={this.navigateToAccount} icon="user" />
-        <MenuItem label="修改密码" onPress={this.navigateToAccount} icon="wrench" />
         {this.renderMenuGrid().map(row => row)}
       </View>
     );
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
   menuGrid: {
     flex: 1,
     flexDirection: "row",
-    alignItems: "flex-start",
+    alignItems: "center",
     justifyContent: "space-between",
     paddingRight: 4,
     paddingTop: 8,
@@ -180,6 +180,7 @@ const styles = StyleSheet.create({
   },
   menuGridItem: {
     alignSelf: "stretch",
+    // alignSelf: "center",
     marginLeft: 4,
     marginRight: 0,
     marginTop: 0,

@@ -1,0 +1,275 @@
+{
+  "name": "\u8d75\u5168\u80fd",
+  "avatar": "https://imgthisisdashcdn-83chedai-com.alikunlun.com/identicons/135.png",
+  "is_admin": false,
+  "created_at": "2017-02-07 13:41:20",
+  "mobile": "15200000009",
+  "email": null,
+  "id": "4df54992-5815-4f4e-870e-6eea7f5a0098",
+  "shopuser": {
+    "shop": {
+      "name": "\u5317\u4eac\u660c\u76db\u95e8\u5e97",
+      "address": "\u5317\u4eac\u5e02",
+      "id": "748e0329-875b-4c7f-9a70-5cc9757e80ac",
+      "phone": "15200000001",
+      "short_name": "\u660c\u76db\u8f66\u8d37"
+    },
+    "status": 1,
+    "roles": [
+      {
+        "name": "\u95e8\u5e97\u7ba1\u7406\u5458",
+        "id": 1,
+        "permissions": [
+          {
+            "name": "\u501f\u6b3e\u7533\u8bf7\u7ba1\u7406",
+            "id": 1,
+            "code": "APPLICATION_MANAGE"
+          },
+          {
+            "name": "\u9884\u7ea6\u67e5\u770b",
+            "id": 2,
+            "code": "APPOINTMENT_READ"
+          },
+          { "name": "\u5458\u5de5\u67e5\u770b", "id": 7, "code": "STUFF_READ" },
+          {
+            "name": "\u8d44\u4ea7\u67e5\u770b",
+            "id": 8,
+            "code": "VEHICLE_READ"
+          },
+          {
+            "name": "\u5f81\u4fe1\u62a5\u544a\u67e5\u770b",
+            "id": 9,
+            "code": "CREDIT_READ"
+          },
+          {
+            "name": "\u5458\u5de5\u7ba1\u7406",
+            "id": 10,
+            "code": "STUFF_MANAGE"
+          },
+          {
+            "name": "\u501f\u6b3e\u7ba1\u7406",
+            "id": 11,
+            "code": "BORROWING_MANAGE"
+          },
+          {
+            "name": "\u501f\u6b3e\u67e5\u770b",
+            "id": 12,
+            "code": "BORROWING_READ"
+          },
+          { "name": "\u7535\u6838", "id": 13, "code": "PHONE_REVIEW" },
+          {
+            "name": "\u501f\u6b3e\u4eba\u67e5\u770b",
+            "id": 14,
+            "code": "BORROWER_READ"
+          },
+          { "name": "\u590d\u5ba1", "id": 15, "code": "RETRIAL" },
+          {
+            "name": "\u501f\u6b3e\u7533\u8bf7\u67e5\u770b",
+            "id": 16,
+            "code": "APPLICATION_READ"
+          },
+          {
+            "name": "\u5458\u5de5\u89d2\u8272\u67e5\u770b",
+            "id": 17,
+            "code": "STUFF_ROLE_READ"
+          },
+          { "name": "\u4e3b\u5ba1", "id": 18, "code": "MASTER_REVIEW" },
+          {
+            "name": "\u5458\u5de5\u89d2\u8272\u7ba1\u7406",
+            "id": 19,
+            "code": "STUFF_ROLE_MANAGE"
+          },
+          {
+            "name": "\u5f81\u4fe1\u62a5\u544a\u8d2d\u4e70",
+            "id": 20,
+            "code": "CREDIT_MANAGE"
+          },
+          { "name": "\u521d\u5ba1", "id": 21, "code": "SHOP_REVIEW" },
+          {
+            "name": "\u95e8\u5e97\u8d26\u6237\u7ba1\u7406",
+            "id": 48,
+            "code": "ACCOUNT_MANAGE"
+          }
+        ]
+      },
+      {
+        "name": "\u4e1a\u52a1\u5458",
+        "id": 2,
+        "permissions": [
+          {
+            "name": "\u501f\u6b3e\u7533\u8bf7\u7ba1\u7406",
+            "id": 1,
+            "code": "APPLICATION_MANAGE"
+          },
+          {
+            "name": "\u9884\u7ea6\u67e5\u770b",
+            "id": 2,
+            "code": "APPOINTMENT_READ"
+          },
+          {
+            "name": "\u8d44\u4ea7\u7ba1\u7406",
+            "id": 4,
+            "code": "VEHICLE_MANAGE"
+          }
+        ]
+      },
+      {
+        "name": "\u521d\u5ba1\u5458",
+        "id": 3,
+        "permissions": [
+          {
+            "name": "\u9884\u7ea6\u67e5\u770b",
+            "id": 2,
+            "code": "APPOINTMENT_READ"
+          },
+          {
+            "name": "\u501f\u6b3e\u4eba\u7ba1\u7406",
+            "id": 5,
+            "code": "BORROWER_MANAGE"
+          },
+          {
+            "name": "\u9884\u7ea6\u7ba1\u7406",
+            "id": 6,
+            "code": "APPOINTMENT_MANAGE"
+          }
+        ]
+      },
+      {
+        "name": "\u8d22\u52a1",
+        "id": 4,
+        "permissions": [
+          {
+            "name": "\u9884\u7ea6\u67e5\u770b",
+            "id": 2,
+            "code": "APPOINTMENT_READ"
+          },
+          { "name": "\u8d22\u5ba1", "id": 3, "code": "ACCOUNTANT_REVIEW" },
+          { "name": "\u5458\u5de5\u67e5\u770b", "id": 7, "code": "STUFF_READ" },
+          {
+            "name": "\u8d44\u4ea7\u67e5\u770b",
+            "id": 8,
+            "code": "VEHICLE_READ"
+          },
+          {
+            "name": "\u501f\u6b3e\u67e5\u770b",
+            "id": 12,
+            "code": "BORROWING_READ"
+          },
+          {
+            "name": "\u501f\u6b3e\u4eba\u67e5\u770b",
+            "id": 14,
+            "code": "BORROWER_READ"
+          },
+          {
+            "name": "\u501f\u6b3e\u7533\u8bf7\u67e5\u770b",
+            "id": 16,
+            "code": "APPLICATION_READ"
+          },
+          {
+            "name": "\u5458\u5de5\u89d2\u8272\u67e5\u770b",
+            "id": 17,
+            "code": "STUFF_ROLE_READ"
+          },
+          {
+            "name": "\u95e8\u5e97\u8d26\u6237\u7ba1\u7406",
+            "id": 48,
+            "code": "ACCOUNT_MANAGE"
+          }
+        ]
+      },
+      {
+        "name": "\u4e3b\u5ba1\u5458",
+        "id": 5,
+        "permissions": [
+          {
+            "name": "\u9884\u7ea6\u67e5\u770b",
+            "id": 2,
+            "code": "APPOINTMENT_READ"
+          },
+          {
+            "name": "\u8d44\u4ea7\u7ba1\u7406",
+            "id": 4,
+            "code": "VEHICLE_MANAGE"
+          },
+          { "name": "\u5458\u5de5\u67e5\u770b", "id": 7, "code": "STUFF_READ" }
+        ]
+      },
+      {
+        "name": "\u7535\u6838\u5458",
+        "id": 6,
+        "permissions": [
+          {
+            "name": "\u9884\u7ea6\u67e5\u770b",
+            "id": 2,
+            "code": "APPOINTMENT_READ"
+          },
+          { "name": "\u5458\u5de5\u67e5\u770b", "id": 7, "code": "STUFF_READ" },
+          {
+            "name": "\u8d44\u4ea7\u67e5\u770b",
+            "id": 8,
+            "code": "VEHICLE_READ"
+          },
+          {
+            "name": "\u501f\u6b3e\u67e5\u770b",
+            "id": 12,
+            "code": "BORROWING_READ"
+          },
+          { "name": "\u7535\u6838", "id": 13, "code": "PHONE_REVIEW" },
+          {
+            "name": "\u501f\u6b3e\u4eba\u67e5\u770b",
+            "id": 14,
+            "code": "BORROWER_READ"
+          },
+          {
+            "name": "\u501f\u6b3e\u7533\u8bf7\u67e5\u770b",
+            "id": 16,
+            "code": "APPLICATION_READ"
+          },
+          {
+            "name": "\u5458\u5de5\u89d2\u8272\u67e5\u770b",
+            "id": 17,
+            "code": "STUFF_ROLE_READ"
+          }
+        ]
+      },
+      {
+        "name": "\u590d\u5ba1\u5458",
+        "id": 7,
+        "permissions": [
+          {
+            "name": "\u9884\u7ea6\u67e5\u770b",
+            "id": 2,
+            "code": "APPOINTMENT_READ"
+          },
+          { "name": "\u5458\u5de5\u67e5\u770b", "id": 7, "code": "STUFF_READ" },
+          {
+            "name": "\u8d44\u4ea7\u67e5\u770b",
+            "id": 8,
+            "code": "VEHICLE_READ"
+          },
+          {
+            "name": "\u501f\u6b3e\u67e5\u770b",
+            "id": 12,
+            "code": "BORROWING_READ"
+          },
+          {
+            "name": "\u501f\u6b3e\u4eba\u67e5\u770b",
+            "id": 14,
+            "code": "BORROWER_READ"
+          },
+          { "name": "\u590d\u5ba1", "id": 15, "code": "RETRIAL" },
+          {
+            "name": "\u501f\u6b3e\u7533\u8bf7\u67e5\u770b",
+            "id": 16,
+            "code": "APPLICATION_READ"
+          },
+          {
+            "name": "\u5458\u5de5\u89d2\u8272\u67e5\u770b",
+            "id": 17,
+            "code": "STUFF_ROLE_READ"
+          }
+        ]
+      }
+    ]
+  }
+}

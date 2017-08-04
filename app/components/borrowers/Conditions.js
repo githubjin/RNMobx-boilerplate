@@ -38,7 +38,7 @@ export default class Conditions extends Component {
         <Button
           style={styles.menuItem}
           onPress={onPress("date")}
-          text="注册实践"
+          text="注册时间"
           rightIcon={<Icon name="arrow-down" />}
         />
       </View>

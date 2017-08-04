@@ -85,7 +85,7 @@ export default class ConditionMasker extends Component {
       transform: [{ translateY: drawerTranslateY }]
     };
     const drawerStaticStyle = {
-      height: drawerHeight,
+      // height: drawerHeight,
       backgroundColor: "#ffffff",
       top: 32
     };
@@ -102,7 +102,7 @@ export default class ConditionMasker extends Component {
       <View style={styles.constainer} pointerEvents={pointerevents}>
         <TouchableWithoutFeedback
           pointerEvents={pointerevents}
-          onPress={toggleMasker()}
+          onPress={toggleMasker}
         >
           <Animated.View
             pointerEvents={pointerevents}

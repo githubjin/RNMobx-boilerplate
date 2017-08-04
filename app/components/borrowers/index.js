@@ -19,6 +19,7 @@ import {
 import { ActionSheet } from "antd-mobile";
 import { observer, inject } from "mobx-react/native";
 import { NavigationActions } from "react-navigation";
+import _ from "lodash/lang";
 
 // import { borrowersStore } from "../../stores";
 import { Borrowers } from "../../stores/borrowers";
@@ -64,7 +65,13 @@ export default class Customer extends Component {
       { page: 1 },
       { jwt: authStore.jwt, org: currentUserStore.shopuser.shop.id }
     );
+    this.props.navigation.setParams({
+      rightIconOnPress: this.onRightIconPress
+    });
   }
+  onRightIconPress = () => {
+    //
+  };
   componentWillReact() {
     // console.log("数据", JSON.stringify(this.props.borrowersStore.results));
     // this.customers = this.customers.concat(this.props.borrowersStore.results);
@@ -82,22 +89,33 @@ export default class Customer extends Component {
     };
   };
   renderRow = (item: Borrower, index: number) => {
-    // console.log("renderRow with data : ", item);
     return <CustomerItem key={item.id_no} item={item} first={index === 0} />;
   };
   keyExtractor = (item: Borrower, index: number): string => {
     return item.id;
   };
+  hiddenMasker = () => {
+    this.setState({ maskerShow: false });
+  };
   toggleMasker = (fieldName: string) => {
     return () => {
-      let obj = { maskerShow: !this.state.maskerShow };
-      if (fieldName) {
+      let obj = {};
+      if (this.state.currentField == fieldName) {
+        obj["maskerShow"] = !this.state.maskerShow;
+      } else {
         obj["currentField"] = fieldName;
+        if (!this.state.maskerShow) {
+          obj["maskerShow"] = !this.state.maskerShow;
+        }
+      }
+      if (_.isEmpty(obj)) {
+        return;
       }
       this.setState(obj);
     };
   };
   doFilter = (fieldNames: string[] = [], values: string[] = []) => {
+    // Alert.alert("Alert", `${fieldNames.length}`);
     let conditions = { page: 1 };
     fieldNames.forEach((field, index) => {
       conditions[field] = values[index];
@@ -107,6 +125,7 @@ export default class Customer extends Component {
       jwt: authStore.jwt,
       org: currentUserStore.shopuser.shop.id
     });
+    this.hiddenMasker();
   };
 
   render() {
@@ -116,11 +135,11 @@ export default class Customer extends Component {
         <Conditions onPress={this.toggleMasker} />
         <Masker
           maskerShow={this.state.maskerShow}
-          toggleMasker={this.toggleMasker}
+          toggleMasker={this.hiddenMasker}
         >
           <ConditionForm
             onOk={this.doFilter}
-            onCancel={this.toggleMasker}
+            onCancel={this.hiddenMasker}
             fieldName={currentField}
           />
         </Masker>

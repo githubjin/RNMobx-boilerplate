@@ -19,3 +19,10 @@ export const api_appointments = "appointments";
 export const api_account = "shops/:id/account";
 // 员工 用户
 export const api_users = "users";
+
+// 实名认证
+export const api_user_bind_borrower = "api/user-bind-borrower";
+// 绑定身份证
+export const api_real_name = "borrowers/real-name";
+// 绑定借款人
+export const api_borrowers_binding = "borrowers";
