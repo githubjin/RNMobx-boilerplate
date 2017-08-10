@@ -1,4 +1,4 @@
-package com.one;
+package com.one.normandy;
 
 import com.facebook.react.ReactActivity;
 

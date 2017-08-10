@@ -1,4 +1,4 @@
-package com.one;
+package com.one.normandy;
 
 import android.app.Application;
 
