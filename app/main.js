@@ -27,7 +27,7 @@ import {
   ShopManager
 } from "./components";
 import { JWT_KEY } from "./constants/config";
-import { getFromStorage } from "./services";
+import { getFromStorage, clearStorage } from "./services";
 import {
   ERROR_TITLE,
   ERROR_MSG_GET_JWT_FROM_LOCAL
@@ -50,9 +50,12 @@ const TabContainer: any = TabNavigator(
     Borrower: {
       screen: Borrower,
       navigationOptions: ({ navigation }) => {
-        const {
-          state: { params: { rightIconOnPress = () => {} } }
-        } = navigation;
+        // const {
+        //   state: { params: { rightIconOnPress = () => {} } }
+        // } = navigation;
+        const { state = {} } = navigation || {};
+        const { params = {} } = state;
+        const { rightIconOnPress = () => {} } = params;
         return {
           title: "客户",
           headerBackTitle: null,
@@ -242,6 +245,15 @@ export default class Root extends Component {
     };
   }
   componentDidMount() {
+    clearStorage()
+      .then(() => {
+        this.getJwtFromStorage();
+      })
+      .catch(() => {
+        Alert.alert("提示", "清空本地缓存失败1");
+      });
+  }
+  getJwtFromStorage = () => {
     getFromStorage(JWT_KEY)
       .then(data => {
         // console.log("get jwt from local storage data ： ", data);
@@ -262,7 +274,7 @@ export default class Root extends Component {
         // console.log("get jwt from local storage error:  ", error);
         showShort(ERROR_TITLE, ERROR_MSG_GET_JWT_FROM_LOCAL);
       });
-  }
+  };
   render() {
     const { loading, routeName } = this.state;
     // console.log(Object.keys(stores));

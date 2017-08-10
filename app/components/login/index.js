@@ -136,7 +136,7 @@ export default class Login extends Component {
       .catch(error => {
         console.log("get org base info error : ", error);
         this.toggleFetching();
-        showErrorInfo(error);
+        this.showErrorInfo(error);
       })
       .then(() => {
         // load currentUser information
@@ -148,7 +148,7 @@ export default class Login extends Component {
       .catch(error => {
         console.log("get current user info error : ", error);
         this.toggleFetching();
-        showErrorInfo(error);
+        this.showErrorInfo(error);
       })
       .then(() => {
         // save currentUser to localstorage
@@ -166,7 +166,7 @@ export default class Login extends Component {
       .catch(error => {
         console.log("save jwt and currentUser error : ", error);
         this.toggleFetching();
-        showErrorInfo(error);
+        this.showErrorInfo(error);
       })
       .then(() => {
         // navigate to home screen
@@ -175,7 +175,7 @@ export default class Login extends Component {
       })
       .catch(error => {
         this.toggleFetching();
-        showErrorInfo(error);
+        this.showErrorInfo(error);
       });
   };
   showErrorInfo = (error: any): void => {

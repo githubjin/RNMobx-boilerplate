@@ -22,6 +22,7 @@ import { CurrentUser as CurrentUserStore } from "../../stores/currentUser";
 import type { MenuType } from "../../config/menus";
 
 const width = Dimensions.get("window").width;
+const menuItemWith = (width - (16 + 10) * 2) / 4;
 
 @inject("currentUserStore")
 @observer
@@ -170,24 +171,30 @@ const styles = StyleSheet.create({
     fontWeight: "700"
   },
   menuGrid: {
-    flex: 1,
+    // flex: 1,
+    // flexDirection: "row",
+    // alignItems: "center",
+    // justifyContent: "space-between",
+    // paddingRight: 4,
+    // paddingTop: 8,
+    // marginTop: 30
+    // flex: 1,
     flexDirection: "row",
-    alignItems: "center",
+    paddingHorizontal: 16,
     justifyContent: "space-between",
-    paddingRight: 4,
-    paddingTop: 8,
-    marginTop: 30
+    marginVertical: 8
   },
   menuGridItem: {
-    alignSelf: "stretch",
-    // alignSelf: "center",
-    marginLeft: 4,
-    marginRight: 0,
-    marginTop: 0,
-    marginBottom: 0,
+    // alignSelf: "stretch",
+    // marginLeft: 4,
+    // marginRight: 0,
+    // marginTop: 0,
+    // marginBottom: 0,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: "#333333",
-    alignItems: "center"
+    alignItems: "center",
+    width: menuItemWith,
+    paddingVertical: 16
   },
   menuIcon: {
     marginBottom: 8
